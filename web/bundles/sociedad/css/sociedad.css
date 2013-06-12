@@ -1,0 +1,66 @@
+/* 
+    Document   : sociedad
+    Created on : 14-nov-2012, 14:30:25
+    Author     : Carlos
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.imageGrid img{
+    width: 200px;
+    height: 200px;
+}
+.imagepequeGrid img{
+    width: 100px;
+    height: 100px;
+}
+.imagesuperpequeGrid img{
+    width: 50px;
+    height: 50px;
+}
+table .imagesuperpequeGrid img{
+    width: 50px;
+    height: 50px;
+}
+table .editSociedad{
+  padding: 2px 0px 2px 20px;
+  background: url('../../mopabootstrap/img/glyphicons_150_edit.png') no-repeat top center!important;
+}
+#droppable {position:relative}
+
+#planta {position:relative;}
+
+#droppable ul.gallery li {margin: 0; padding:0;list-style:none; }
+#planta ul.gallery li {margin: 0; padding:0;list-style:none; }
+.pulsarborrar{z-index: 1;}
+.record_actions{list-style:none;}
+.ui-draggable{z-index: 2;}
+#dialog-confirm{display: none;}
+.botonesseparados{margin: 5px;}
+.mapainvisible{visibility: hidden;}
+.mapavisible{visibility: visible;}
+
+.tablagrid thead th{
+    background: #E1DEE0 url('../img/bg_th.png') repeat-x left top;
+    color: white!important;
+    padding: 5px 10px;
+    border-right: 1px solid #888;
+}
+.navbar .nav li a .dropdown .dropdown-toggle .caret i {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+  border-top: 4px solid #000000;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  content: "";
+  margin-top: 8px;
+  margin-left: 2px;
+}
+
