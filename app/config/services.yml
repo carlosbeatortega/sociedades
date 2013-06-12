@@ -1,0 +1,44 @@
+services:
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+    twig.extension.debug:
+        class: Twig_Extensions_Extension_Debug
+        tags:
+            - { name: twig.extension }
+    twig.extension.aner:
+        class: Sociedad\GridBundle\Twig\Extension\GridExtension
+        arguments:
+            container: '@service_container'
+        tags:
+            - { name: twig.extension }
+
+    twig.menu_builder:
+        class: Sociedad\GridBundle\Twig\Menu\MenuBuilder
+        arguments: ["@knp_menu.factory"]
+    twig.menu:
+        class: Knp\Menu\MenuItem
+        factory_service: twig.menu_builder
+        factory_method: createMainMenu
+        arguments: ["@request"]
+        scope: request 
+        tags:
+            - { name: knp_menu.menu, alias: menu }
+
+    twig.dropdown:
+        class: Knp\Menu\MenuItem 
+        factory_service: twig.menu_builder
+        factory_method: createRightSideDropdownMenu
+        arguments: ["@request", "@liip_theme.active_theme"]
+        scope: request 
+        tags:
+            - { name: knp_menu.menu, alias: dropdown } 
+
+    login_listener:
+        class: Sociedad\SociosBundle\Listener\LoginListener
+        arguments: ["@security.context","@router"]
+        tags:
+             - { name: kernel.event_listener, event: security.interactive_login }
+             - { name: kernel.event_listener, event: kernel.response }
+        

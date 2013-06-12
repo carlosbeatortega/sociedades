@@ -1,0 +1,74 @@
+{% extends "SociedadSociedadesBundle::layoutconplano.html.twig" %}
+
+{% block menusuperior %}
+       {{ knp_menu_render('menu') }}
+{% endblock menusuperior %}
+{% block content %}
+             <div class="span6">
+                <img alt="Anagrama" src="{{ asset('bundles/sociedad/uploads/images/chiquitero.png') }}">
+    
+                <h3><a href="#"> RELACION DE SOCIEDADES </a></h3>
+
+                   {% if columnas %}
+                       {% include "SociedadGridBundle::cadaGridColumnas.html.twig" %}
+                   {% else %}    
+                        <table id="tablaprincipal" class="tablagrid sociedadportada table table-striped" cellspacing="0">
+                        <thead>
+                            <tr>
+                                {{ linkInterno("",{ "id" : "colEditarFoto","class":"ancho1","texto":"Foto"},'','',"th")|raw }}
+                                {{ linkInterno("",{ "id" : "colNombre","class":"ancho25","texto":"Nombre"},'','',"th")|raw }}
+                                {{ linkInterno("",{ "id" : "colDireccion","class":"ancho15","texto":"Direccion"},'','',"th")|raw }}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% set linea = 0 %}
+                        {% for entity in entities %}
+                             {% if linea is divisibleby(2) %}
+                               <tr>
+                             {% else %}
+                                <tr class="info">
+                             {% endif %}
+                                {{ linkInterno("sociedades_show",{ "entity_id" : "entity.id"  ,"name":"Sociedades","classa":"'edit imageGrid'","scra":'entity.foto'  })|raw }}
+                                {{ linkInterno("",{"name":"nombre","class":"posicionr","texto":'entity.nombre'})|raw }} 
+                                {{ linkInterno("",{ "entity_id" : "entity.id","name":"direccion","class":"plano","texto":'entity.direccion'})|raw }} 
+                            </tr>
+                                {% set linea = linea + 1 %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="4">{{'No hay Sociedades'|trans}}</td>
+                                </tr>
+                        {% endfor %}
+                        </tbody>
+                        </table>
+                  {% endif %}
+                </div>
+            {% block content_sidebar %}
+             <div id="edicioncabecera" class="span3">
+                <div id="map_canvas" class="mapainvisible" style="width:300px;height:200px"></div>
+             </div>                
+            <div class="span3">
+               <p>  
+               {{ linkInterno("registro",{ "texto": "REGISTRO" ,"classa" : "'btn btn-large btn-primary'"  })|raw }}
+               </p>
+                <h1><a href="#">RECETAS</a></h1>
+                <img alt="Anagrama" src="{{ asset('bundles/sociedad/uploads/images/recetas.gif') }}">
+             </div>
+            {% endblock content_sidebar %}
+
+
+  {% endblock content %}
+{% block footer %}
+<aside>
+<section id="nosotros">
+<h2>Sobre nosotros</h2>
+<p>Lorem ipsum dolor sit amet...</p>
+</section>
+</aside>
+<footer>
+&copy; 2012 - CarlosSociedades
+<a href="#">Ayuda</a>
+<a href="#">Contacto</a>
+<a href="#">Privacidad</a>
+<a href="#">Sobre nosotros</a>
+</footer>
+{% endblock footer %}

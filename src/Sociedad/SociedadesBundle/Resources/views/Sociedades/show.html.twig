@@ -1,0 +1,57 @@
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span3">
+     <table class="table">
+        <tbody>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ entity.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ entity.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Telefono</th>
+                <td>{{ entity.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Poblacion</th>
+                <td>{{ entity.poblacion }}</td>
+            </tr>
+            <tr>
+                <img alt="Anagrama" src="{{ asset(entity.foto) }}">                
+            </tr>
+            <tr>
+                <th>Fechacreacion</th>
+                <td>{{ entity.fechacreacion|date('d-m-Y') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+  </div>
+  <div class="span2">
+    <ul class="record_actions">
+        <li>
+            {{ linkInterno("portada",{ "texto": "Portada" ,"classa" : "'btn btn-large btn-block'"  })|raw }}
+        </li>
+        <br/>
+        <li>
+            {{ linkInterno("socios",{ "texto": "Socios" ,"classa" : "'btn btn-large btn-block'"  })|raw }}
+        </li>
+        <br/>
+        <li>
+            {{ linkInterno("plantas",{"texto": "Plantas" ,"classa" : "'btn btn-large btn-block'"  })|raw }}
+        </li>
+        <br/>
+        <li>
+            {{ linkInterno("mesasplanta",{"plantaid":"query_plantaid", "texto": "Mesas" ,"classa" : "'btn btn-large btn-block'"  })|raw }}
+        </li>
+        <br/>
+        <li>
+            {{ linkInterno("reservasplanta",{"plantaid":"query_plantaid","texto": "Reservas" ,"classa" : "'btn btn-large btn-block'"  })|raw }}
+        </li>
+    </ul>
+  </div>
+
+{% endblock content %}

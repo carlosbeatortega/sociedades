@@ -1,0 +1,35 @@
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span1">
+  </div>
+  <div class="span9">
+    <h2>{{ sociedades.nombre }} </h2>    
+    <h3>Plantas</h3>
+
+    <table id="tablaprincipal" class="tablagrid mesasportada table table-striped">
+        <thead>
+            <tr>
+                {{ linkInterno("",{ "id" : "colEditar","span2":"ancho15","texto":"Editar"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colNombre","span6":"ancho25","texto":"Planta"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colFoto","class":"span3","texto":"Foto"},'','',"th")|raw }}
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+                {{ linkInterno("plantas_edit",{ "entity_id" : "entity.id"  ,"name":"Plantas","classa":"editSociedad" })|raw }}
+                {{ linkInterno("",{"name":"planta","class":"posicionr","texto":'entity.planta'})|raw }} 
+                {{ linkInterno("",{"name":"Sociedades","class":"imagepequeGrid","scr":'entity.foto'  })|raw }}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <table class="table">
+        <tbody>
+             <tr>
+                  {{ linkInterno("plantas_new",{"texto": "Crear" ,"classa" : "'btn btn-large'"  })|raw }}
+                  {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "Sociedad" ,"classa" : "'btn btn-large'"  })|raw }}
+             </tr>
+        </tbody>
+    </table>
+  </div>
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span3">
+  </div>
+  <div class="span9">
+    <h2>{{ sociedades.nombre }} </h2>    
+    <form action="{{ path('plantas_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+      {{ form_errors(edit_form) }}
+       <h2> {{ 'Edición de Plantas'|trans }} </h2>
+       <table class="sin_relleno">
+        <tr>
+          <td><strong>{{ form_label(edit_form.planta) }}</strong></td>
+          <td>{{ form_widget(edit_form.planta) }}{{ form_errors(edit_form.planta) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.foto) }}</strong></td>
+          <td>{{ form_widget(edit_form.foto) }}{{ form_errors(edit_form.foto) }}</td>
+        </tr>
+       </table>
+       {{ form_rest(edit_form) }}
+      <br/>
+        <table class="record_actions">
+            <tr>
+                <button class="btn botonesseparados" type="submit">{{ 'Grabar'|trans }}</button>
+            </tr>
+            <tr>
+                <a class="btn botonesseparados" href="{{ path('plantas') }}">
+                    {{ 'Plantas'|trans }}
+                </a>
+            </tr>
+            <tr>
+                <a onclick='preguntarSiNo("form_delete","{{ 'Va a eliminar la Planta. ¿Desea continuar?'|trans }}","{{ path('plantas_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados">{{'Borrar'|trans}}</a>
+            </tr>
+        </table>
+    </form>
+  </div>
+  <div id="dialog-Borrar-reserva" title="¿Eliminar la Planta?">
+        <p><span  style="float: left; margin: 0 7px 20px 0;"></span></p>
+  </div>
+{% endblock content %}

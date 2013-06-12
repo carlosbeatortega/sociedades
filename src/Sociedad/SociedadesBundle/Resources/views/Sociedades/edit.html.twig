@@ -1,0 +1,80 @@
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span3">
+  </div>
+  <div class="span9">
+
+    <form action="{{ path('sociedades_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+      {{ form_errors(edit_form) }}
+      <h2> {{ 'Edición de Sociedades'|trans }} </h2>
+      <table class="sin_relleno">
+        <tr>
+          <td><strong>{{ form_label(edit_form.nombre) }}</strong></td>
+          <td>{{ form_widget(edit_form.nombre) }}{{ form_errors(edit_form.nombre) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.direccion) }}</strong></td>
+          <td>{{ form_widget(edit_form.direccion) }}{{ form_errors(edit_form.direccion) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.telefono) }}</strong></td>
+          <td>{{ form_widget(edit_form.telefono) }}{{ form_errors(edit_form.telefono) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.poblacion) }}</strong></td>
+          <td>{{ form_widget(edit_form.poblacion) }}{{ form_errors(edit_form.poblacion) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.foto) }}</strong></td>
+          <td>{{ form_widget(edit_form.foto) }}{{ form_errors(edit_form.foto) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.fechaalta) }}</strong></td>
+          <td>{{ form_widget(edit_form.fechaalta) }}{{ form_errors(edit_form.fechaalta) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.fechacreacion) }}</strong></td>
+          <td>{{ form_widget(edit_form.fechacreacion) }}{{ form_errors(edit_form.fechacreacion) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.numero_cuenta) }}</strong></td>
+          <td>{{ form_widget(edit_form.numero_cuenta) }}{{ form_errors(edit_form.numero_cuenta) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.notas) }}</strong></td>
+          <td>{{ form_widget(edit_form.notas) }}{{ form_errors(edit_form.notas) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.email) }}</strong></td>
+          <td>{{ form_widget(edit_form.email) }}{{ form_errors(edit_form.email) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.calendario) }}</strong></td>
+          <td>{{ form_widget(edit_form.calendario) }}{{ form_errors(edit_form.calendario) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.password) }}</strong></td>
+          <td>{{ form_widget(edit_form.password) }}{{ form_errors(edit_form.password) }}</td>
+        </tr>
+      </table>
+        {{ form_rest(edit_form) }}
+      <br/>
+        <table class="record_actions">
+            <tr>
+                <button class="btn botonesseparados" type="submit">{{ 'Grabar'|trans }}</button>
+            </tr>
+            <tr>
+                <a class="btn botonesseparados" href="{{ path('sociedades') }}">
+                    {{ 'Sociedades'|trans }}
+                </a>
+            </tr>
+            <tr>
+                <a onclick='preguntarSiNo("form_delete","{{ 'Va a eliminar la Sociedad. ¿Desea continuar?'|trans }}","{{ path('sociedades_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados">{{'Borrar'|trans}}</a>
+            </tr>
+        </table>
+    </form>
+  </div>
+  <div id="dialog-Borrar-reserva" title="¿Eliminar la Sociedad?">
+        <p><span  style="float: left; margin: 0 7px 20px 0;"></span></p>
+  </div>
+{% endblock content %}

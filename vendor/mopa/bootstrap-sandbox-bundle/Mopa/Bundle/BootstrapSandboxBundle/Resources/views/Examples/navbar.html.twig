@@ -1,0 +1,52 @@
+{% extends "MopaBootstrapSandboxBundle::layout.html.twig" %}
+{% from 'MopaBootstrapBundle::flash.html.twig' import session_flash %}
+
+{% block headline %}{% endblock headline %}
+
+{% block page_header %}
+    <div class="page-header" id="top">
+        <h1>The Navbars made easy
+            <small>Reusable navigation built into</small>
+        </h1>
+        <p class="lead">Providing programatic ways to create Navbars and Subnavigations, beeing responsive and if wanted also sticky while scrolling.</p>
+        {% block subnavbar %}
+        {{ mopa_bootstrap_navbar('sandboxNavbarsSubNavbar') }}
+        {% endblock subnavbar %}
+    </div>
+{% endblock page_header %}
+
+{% block body_tag %}
+<body data-spy="scroll" data-target=".subnav" data-offset="50">
+{% endblock body_tag %}
+
+{% block content %}
+<div class="span12">
+    <section  id="navbars">
+        <div class="page-header">
+            <h1>Navbars:</h1>
+        </div>
+        <p>Creating and using Navbars is quite easy:</p>
+        <pre class="prettyprint">{{ fileSource('@MopaBootstrapSandboxBundle/Resources/config/examples/example_navbar.yml') }}</pre>
+    </section>
+        <section id="template">
+        <div class="page-header">
+            <h1>Template:</h1>
+        </div>
+        <p>And to show the bar in your template just use</p>
+        <pre class="prettyprint">
+        {%- raw -%}
+        {% block navbar %}
+        {{ mopa_bootstrap_navbar('frontendSandboxNavbar') }}
+        {% endblock navbar %}
+        {%- endraw -%}
+        </pre>
+    </section>
+    <section  id="menus">
+        <div class="page-header">
+            <h1>Menus:</h1>
+        </div>
+        <p>The menues are created Knpmenu Style and the AbstractNavbarMenuBuilder helps you adding the correct styles to e.g. Dropdown menues:</p>
+        <pre class="prettyprint">{{ fileSource('@MopaBootstrapSandboxBundle/Navbar/Example/MenuBuilder.php') }}</pre>
+    </section>
+</div>
+{% endblock content %}

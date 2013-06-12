@@ -1,0 +1,48 @@
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span12">
+    <h2>{{ sociedades.nombre }} </h2>  
+    <h3>Socios</h3>
+    <form action="{{ path('socios_activa') }}" method="get" id="f_Invita">
+        <input type="submit" value="{{'Activar'|trans}}" class="btn" style="float: right"/>
+        <div style="clear:both"></div>
+        <br/>
+        <table id="tablaprincipal" class="tablagrid socios table table-striped">
+            <thead>
+                <tr>
+                    {{ linkInterno("",{ "id" : "colFoto","class":"span1","texto":"Foto"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colNombre","class":"span5","texto":"Nombre"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colNombreUsuario","class":"span10","texto":"Nombre Usuario"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colEmail","class":"span5","texto":"Email"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colRoles","class":"span5","texto":"Roles"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colDni","class":"span5","texto":"Dni"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colFechaAlta","class":"span5","texto":"Fecha Alta"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colFechaNacimiento","class":"span7","texto":"Fecha Nacimiento"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colSel","class":"span1","type":"checkbox","ida":"seleccionartodos","valuea":"true","classa":"checkbox"},'','',"th")|raw }}
+
+                </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    {{ linkInterno("socios_edit",{"entity_id" : "entity.id","name":"Foto","classa":"'edit imagesuperpequeGrid'","scra":'entity.foto'  })|raw }}
+                    {{ linkInterno("",{"name":"nombre","class":"posicionr","texto":'entity.name'})|raw }} 
+                    {{ linkInterno("",{"name":"nombre","class":"posicionr","texto":'entity.username'})|raw }} 
+                    {{ linkInterno("",{"name":"nombre","class":"posicionr","texto":'entity.email'})|raw }} 
+                    {{ linkInterno("",{"name":"nombre","class":"posicionr","texto":'entity.roles'})|raw }} 
+                    {{ linkInterno("",{"name":"nombre","class":"posicionr","texto":'entity.dni'})|raw }} 
+                    {{ linkInterno("",{"name":"nombre","class":"posicionr","texto":'entity.fechaalta'})|raw }} 
+                    {{ linkInterno("",{"name":"nombre","class":"posicionr","texto":'entity.fechanacimiento'})|raw }} 
+                    {{ linkInterno("",{"align":"center","headers":"colSel","class":"porcentaje3","name":{"chequear_":"entity.id"},"valuea":"entity.id","type":"checkbox" },'','')|raw }}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </form>
+<ul class="record_actions">
+    <li>
+         {{ linkInterno("registro",{ "texto": "REGISTRO" ,"classa" : "'btn btn-large btn-primary '"  })|raw }}
+    </li>
+</ul>
+</div>
+{% endblock content %}

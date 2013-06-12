@@ -1,0 +1,36 @@
+        <table id="tablaprincipal" class="tablagrid separada marginbottom10" cellspacing="0">
+        <thead>
+         <tr>
+             {% set col=0 %}
+             {% for columna in columnas %}
+                {% if col!=columna.cabecerasid %}
+                    {% set col=columna.cabecerasid %}
+                    {{ linkaEdita(columna.cabecerasid,"th")|raw }}
+                {% endif %}
+             {% endfor %}
+         </tr>
+        </thead>
+        <tbody>
+        {% set linea = 0 %}
+        {% for entity in entities %}
+             {% if linea is divisibleby(2) %}
+               <tr>
+             {% else %}
+                <tr class="impar">
+             {% endif %}
+             {% set col=0 %}
+             {% for columna in columnas %}
+                    {% if col!=columna.cabecerasid %}
+                        {% set col=columna.cabecerasid %}
+                        {{ linkaEdita(columna.cabecerasid,"td")|raw }}
+                    {% endif %}
+             {% endfor %}
+            </tr>
+                {% set linea = linea + 1 %}
+            {% else %}
+                <tr>
+                    <td colspan="4">{{'No hay Registros'|trans}}</td>
+                </tr>
+        {% endfor %}
+        </tbody>
+        </table>

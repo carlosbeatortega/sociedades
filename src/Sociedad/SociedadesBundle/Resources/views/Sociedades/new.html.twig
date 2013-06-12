@@ -1,0 +1,73 @@
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span3">
+  </div>
+  <div class="span9">
+    <form action="{{ path('sociedades_create') }}" method="post" {{ form_enctype(form) }}>
+      {{ form_errors(form) }}
+      <h2> {{ 'Registro de Sociedades'|trans }} </h2>
+      <table class="sin_relleno">
+        <tr>
+          <td><strong>{{ form_label(form.nombre) }}</strong></td>
+          <td>{{ form_widget(form.nombre) }}{{ form_errors(form.nombre) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.direccion) }}</strong></td>
+          <td>{{ form_widget(form.direccion) }}{{ form_errors(form.direccion) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.telefono) }}</strong></td>
+          <td>{{ form_widget(form.telefono) }}{{ form_errors(form.telefono) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.poblacion) }}</strong></td>
+          <td>{{ form_widget(form.poblacion) }}{{ form_errors(form.poblacion) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.foto) }}</strong></td>
+          <td>{{ form_widget(form.foto) }}{{ form_errors(form.foto) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.fechaalta) }}</strong></td>
+          <td>{{ form_widget(form.fechaalta) }}{{ form_errors(form.fechaalta) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.fechacreacion) }}</strong></td>
+          <td>{{ form_widget(form.fechacreacion) }}{{ form_errors(form.fechacreacion) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.numero_cuenta) }}</strong></td>
+          <td>{{ form_widget(form.numero_cuenta) }}{{ form_errors(form.numero_cuenta) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.notas) }}</strong></td>
+          <td>{{ form_widget(form.notas) }}{{ form_errors(form.notas) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.email) }}</strong></td>
+          <td>{{ form_widget(form.email) }}{{ form_errors(form.email) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.calendario) }}</strong></td>
+          <td>{{ form_widget(form.calendario) }}{{ form_errors(form.calendario) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.password) }}</strong></td>
+          <td>{{ form_widget(form.password) }}{{ form_errors(form.password) }}</td>
+        </tr>
+      </table>
+        {{ form_rest(form) }}
+        <p>
+            <button type="submit">Grabar</button>
+        </p>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('sociedades') }}">
+                Lista
+            </a>
+        </li>
+    </ul>
+  </div>
+ {% endblock content %}

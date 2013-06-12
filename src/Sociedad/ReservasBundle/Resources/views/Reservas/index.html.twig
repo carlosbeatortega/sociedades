@@ -1,0 +1,72 @@
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span6">
+    <h2>{{ sociedades.nombre }} </h2>  
+    <h3>Reservas</h3>
+    <form action="{{ path('reservas', {'plantaid': app.request.query.get('plantaid') }) }}"  method="get" id="f_Vertodos">
+      <table class="sin_relleno">
+        <tr>
+            <td>
+                {{'Fecha'|trans}}:
+            </td>
+            <td> 
+                <input name="hoy" class="{{ app.request.query.get('plantaid') }}" type="text" id="datepicker" value="{{ app.request.query.get('hoy')|date('d/m/Y') }}"/>
+            </td>
+            <td>
+                {{'Turno'|trans}}:
+            </td>
+            <td>
+                <select name="turno" class="turno">
+                <option value=""></option>
+                <option value="Desayuno" {{ app.session.get('turno')=='Desayuno' ? 'selected' : '' }}>{{'Desayuno'|trans}}</option>
+                <option value="Comida" {{ app.session.get('turno')=='Comida' ? 'selected' : '' }}>{{'Comida'|trans}}</option>
+                <option value="Merienda" {{ app.session.get('turno')=='Merienda' ? 'selected' : '' }}>{{'Merienda'|trans}}</option>
+                <option value="Cena" {{ app.session.get('turno')=='Cena' ? 'selected' : '' }}>{{'Cena'|trans}}</option>
+                </select>
+            </td>
+            <td>
+                <input class="btn reservar" type="submit" value="{{'Seleccionar'|trans}}"/>
+            </td>
+        </tr>
+      </table>
+    </form>
+    <table id="tablaprincipal" class="tablagrid mesasportada table table-striped">
+        <thead>
+            <tr>
+                {{ linkInterno("",{ "id" : "colEditar","class":"span1","texto":"Editar"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colFoto","class":"span2","texto":"Foto"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colSocio","class":"span2","texto":"Socio"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colComida","class":"span2","texto":"Turno"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colComensales","class":"span1","texto":"Comensales"},'','',"th")|raw }}
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                {{ linkInterno("reservas_edit",{ "entity_id" : "entity.id"  ,"name":"Reservas","classa":"editSociedad" })|raw }}
+                {{ linkInterno("",{"name":"foto","id":"fotosocio","class":"imagesuperpequeGrid","scr":'entity.socio.foto'  })|raw }}
+                {{ linkInterno("",{"name":"socio","class":"posicionr","texto":'entity.socio.name'})|raw }} 
+                {{ linkInterno("",{"name":"comida","class":"posicionr","texto":'entity.comida'})|raw }} 
+                {{ linkInterno("",{"name":"comensales","class":"posicionr","texto":'entity.comensales'})|raw }} 
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <table class="table">
+        <tbody>
+             <tr>
+                  {{ linkInterno("reservas_new",{ "texto": "Crear Reserva" ,"classa" : "'btn btn-large'"  })|raw }}
+                  {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "Sociedad" ,"classa" : "'btn btn-large'"  })|raw }}
+             </tr>
+        </tbody>
+    </table>
+  </div>    
+  {% include "SociedadReservasBundle:Reservas:plantas.html.twig" %}    
+  <div id="dialog-confirm" title="¿Reservar mesa?">
+        <p><span  style="float: left; margin: 0 7px 20px 0;"></span></p>
+  </div>
+  <div id="dialog-Borrar-confirm" title="¿Eliminar mesa de la Reserva?">
+        <p><span  style="float: left; margin: 0 7px 20px 0;"></span></p>
+  </div>
+
+{% endblock content %}

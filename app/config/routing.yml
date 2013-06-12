@@ -1,0 +1,112 @@
+borrareservamesa:
+    pattern: /borrareservamesa/
+    defaults: { _controller: SociedadReservasBundle:Default:borrareservamesa }
+reservarmesa:
+    pattern: /reservarmesa/
+    defaults: { _controller: SociedadReservasBundle:Default:reservarmesa }
+grabamesa:
+    pattern: /grabamesa/
+    defaults: { _controller: SociedadReservasBundle:Default:grabamesa }
+borramesa:
+    pattern: /borramesa/
+    defaults: { _controller: SociedadReservasBundle:Default:borramesa }
+portada:
+    pattern:  /portada  
+    defaults: { _controller: SociedadSociedadesBundle:Default:portada }
+plano:
+    pattern:  /plano/{id}  
+    defaults: { _controller: SociedadSociedadesBundle:Default:mapaGoogle }
+friends:
+    pattern:  /friends  
+    defaults: { _controller: SociedadSociosBundle:Default:friendsFacebook }
+
+registro:
+    pattern:  /registro  
+    defaults: { _controller: SociedadSociosBundle:Registration:register }
+register:
+    pattern:  /register  
+    defaults: { _controller: SociedadSociosBundle:Registration:register }
+
+sociedad_socios:
+    resource: "@SociedadSociosBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+sociedad_sociedades:
+    resource: "@SociedadSociedadesBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+sociedad_recetas:
+    resource: "@SociedadRecetasBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+sociedad_comandas:
+    resource: "@SociedadComandasBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+sociedad_reservas:
+    resource: "@SociedadReservasBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+sociedad_almacen:
+    resource: "@SociedadAlmacenBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+SociedadGridBundle:
+    resource: "@SociedadGridBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+_security_check:
+    pattern:  /login_check
+_security_logout:
+    pattern:  /logout
+
+
+
+calendario:
+    pattern:  /externo
+    defaults: { _controller: SociedadGridBundle:Default:externo }
+calendarios:
+    pattern:  /calendarios
+    defaults: { _controller: SociedadGridBundle:Default:listacalendarios }
+borravisita:
+    pattern:  /borravisita
+    defaults: { _controller: SociedadGridBundle:Default:borraVisita }
+
+contactos:
+    pattern:  /contactos
+    defaults: { _controller: SociedadGridBundle:Default:client }
+contactosprowin:
+    pattern:  /contactosprowin
+    defaults: { _controller: SociedadGridBundle:Default:setClient }
+limpia:
+    pattern:  /limpia
+    defaults: { _controller: SociedadGridBundle:Default:limpia }
+cerrarsesion:
+    pattern:  /cerrarsesion
+    defaults: { _controller: SociedadGridBundle:Default:cerrarsesion }

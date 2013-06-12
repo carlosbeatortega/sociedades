@@ -1,0 +1,48 @@
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span6">
+        <h2>{{ sociedades.nombre }} </h2>  
+        <form action="{{ path('reservas_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+          {{ form_errors(edit_form) }}
+           <h2> {{ 'Edición de Reservas'|trans }} </h2>
+           <table class="sin_relleno">
+            <tr>
+              <td><strong>{{ form_label(edit_form.fechadesde) }}</strong></td>
+              <td>{{ form_widget(edit_form.fechadesde) }}{{ form_errors(edit_form.fechadesde) }}</td>
+            </tr>
+            <tr>
+              <td><strong>{{ form_label(edit_form.comida) }}</strong></td>
+              <td>{{ form_widget(edit_form.comida) }}{{ form_errors(edit_form.comida) }}</td>
+            </tr>
+            <tr>
+              <td><strong>{{ form_label(edit_form.comensales) }}</strong></td>
+              <td>{{ form_widget(edit_form.comensales) }}{{ form_errors(edit_form.comensales) }}</td>
+            </tr>
+            <tr>
+              <td><strong>{{ form_label(edit_form.socio) }}</strong></td>
+              <td>{{ form_widget(edit_form.socio) }}{{ form_errors(edit_form.socio) }}</td>
+            </tr>
+           </table>
+           {{ form_rest(edit_form) }}
+          <br/>
+            <table class="record_actions">
+                <tr>
+                    <button class="btn botonesseparados" type="submit">{{ 'Grabar'|trans }}</button>
+                </tr>
+                <tr>
+                    <a class="btn botonesseparados" href="{{ path('reservasplanta', {'plantaid': app.session.get('plantaid') }) }}">
+                        {{ 'Reservas'|trans }}
+                    </a>
+                </tr>
+                <tr>
+                    <a onclick='preguntarSiNo("form_delete","{{ 'Va a eliminar la Reserva. ¿Desea continuar?'|trans }}","{{ path('reservas_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados">{{'Borrar'|trans}}</a>
+                </tr>
+            </table>
+        </form>
+
+  </div>
+  {% include "SociedadReservasBundle:Reservas:plantas.html.twig" %}    
+  <div id="dialog-Borrar-reserva" title="¿Eliminar la Reserva?">
+        <p><span  style="float: left; margin: 0 7px 20px 0;"></span></p>
+  </div>
+{% endblock content %}

@@ -1,0 +1,83 @@
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span6">
+    <h2>{{ sociedades.nombre }} </h2>  
+    <h3>Mesas</h3>
+
+    <table id="tablaprincipal" class="tablagrid mesasportada table table-striped">
+        <thead>
+            <tr>
+                {{ linkInterno("",{ "id" : "colEditar","class":"ancho15","texto":"Editar"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colNombre","class":"ancho25","texto":"Mesa"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colPlanta","class":"ancho25","texto":"Planta"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colSala","class":"ancho25","texto":"Sala"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colComensales","class":"ancho25","texto":"Comensales"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colFoto","class":"ancho25","texto":"Foto"},'','',"th")|raw }}
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                {{ linkInterno("mesas_edit",{ "entity_id" : "entity.id"  ,"name":"Mesas","classa":"editSociedad" })|raw }}
+                {{ linkInterno("",{"name":"nombre","class":"posicionr","texto":'entity.nombre'})|raw }} 
+                {{ linkInterno("",{"name":"planta","class":"posicionr","texto":'entity.planta'})|raw }} 
+                {{ linkInterno("",{"name":"sala","class":"posicionr","texto":'entity.sala'})|raw }} 
+                {{ linkInterno("",{"name":"comensales","class":"posicionr","texto":'entity.comensales'})|raw }} 
+                {{ linkInterno("",{"name":"Sociedades","id":"draggable","class":"imagesuperpequeGrid","scr":'entity.foto'  })|raw }}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <table class="table">
+        <tbody>
+             <tr>
+                  {{ linkInterno("mesas_new",{ "texto": "Crear Mesa" ,"classa" : "'btn btn-large'"  })|raw }}
+                  {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "Sociedad" ,"classa" : "'btn btn-large'"  })|raw }}
+             </tr>
+        </tbody>
+    </table>
+  </div>
+  <div class="span6">
+    <table class="table">
+        <tbody>    
+            {% for planta in plantas %}
+                {% if planta.id==app.session.get('plantaid') %}
+                    {{ linkInterno("mesasplanta",{ "entity_plantaid" : "planta.id"  ,"texto":'planta.planta',"classa":"'btn btn-large btn-primary botonimagen'" })|raw }}
+                {% else %}
+                    {{ linkInterno("mesasplanta",{ "entity_plantaid" : "planta.id"  ,"texto":'planta.planta',"classa":"'btn btn-large botonimagen'" })|raw }}
+                {% endif %}
+            {% else %}
+                <td>
+                    <td>No hay Plantas</td>
+                </td>
+            {%endfor %}
+        </tbody>
+    </table>
+        
+        <br/>
+        <br/>
+        <br/>
+        {% for foto in plantafoto %}
+            <div id="droppable" class="{{'span6 '~foto.id}}">
+                <ul class='gallery' >
+                    <li>
+                    <img alt="Anagrama" src="{{ asset(foto.foto) }}">
+                    </li>
+                    {% for mesaplanta in mesasplantas %}
+                        <li class="ui-widget-content ui-corner-tr ui-draggable pulsarborrar {{ mesaplanta.id }}" style="position: absolute; display: block; left: {{mesaplanta.posy~'px'}}; top: {{mesaplanta.posx~'px'}};height: 30px;width: 40px">
+                        <img class="mesafoto" src="{{ asset(mesaplanta.mesas.foto) }}" >
+                        </li>                        
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+                <td>
+                    <td>No hay Plantas</td>
+                </td>
+        {% endfor %}
+
+  </div>
+  <div id="dialog-confirm" title="¿Borrar mesa?">
+        <p><span  style="float: left; margin: 0 7px 20px 0;"></span></p>
+  </div>
+{% endblock content %}

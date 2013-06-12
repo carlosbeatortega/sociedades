@@ -1,0 +1,40 @@
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span6">
+        <h2>{{ sociedades.nombre }} </h2>  
+        <form action="{{ path('reservas_create') }}" method="post" {{ form_enctype(form) }}>
+          {{ form_errors(form) }}
+           <h2> {{ 'Creación de Reservas'|trans }} </h2>
+           <table class="sin_relleno">
+            <tr>
+              <td><strong>{{ form_label(form.fechadesde) }}</strong></td>
+              <td>{{ form_widget(form.fechadesde) }}{{ form_errors(form.fechadesde) }}</td>
+            </tr>
+            <tr>
+              <td><strong>{{ form_label(form.comida) }}</strong></td>
+              <td>{{ form_widget(form.comida) }}{{ form_errors(form.comida) }}</td>
+            </tr>
+            <tr>
+              <td><strong>{{ form_label(form.comensales) }}</strong></td>
+              <td>{{ form_widget(form.comensales) }}{{ form_errors(form.comensales) }}</td>
+            </tr>
+            <tr>
+              <td><strong>{{ form_label(form.socio) }}</strong></td>
+              <td>{{ form_widget(form.socio) }}{{ form_errors(form.socio) }}</td>
+            </tr>
+           </table>
+           {{ form_rest(form) }}
+            <table class="record_actions">
+                <tr>
+                    <button class="btn botonesseparados" type="submit">{{ 'Grabar'|trans }}</button>
+                </tr>
+                <tr>
+                    <a class="btn botonesseparados" href="{{ path('reservasplanta', {'plantaid': app.session.get('plantaid') }) }}">
+                        {{ 'Reservas'|trans }}
+                    </a>
+                </tr>
+            </table>
+        </form>
+    </div>
+    {% include "SociedadReservasBundle:Reservas:plantas.html.twig" %}    
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span3">
+  </div>
+  <div class="span9">
+    <h2>{{ sociedades.nombre }} </h2>    
+    <form action="{{ path('mesas_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+      {{ form_errors(edit_form) }}
+      <h2> {{ 'Edición de Mesas'|trans }} </h2>
+      <table class="sin_relleno">
+        <tr>
+          <td><strong>{{ form_label(edit_form.nombre) }}</strong></td>
+          <td>{{ form_widget(edit_form.nombre) }}{{ form_errors(edit_form.nombre) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.planta) }}</strong></td>
+          <td>{{ form_widget(edit_form.planta) }}{{ form_errors(edit_form.planta) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.sala) }}</strong></td>
+          <td>{{ form_widget(edit_form.sala) }}{{ form_errors(edit_form.sala) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.comensales) }}</strong></td>
+          <td>{{ form_widget(edit_form.comensales) }}{{ form_errors(edit_form.comensales) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.foto) }}</strong></td>
+          <td>{{ form_widget(edit_form.foto) }}{{ form_errors(edit_form.foto) }}</td>
+        </tr>
+      </table>
+      {{ form_rest(edit_form) }}
+      <br/>
+        <table class="record_actions">
+            <tr>
+                <button class="btn botonesseparados" type="submit">{{ 'Grabar'|trans }}</button>
+            </tr>
+            <tr>
+                <a class="btn botonesseparados" href="{{ path('mesas') }}">
+                    {{ 'Mesas'|trans }}
+                </a>
+            </tr>
+            <tr>
+                <a onclick='preguntarSiNo("form_delete","{{ 'Va a eliminar la Mesa. ¿Desea continuar?'|trans }}","{{ path('mesas_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados">{{'Borrar'|trans}}</a>
+            </tr>
+        </table>
+    </form>
+  </div>
+  <div id="dialog-Borrar-reserva" title="¿Eliminar la Mesa?">
+        <p><span  style="float: left; margin: 0 7px 20px 0;"></span></p>
+  </div>
+{% endblock content %}

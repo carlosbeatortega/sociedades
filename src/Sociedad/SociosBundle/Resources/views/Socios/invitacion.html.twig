@@ -1,0 +1,50 @@
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span12">
+    <article id="contenido">
+       <section id="principal" class="grid_central">
+        <form action="{{ path('socios_activa_sociedades',{ 'socios': socios }) }}" method="get" id="f_Invita">
+           <h3>{{ 'Activar Socios'|trans}}</h3>
+            
+           <b>{{'Socios'|trans}}</b>:
+           <ul class="marginbottom10 marginleft10">
+           {% for p in datos%}
+            <li class="marginleft10">{{p.name ~ ' ('~p.email~')'}}</li>
+           {% endfor%}
+           </ul>
+           
+           <input type="submit" value="Activar" class="btn" style="float: right"/>
+           <div style="clear:both;"></div>
+            <table id="tablaprincipal" class="tablagrid sociedades table table-striped" cellspacing="0">
+                <thead>
+                    <tr>
+                        {{ linkInterno("",{ "id" : "colFoto","class":"span4","texto":"Foto"},'','',"th")|raw }}
+                        {{ linkInterno("",{ "id" : "colNombre","class":"span5","texto":"Nombre"},'','',"th")|raw }}
+                        {{ linkInterno("",{ "id" : "colDireccion","class":"span7","texto":"Dirección"},'','',"th")|raw }}
+                        {{ linkInterno("",{ "id" : "colPoblacion","class":"span7","texto":"Poblacion"},'','',"th")|raw }}
+                        {{ linkInterno("",{ "id" : "colSel","class":"span3","texto":"Selección"},'','',"th")|raw }}
+                    </tr>
+                </thead>
+                <tbody>
+                   {% for entity in entities %}
+                        <tr>
+                            {{ linkInterno("sociedades_edit",{"entity_id" : "entity.id","name":"Foto","classa":"'edit imagesuperpequeGrid'","scra":'entity.foto'  })|raw }}
+                            {{ linkInterno("",{"name":"nombre","class":"posicionr","texto":'entity.nombre'})|raw }} 
+                            {{ linkInterno("",{"name":"direccion","class":"posicionr","texto":'entity.direccion'})|raw }} 
+                            {{ linkInterno("",{"name":"poblacion","class":"posicionr","texto":'entity.poblacion'})|raw }} 
+                            {{ linkInterno("",{"align":"center","headers":"colSel","class":"porcentaje3","name":{"chequear_":"entity.id"},"valuea":"entity.id","type":"checkbox" },'','')|raw }}
+                        </tr>
+                   {% endfor %}
+                    <br>
+                    <tr>
+                        <td>
+                            <a href="{{ path('socios_activa') }}" class="btn" title="{{'Volver'|trans}}" alt="{{'Volver'|trans}}">{{'Volver'|trans}}</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+         </form>
+      </section>
+    </article>
+    </div>
+    {% endblock %}

@@ -1,0 +1,61 @@
+<h1>Reservas</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Sociedades_id</th>
+            <td>{{ entity.sociedadesid }}</td>
+        </tr>
+        <tr>
+            <th>Socios_id</th>
+            <td>{{ entity.sociosid }}</td>
+        </tr>
+        <tr>
+            <th>Fechadesde</th>
+            <td>{{ entity.fechadesde|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Fechahasta</th>
+            <td>{{ entity.fechahasta|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Comida</th>
+            <td>{{ entity.comida }}</td>
+        </tr>
+        <tr>
+            <th>Comensales</th>
+            <td>{{ entity.comensales }}</td>
+        </tr>
+        <tr>
+            <th>Calendarid</th>
+            <td>{{ entity.calendarid }}</td>
+        </tr>
+        <tr>
+            <th>Calendario</th>
+            <td>{{ entity.calendario }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('reservas') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('reservas_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('reservas_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>

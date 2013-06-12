@@ -1,0 +1,55 @@
+  <div class="span6">
+    <table class="table">
+        <tbody>    
+            {% for planta in plantas %}
+                {% if planta.id==app.request.query.get('plantaid') %}
+                    {% if app.request.query.get('reservaid') %}
+                        {{ linkInterno("reservas_edit",{ "entity_id" : "query_reservaid"  ,"texto":'planta.planta',"classa":"'btn btn-large btn-primary botonimagen'" })|raw }}
+                    {% else %}
+                        {{ linkInterno("reservasplanta",{ "entity_plantaid" : "planta.id"  ,"texto":'planta.planta',"classa":"'btn btn-large btn-primary botonimagen'" })|raw }}
+                    {% endif %}
+                {% else %}
+                    {% if app.request.query.get('reservaid') %}
+                        {{ linkInterno("reservas_edit",{ "entity_id" : "query_reservaid"  ,"texto":'planta.planta',"classa":"'btn btn-large botonimagen'" })|raw }}
+                    {% else %}
+                        {{ linkInterno("reservasplanta",{ "entity_plantaid" : "planta.id"  ,"texto":'planta.planta',"classa":"'btn btn-large botonimagen'" })|raw }}
+                    {% endif %}
+                {% endif %}
+            {% else %}
+                <td>
+                    <td>No hay Plantas</td>
+                </td>
+            {%endfor %}
+        </tbody>
+    </table>
+        
+        <br/>
+        <br/>
+        <br/>
+        {% for foto in plantafoto %}
+            <div id="planta" class="{{'span6 '~foto.id}}">
+                <ul class='gallery' >
+                    <li>
+                    <img alt="Anagrama" src="{{ asset(foto.foto) }}">
+                    </li>
+                    {% for misreserva in misreservas %}
+                      {% for mesareservada in misreserva[0].mesasreservadas %}
+                            <li class="borrarreservar {{ mesareservada.id }}" style="position: absolute; display: block; left: {{mesareservada.mesaplanta.posy~'px'}}; top: {{mesareservada.mesaplanta.posx~'px'}};height: 30px;width: 40px">
+                            <img class="mesafoto" src="{{ asset(misreserva[0].socio.foto) }}" >
+                            </li>                        
+                      {% endfor %}
+                    {% endfor %}
+                    {% for sinreserva in sinreservar %}
+                        <li class="pulsarreservar {{ sinreserva.id }}" style="position: absolute; display: block; left: {{sinreserva.posy~'px'}}; top: {{sinreserva.posx~'px'}};height: 30px;width: 40px">
+                        <img class="mesafoto" src="{{ asset(sinreserva.mesas.foto) }}" >
+                        </li>                        
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+                <td>
+                    <td>No hay Plantas</td>
+                </td>
+        {% endfor %}
+
+  </div>

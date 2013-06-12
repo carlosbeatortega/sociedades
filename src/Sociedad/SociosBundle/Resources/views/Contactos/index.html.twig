@@ -1,0 +1,47 @@
+<h1>Contactos list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Sociedades_id</th>
+            <th>Socios_id</th>
+            <th>Email</th>
+            <th>Nombre</th>
+            <th>Fijo</th>
+            <th>Movil</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('contactos_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.sociedadesid }}</td>
+            <td>{{ entity.sociosid }}</td>
+            <td>{{ entity.email }}</td>
+            <td>{{ entity.nombre }}</td>
+            <td>{{ entity.fijo }}</td>
+            <td>{{ entity.movil }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('contactos_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('contactos_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('contactos_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>

@@ -1,0 +1,145 @@
+{% extends "SociedadSociedadesBundle::layoutconfacebook.html.twig" %}
+{% block menusuperior %}
+<div>
+       {{ knp_menu_render('menu') }}
+</div>
+{% endblock menusuperior %}
+{% block content %}
+  <div class="span3">
+    {{ facebook_initialize({'xfbml': true, 'fbAsyncInit': 'onFbInit();'}) }}
+    {{ facebook_login_button({'autologoutlink': true,'showFaces': true}) }}
+<script>
+    function goLogIn(){
+        window.location = "{{ path('_security_check') }}";
+    }
+
+    function onFbInit() {
+        if (typeof(FB) != 'undefined' && FB != null ) {
+            FB.Event.subscribe('auth.statusChange', function(response) {
+                setTimeout(goLogIn, 500);
+            });
+        }
+    }
+</script>    
+    <div class="right">
+        <a id="amigos" class="btn">Amigos</a>
+    </div>
+    <div class="fotosamigos">
+    <div id="profile_pics"></div>
+        
+        
+    </div>
+  </div>
+  <div class="span9">
+    <form action="{{ path('socios_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+      {{ form_errors(edit_form) }}
+      <table>
+          <th>
+              <h2> {{ 'Edición de Socios'|trans }} </h2>
+          </th>
+      </table>
+        </br>
+      <table class="sin_relleno">
+        <tr>
+          <td><strong>{{ form_label(edit_form.name) }}</strong></td>
+          <td>{{ form_widget(edit_form.name) }}{{ form_errors(edit_form.name) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.username) }}</strong></td>
+          <td>{{ form_widget(edit_form.username) }}{{ form_errors(edit_form.username) }}</td>
+          <td><strong>{{ form_label(edit_form.usernameCanonical) }}</strong></td>
+          <td>{{ form_widget(edit_form.usernameCanonical) }}{{ form_errors(edit_form.usernameCanonical) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.email) }}</strong></td>
+          <td>{{ form_widget(edit_form.email) }}{{ form_errors(edit_form.email) }}</td>
+          <td><strong>{{ form_label(edit_form.emailCanonical) }}</strong></td>
+          <td>{{ form_widget(edit_form.emailCanonical) }}{{ form_errors(edit_form.emailCanonical) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.enabled) }}</strong></td>
+          <td>{{ form_widget(edit_form.enabled) }}{{ form_errors(edit_form.enabled) }}</td>
+          <td><strong>{{ form_label(edit_form.locked) }}</strong></td>
+          <td>{{ form_widget(edit_form.locked) }}{{ form_errors(edit_form.locked) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.lastLogin) }}</strong></td>
+          <td>{{ form_widget(edit_form.lastLogin) }}{{ form_errors(edit_form.lastLogin) }}</td>
+          <td><strong>{{ form_label(edit_form.expired) }}</strong></td>
+          <td>{{ form_widget(edit_form.expired) }}{{ form_errors(edit_form.expired) }}</td>
+        </tr>
+        <tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.foto) }}</strong></td>
+          <td>{{ form_widget(edit_form.foto) }}{{ form_errors(edit_form.foto) }}</td>
+          {{ linkInterno("",{"name":"Foto","class":"imagepequeGrid","scr":'entity.foto'  })|raw }}
+        </tr>
+          <td><strong>{{ form_label(edit_form.roles) }}</strong></td>
+          <td>{{ form_widget(edit_form.roles) }}{{ form_errors(edit_form.roles) }}</td>
+          <td><strong>{{ form_label(edit_form.fechaalta) }}</strong></td>
+          <td>{{ form_widget(edit_form.fechaalta) }}{{ form_errors(edit_form.fechaalta) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.dni) }}</strong></td>
+          <td>{{ form_widget(edit_form.dni) }}{{ form_errors(edit_form.dni) }}</td>
+          <td colspan="2" rowspan="10">
+          <table id="tablaprincipal" class="tablagrid mesasportada table table-striped">
+            <thead>
+                <tr>
+                    {{ linkInterno("",{ "id" : "colFecha","class":"span1","texto":"Fecha"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colComida","class":"span1","texto":"Turno"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colComensales","class":"span1","texto":"Comensales"},'','',"th")|raw }}
+                </tr>
+            </thead>
+            <tbody>
+            {% for entity in reservas %}
+                <tr>
+                    {{ linkInterno("reservas_edit",{ "entity_id" : "entity.id"  ,"name":"Reservas","class":"posicionr","texto":'entity.fechadesde' })|raw }}
+                    {{ linkInterno("",{"name":"comida","class":"posicionr","texto":'entity.comida'})|raw }} 
+                    {{ linkInterno("",{"name":"comensales","class":"posicionr","texto":'entity.comensales'})|raw }} 
+                </tr>
+                {% else %}
+                    <tr>
+                    <td colspan="2">{{'No hay Reservas Futuras'|trans}}</td>
+                    </tr>
+            {% endfor %}
+            </tbody>
+
+          </table>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.numero_cuenta) }}</strong></td>
+          <td>{{ form_widget(edit_form.numero_cuenta) }}{{ form_errors(edit_form.numero_cuenta) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.fechanacimiento) }}</strong></td>
+          <td>{{ form_widget(edit_form.fechanacimiento) }}{{ form_errors(edit_form.fechanacimiento) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.sociedades) }}</strong></td>
+          <td>{{ form_widget(edit_form.sociedades) }}{{ form_errors(edit_form.sociedades) }}</td>
+        </tr>
+      </table>
+         {{ form_rest(edit_form) }}
+     <br/>
+        <table class="record_actions">
+            <tr>
+                <button class="btn botonesseparados" type="submit">{{ 'Grabar'|trans }}</button>
+            </tr>
+            <tr>
+                <a class="btn botonesseparados" href="{{ path('sociedades_show',{'id':entity.sociedades.id}) }}">
+                    {{ 'Sociedades'|trans }}
+                </a>
+            </tr>
+            <tr>
+                <a onclick='preguntarSiNo("form_delete","{{ 'Va a eliminar el socio. ¿Desea continuar?'|trans }}","{{ path('socios_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados">{{'Borrar'|trans}}</a>
+            </tr>
+        </table>
+    </form>
+
+  </div>
+  <div id="dialog-Borrar-reserva" title="¿Eliminar Socio?">
+        <p><span  style="float: left; margin: 0 7px 20px 0;"></span></p>
+  </div>
+{% endblock content %}

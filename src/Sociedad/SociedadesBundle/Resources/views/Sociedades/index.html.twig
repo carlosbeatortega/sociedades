@@ -1,0 +1,37 @@
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span12">
+    <h2>{{ 'Sociedades'|trans }} </h2>  
+    <table id="tablaprincipal" class="tablagrid sociedades table table-striped">
+        <thead>
+            <tr>
+                {{ linkInterno("",{ "id" : "colFoto","class":"span2","texto":"Foto"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colNombre","class":"span7","texto":"Nombre"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colDireccion","class":"span7","texto":"Dirección"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colPoblacion","class":"span3","texto":"Población"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colTelefono","class":"span3","texto":"Teléfono"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colFechaCreacion","class":"span3","texto":"Fecha Creación"},'','',"th")|raw }}
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                {{ linkInterno("sociedades_edit",{"entity_id" : "entity.id","name":"Foto","classa":"'edit imagesuperpequeGrid'","scra":'entity.foto'  })|raw }}
+                {{ linkInterno("",{"name":"nombre","class":"posicionr","texto":'entity.nombre'})|raw }} 
+                {{ linkInterno("",{"name":"direccion","class":"posicionr","texto":'entity.direccion'})|raw }} 
+                {{ linkInterno("",{"name":"poblacion","class":"posicionr","texto":'entity.poblacion'})|raw }} 
+                {{ linkInterno("",{"name":"telefono","class":"posicionr","texto":'entity.telefono'})|raw }} 
+                {{ linkInterno("",{"name":"fechacreacion","class":"posicionr","texto":'entity.fechacreacion'})|raw }} 
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<ul>
+    <li>
+        <a class='btn' href="{{ path('sociedades_new') }}">
+            {{ 'Nueva Sociedad'|trans }}
+        </a>
+    </li>
+</ul>
+</div>
+{% endblock content %}

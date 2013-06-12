@@ -1,0 +1,42 @@
+<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+      {{ form_errors(form) }}
+      <h2> {{ 'Registro de Usuarios'|trans }} </h2>
+      <table class="sin_relleno">
+        <tr>
+          <td><strong>{{ form_label(form.username) }}</strong></td>
+          <td>{{ form_widget(form.username) }}{{ form_errors(form.username) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.email) }}</strong></td>
+          <td>{{ form_widget(form.email) }}{{ form_errors(form.email) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.plainPassword) }}</strong></td>
+          <td>{{ form_widget(form.plainPassword) }}{{ form_errors(form.plainPassword) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.name) }}</strong></td>
+          <td>{{ form_widget(form.name) }}{{ form_errors(form.name) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.foto) }}</strong></td>
+          <td>{{ form_widget(form.foto) }}{{ form_errors(form.foto) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.dni) }}</strong></td>
+          <td>{{ form_widget(form.dni) }}{{ form_errors(form.dni) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.fechanacimiento) }}</strong></td>
+          <td>{{ form_widget(form.fechanacimiento) }}{{ form_errors(form.fechanacimiento) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(form.numero_cuenta) }}</strong></td>
+          <td>{{ form_widget(form.numero_cuenta) }}{{ form_errors(form.numero_cuenta) }}</td>
+        </tr>
+    </table>
+        {{ form_rest(form) }}
+    <div>
+        <input class="btn" type="submit" value="{{ 'Registrar'|trans({}, 'FOSUserBundle') }}" />
+    </div>
+</form>

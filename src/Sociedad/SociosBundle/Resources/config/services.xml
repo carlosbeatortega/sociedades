@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="sociedad_socios.registration.form.type" class="Sociedad\SociosBundle\Form\Type\RegistrationFormType">
+            <tag name="form.type" alias="sociedad_socios_registration" />
+            <argument>%fos_user.model.user.class%</argument>
+        </service>
+
+        <service id="sociedad_socios.form.handler.registration" class="Sociedad\SociosBundle\Form\Handler\RegistrationFormHandler" scope="request" public="false">
+            <argument type="service" id="fos_user.registration.form" />
+            <argument type="service" id="request" />
+            <argument type="service" id="fos_user.user_manager" />
+            <argument type="service" id="fos_user.mailer" />
+            <argument type="service" id="fos_user.util.token_generator" />
+        </service>
+
+    </services>
+
+    <!--
+    <parameters>
+        <parameter key="sociedad_socios.example.class">Sociedad\SociosBundle\Example</parameter>
+    </parameters>
+
+    <services>
+        <service id="sociedad_socios.example" class="%sociedad_socios.example.class%">
+            <argument type="service" id="service_id" />
+            <argument>plain_value</argument>
+            <argument>%parameter_name%</argument>
+        </service>
+    </services>
+    -->
+</container>

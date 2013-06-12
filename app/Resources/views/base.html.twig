@@ -1,0 +1,28 @@
+{% extends 'MopaBootstrapBundle::base.html.twig' %}
+{% block body %}
+        <div id="header">
+		<ul id="navigation2">
+                    {% block contenido %}
+                        <h1><a href="#">SOCIEDADES</a></h1>
+                        <img alt="Anagrama" src="/bundles/sociedad/uploads/images/chiquitero.png">
+                    {% endblock %}
+		</ul>
+		<ul id="menu">
+                    {% block menu %}
+                    {% endblock %}
+		</ul>
+	</div>
+	
+	<div id="content">
+		<div id="container">
+		{% block body2 %}{% endblock %}
+		</div>
+	</div>
+	
+	<div id="footer">
+		<div id="footer-in">
+			<p class="footer-left">&copy; <a href="#" target="_blank">Carlos Beato Ortega</a>, 2012.</p>
+		</div>
+	</div>
+
+{% endblock %}
