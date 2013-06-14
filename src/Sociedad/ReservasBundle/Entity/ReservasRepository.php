@@ -94,4 +94,21 @@ class ReservasRepository extends EntityRepository
         return $consulta->getResult();
         
     }    
+    public function TodasReservasFuturas($idsociedad)
+    {
+        $fecha=date("Y-m-d");
+        
+        $consulta=$this->getEntityManager()
+                    ->createQuery('SELECT r FROM  Sociedad\ReservasBundle\Entity\Reservas r
+                                         WHERE r.sociedades_id=:id
+                                         and r.fechadesde>=:fecha
+                                         ORDER BY r.fechadesde');
+            
+        $consulta->setParameter('id', $idsociedad);
+        $consulta->setParameter('fecha', $fecha);
+        $consulta->useResultCache(true, 3600);
+        
+        return $consulta->getResult();
+        
+    }    
 }

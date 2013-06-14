@@ -11,6 +11,7 @@ use Sociedad\Comunes\mysqlSearchAndReplace;
 use Sociedad\Comunes\gTareas;
 use Sociedad\Comunes\GoogleTasks;
 use Sociedad\Controller\oauthClientClass;
+use Sociedad\SociosBundle\Entity\Reservas;
 
 use \OAuthStore;
 use \OAuthRequester;
@@ -28,21 +29,22 @@ class DefaultController extends Controller
         return array('name' => $name);
     }
 
-  public function externoAction(){
-    $usuario = $this->get('request')->request->get('usuario');
-    $pass = $this->get('request')->request->get('password');
+  public function externoAction($usuario,$password,$idcalendario){
+    //$usuario = $this->get('request')->request->get('usuario');
+    //$pass = $this->get('request')->request->get('password');
     $eventos = json_decode($this->get('request')->request->get('calendario'));
-    $idcalendario = $this->get('request')->request->get('idcalendario');
+    //$idcalendario = $this->get('request')->request->get('idcalendario');
     $modo = $this->get('request')->request->get('modo');
     $minutos = $this->get('request')->request->get('minutos');
+    $pass=$password;
     if($minutos=="0"){
         $minutos="";
     }
    
      if($_SERVER['SERVER_NAME']=="localhost"){
-        $usuario = 'anercarlos@gmail.com';
-        $pass = 'prowinaner';
-        $idcalendario='anercarlos@gmail.com';
+//        $usuario = 'anercarlos@gmail.com';
+//        $pass = 'prowinaner';
+//        $idcalendario='anercarlos@gmail.com';
 //        $usuario = 'fortizdezarate@ecenarro.com';
 //        $pass = 'fortizdezarate198';
 //        $idcalendario='fortizdezarate@ecenarro.com';

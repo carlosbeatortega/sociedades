@@ -37,6 +37,11 @@
                 <tr>
                     <a onclick='preguntarSiNo("form_delete","{{ 'Va a eliminar la Reserva. ¿Desea continuar?'|trans }}","{{ path('reservas_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados">{{'Borrar'|trans}}</a>
                 </tr>
+                <tr>
+                    <a class="btn botonesseparados" href="{{ path('externo', {'usuario': sociedades.email,'password':sociedades.password,'idcalendario':sociedades.calendario }) }}">
+                        {{ 'Google'|trans }}
+                    </a>
+                </tr>
             </table>
         </form>
 

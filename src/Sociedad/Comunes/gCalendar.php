@@ -12,7 +12,7 @@
  */
 
 namespace Sociedad\Comunes;
-require_once('Zend/Loader.php');
+//require_once('Zend/Loader.php');
 use \Zend_Gdata;
 use \Zend_Gdata_Calendar;
 use \Zend_Gdata_ClientLogin;

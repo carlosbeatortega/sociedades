@@ -88,8 +88,8 @@ _security_logout:
 
 
 
-calendario:
-    pattern:  /externo
+externo:
+    pattern:  /externo/{usuario},{password},{idcalendario}
     defaults: { _controller: SociedadGridBundle:Default:externo }
 calendarios:
     pattern:  /calendarios
