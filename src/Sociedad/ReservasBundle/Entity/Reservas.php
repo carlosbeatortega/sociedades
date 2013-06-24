@@ -69,7 +69,7 @@ class Reservas
     /**
      * @var string $calendarid
      *
-     * @ORM\Column(name="calendarid", type="string", length=50, nullable=false)
+     * @ORM\Column(name="calendarid", type="string", length=50, nullable=true)
      */
     protected $calendarid;
 

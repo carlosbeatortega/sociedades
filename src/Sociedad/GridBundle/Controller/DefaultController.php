@@ -29,14 +29,73 @@ class DefaultController extends Controller
         return array('name' => $name);
     }
 
-  public function externoAction($usuario,$password,$idcalendario){
+  public function externoAction(){
+      
+    $em = $this->getDoctrine()->getManager();
+    $userManager = $this->get('security.context')->getToken()->getUser();
+    if (!$userManager) {
+        throw $this->createNotFoundException('Imposible encontrar socio.');
+    }
+    
+    $usuario=$userManager->getSociedades()->getEmail();
+    $pass=$userManager->getSociedades()->getPassword();
+    $idcalendario=$userManager->getSociedades()->getCalendario();
+    $reservas = $em->getRepository('SociedadReservasBundle:Reservas')->TodasReservasFuturas($userManager->getSociedadesId());
+      
+    
+//			ADDPROPERTY(Myarray[m.lccalendarid],"ID",ALLTRIM(Myconstructor.id))
+//			ADDPROPERTY(Myarray[m.lccalendarid],"START",Myconstructor.START)
+//			ADDPROPERTY(Myarray[m.lccalendarid],"END",Myconstructor.END)
+//			ADDPROPERTY(Myarray[m.lccalendarid],"TITULO",ALLTRIM(this.limpiatexto(Myconstructor.TITLE)))
+//			ADDPROPERTY(Myarray[m.lccalendarid],"DESCRIPCION",ALLTRIM(this.limpiatexto(Myconstructor.description)))
+//			ADDPROPERTY(Myarray[m.lccalendarid],"I_UNICO",Myconstructor.I_UNICO)
+//			ADDPROPERTY(Myarray[m.lccalendarid],"LUGAR",Myconstructor.LUGAR)
+//			ADDPROPERTY(Myarray[m.lccalendarid],"EMAIL",this.limpiaemail(Myconstructor.EMAIL))
+//			ADDPROPERTY(Myarray[m.lccalendarid],"CONTAC_ID",Myconstructor.CONTAC_ID)
+//			ADDPROPERTY(Myarray[m.lccalendarid],"GMAIL_ID",Myconstructor.GMAIL_ID)
+//			ADDPROPERTY(Myarray[m.lccalendarid],"MODIFICADO",Myconstructor.modificado)
+    $eventos = array();
+    $contador = 0;
+    foreach ($reservas as $reserva) {
+        $eventos[$contador]['id']=(is_null($reserva->getCalendarid())) ? '' : $reserva->getCalendarid();
+        $eventos[$contador]['start']=$reserva->getFechadesde()->format('Y-m-d H:i:s');
+        $eventos[$contador]['end']=$reserva->getFechahasta()->format('Y-m-d H:i:s');
+        $eventos[$contador]['titulo']=$reserva->getComida();
+        $eventos[$contador]['descripcion']='Invitación para '.$reserva->getComida().' día '.$eventos[$contador]['start'];
+        $eventos[$contador]['i_unico']=$reserva->getId();
+        $eventos[$contador]['lugar']=$userManager->getSociedades()->getDireccion();
+        $eventos[$contador]['email']=$reserva->getCalendario();
+        $eventos[$contador]['contac_id']='';
+        $eventos[$contador]['gmail_id']='';
+        $eventos[$contador]['modificado']='';
+        switch ($reserva->getComida()) {
+            case 'Desayuno':
+                $eventos[$contador]['start']=  str_replace("00:00:00", "08:00:00", $eventos[$contador]['start']);
+                $eventos[$contador]['end']=  str_replace("00:00:00", "10:00:00", $eventos[$contador]['end']);
+                break;
+            case 'Comida':
+                $eventos[$contador]['start']=  str_replace("00:00:00", "14:00:00", $eventos[$contador]['start']);
+                $eventos[$contador]['end']=  str_replace("00:00:00", "16:00:00", $eventos[$contador]['end']);
+                break;
+            case 'Merienda':
+                $eventos[$contador]['start']=  str_replace("00:00:00", "17:00:00", $eventos[$contador]['start']);
+                $eventos[$contador]['end']=  str_replace("00:00:00", "19:00:00", $eventos[$contador]['end']);
+                break;
+
+            default:
+                $eventos[$contador]['start']=  str_replace("00:00:00", "20:00:00", $eventos[$contador]['start']);
+                $eventos[$contador]['end']=  str_replace("00:00:00", "23:00:00", $eventos[$contador]['end']);
+                break;
+        }
+        $contador++;
+    }
+    
     //$usuario = $this->get('request')->request->get('usuario');
     //$pass = $this->get('request')->request->get('password');
-    $eventos = json_decode($this->get('request')->request->get('calendario'));
+    //$eventos = json_decode($this->get('request')->request->get('calendario'));
     //$idcalendario = $this->get('request')->request->get('idcalendario');
     $modo = $this->get('request')->request->get('modo');
     $minutos = $this->get('request')->request->get('minutos');
-    $pass=$password;
     if($minutos=="0"){
         $minutos="";
     }
@@ -67,7 +126,7 @@ class DefaultController extends Controller
       //crear o editar visitas
       foreach($eventos as $i => $e){
         //crear una nueva visita en google
-        $e = get_object_vars($e);
+        //$e = get_object_vars($e);
         date_default_timezone_set('Europe/Madrid');
         $e['start'] = date(DATE_ATOM, strtotime($e['start']));
         $e['end'] = date(DATE_ATOM, strtotime($e['end']));
@@ -75,7 +134,7 @@ class DefaultController extends Controller
         if($e['id'] == ''){
           $evento = gCalendar::crearEvento($e, $gcal,null,$usuario,$modo,$minutos);
           if($evento){
-            $eventos[$i]->id = gCalendar::getIdEvento($evento);
+            $eventos[$i]['id'] = gCalendar::getIdEvento($evento);
           }
         }
         //editar una visita en google
@@ -85,10 +144,15 @@ class DefaultController extends Controller
             gCalendar::editarEvento($e, $gcal, $evento,$usuario);
           }
           else{
-              $eventos[$i]->id="";
+              $eventos[$i]['id']="";
           }
         }
-      } 
+        $resultado = $em->getRepository('SociedadReservasBundle:Reservas')->modificaGoogleId($eventos[$i]['i_unico'],$eventos[$i]['id']);        
+      }
+        $reservaid = $this->get('request')->getSession()->get('reservaid');
+        if($reservaid){
+            return $this->redirect($this->generateUrl('reservas_edit',array('id'=>$reservaid)));      
+        }
     }
     else{
       //obtener listado de visitas de google a partir de la fecha de hoy

@@ -38,16 +38,19 @@
                     <a onclick='preguntarSiNo("form_delete","{{ 'Va a eliminar la Reserva. ¿Desea continuar?'|trans }}","{{ path('reservas_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados">{{'Borrar'|trans}}</a>
                 </tr>
                 <tr>
-                    <a class="btn botonesseparados" href="{{ path('externo', {'usuario': sociedades.email,'password':sociedades.password,'idcalendario':sociedades.calendario }) }}">
+                    <a class="btn botonesseparados" href="{{ path('externo') }}">
                         {{ 'Google'|trans }}
                     </a>
                 </tr>
             </table>
         </form>
+    <iframe src="https://www.google.com/calendar/embed?src={{ sociedades.email }}&ctz=Europe/Madrid" 
+            style="border: 0" width="500" height="300" frameborder="0" scrolling="no"></iframe>    
 
   </div>
   {% include "SociedadReservasBundle:Reservas:plantas.html.twig" %}    
   <div id="dialog-Borrar-reserva" title="¿Eliminar la Reserva?">
         <p><span  style="float: left; margin: 0 7px 20px 0;"></span></p>
   </div>
+  
 {% endblock content %}

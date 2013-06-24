@@ -99,7 +99,7 @@ class DefaultController extends Controller
             $entity->setFechahasta(new \DateTime($valor));
             $entity->setComida($turno);
             $entity->setComensales(1);
-            $entity->setCalendarid($sociedades->getEmail());
+            $entity->setCalendarid('');
             $entity->setCalendario($sociedades->getCalendario());
             $em->persist($entity);
             $em->flush();

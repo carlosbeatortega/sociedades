@@ -27,10 +27,15 @@ class ContactosController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('SociedadSociosBundle:Contactos')->findAll();
+        $userManager = $this->get('security.context')->getToken()->getUser();
+        $socios_id=$userManager->getId();
+
+        $entities = $em->getRepository('SociedadSociosBundle:Contactos')->findBy(array('socios_id'=>$socios_id));
+        $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->findBy(array('id'=>$userManager->getSociedadesId()));
 
         return array(
             'entities' => $entities,
+            'sociedades' => $sociedades
         );
     }
 
@@ -195,5 +200,34 @@ class ContactosController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+    /**
+     * Creates a new activacion Socios entity.
+     *
+     * @Route("/activa", name="contactos_activa")
+     * @Method("GET")
+     * @Template()
+     */
+    public function activaAction(Request $request)
+    {
+        $apo1=$request->query->all();
+        if(empty($apo1)){
+//            return $this->indexAction();
+            return $this->redirect($this->generateUrl('contactos'));
+        }
+        
+        $apo=serialize($apo1);
+        $em = $this->getDoctrine()->getEntityManager();
+        $entities = $em->getRepository('SociedadSociedadesBundle:Sociedades')->sociedadesActivas($this->container->getParameter('sociedad.defecto'));
+        
+        $datos = array();
+        foreach($apo1 as $idsocio){
+          $datos[] = $em->getRepository('SociedadSociosBundle:Socios')->find($idsocio);  
+        }
+        
+        return $this->render('SociedadSociosBundle:Socios:invitacion.html.twig', array(
+            'entities' => $entities,'socios'=>$apo, 'datos' => $datos
+        ));
+        
     }
 }

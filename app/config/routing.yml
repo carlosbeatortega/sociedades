@@ -89,7 +89,7 @@ _security_logout:
 
 
 externo:
-    pattern:  /externo/{usuario},{password},{idcalendario}
+    pattern:  /externo
     defaults: { _controller: SociedadGridBundle:Default:externo }
 calendarios:
     pattern:  /calendarios
@@ -98,8 +98,8 @@ borravisita:
     pattern:  /borravisita
     defaults: { _controller: SociedadGridBundle:Default:borraVisita }
 
-contactos:
-    pattern:  /contactos
+getcontactos:
+    pattern:  /getcontactos
     defaults: { _controller: SociedadGridBundle:Default:client }
 contactosprowin:
     pattern:  /contactosprowin

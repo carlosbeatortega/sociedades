@@ -180,7 +180,7 @@ class ReservasController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity->setFechahasta($entity->getFechadesde());
             $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($entity->getSocio()->getSociedadesId());
-            $entity->setCalendarid($sociedades->getEmail());
+            $entity->setCalendarid('');
             $entity->setCalendario($sociedades->getCalendario());
             
             $em->persist($entity);
@@ -224,7 +224,7 @@ class ReservasController extends Controller
             
         }
         $request->query->set('plantaid',$plantaid);
-        $request->query->set('reservaid',$id);
+        $session->set('reservaid',$id);
 
         $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($entity->getSociedadesId());
         $plantas = $em->getRepository('SociedadReservasBundle:Plantas')->findBy(array('sociedades_id'=>$entity->getSociedadesId()));

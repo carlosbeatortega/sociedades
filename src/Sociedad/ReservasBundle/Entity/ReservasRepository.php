@@ -111,4 +111,16 @@ class ReservasRepository extends EntityRepository
         return $consulta->getResult();
         
     }    
+    public function modificaGoogleId($id=null,$calendarid='') {
+      $manager=$this->getEntityManager();
+      if($id){
+          $calendarid="'".$calendarid."'";
+          $consulta2=$manager->createQuery('update Sociedad\ReservasBundle\Entity\Reservas r
+                                        SET r.calendarid ='.$calendarid.'
+                                        WHERE r.id=:id');
+          $consulta2->setParameter('id', $id);
+          $consulta2->getResult();
+      }
+      
+    }
 }
