@@ -15,6 +15,7 @@ class SociosType extends AbstractType
             ->add('usernameCanonical')
             ->add('email')
             ->add('emailCanonical')
+            ->add('passwordCanonical','password')
             ->add('enabled',null,array('label' => 'Activo','required'=>false))
             ->add('salt', 'hidden')
             ->add('password', 'hidden')

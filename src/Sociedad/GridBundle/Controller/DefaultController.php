@@ -11,7 +11,8 @@ use Sociedad\Comunes\mysqlSearchAndReplace;
 use Sociedad\Comunes\gTareas;
 use Sociedad\Comunes\GoogleTasks;
 use Sociedad\Controller\oauthClientClass;
-use Sociedad\SociosBundle\Entity\Reservas;
+use Sociedad\ReservasBundle\Entity\Reservas;
+use Sociedad\SociosBundle\Entity\Contactos;
 
 use \OAuthStore;
 use \OAuthRequester;
@@ -212,17 +213,23 @@ class DefaultController extends Controller
     //echo json_encode($eventos);
   }
     public function clientAction(){
-        $usuario = $this->get('request')->request->get('usuario');
-        $pass = $this->get('request')->request->get('password');
+    $em = $this->getDoctrine()->getManager();
+    $userManager = $this->get('security.context')->getToken()->getUser();
+    if (!$userManager) {
+        throw $this->createNotFoundException('Imposible encontrar socio.');
+    }
+    
+    $usuario=$userManager->getEmailCanonical();
+    $pass=$userManager->getPasswordCanonical();
 
      if($_SERVER['SERVER_NAME']=="localhost"){
-//        $usuario = 'anercarlos@gmail.com';
-//        $pass = 'prowinaner';
+//        $usuario = 'carlosbeatortega@gmail.com';
+//        $pass = 'mikeleaitana';
         // o este
          
      }
         $feed=gCalendar::getClientes($usuario, $pass);    
-        
+        $results = array();
         foreach($feed as $entry){
             $obj = new \stdClass;
             $obj->edit = $entry->getEditLink()->href;
@@ -243,7 +250,7 @@ class DefaultController extends Controller
             $obj->website[] = (string) $w['href'];
             }
 //            $obj->i_unico = (string) $xml->externo->i_unico;
-//            $results[] = $obj; 
+            $results[] = $obj; 
         }
         $response = new Response(json_encode($results));
         $response->headers->set('Content-Type', 'application/json; charset=utf-8');

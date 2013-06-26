@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Sociedad\SociosBundle\Entity\Contactos
  *
  * @ORM\Table(name="contactos")
+ * @ORM\Table(name="contactos",indexes={@ORM\index(name="internet", columns={"internetid"})})
  * @ORM\Entity(repositoryClass="Sociedad\SociosBundle\Entity\ContactosRepository")
  */
 
@@ -38,27 +39,33 @@ class Contactos {
 
     /**
      * @var string $email
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
     protected $email;
 
     /**
      * @var string $nombre
-     * @ORM\Column(name="nombre", type="string", length=255)
+     * @ORM\Column(name="nombre", type="string", length=255, nullable=true)
      */
     protected $nombre;
     
     /**
      * @var string $fijo
-     * @ORM\Column(name="fijo", type="string", length=9)
+     * @ORM\Column(name="fijo", type="string", length=9, nullable=true)
      */
     protected $fijo;
     
     /**
      * @var string $movil
-     * @ORM\Column(name="movil", type="string", length=9)
+     * @ORM\Column(name="movil", type="string", length=9, nullable=true)
      */
     protected $movil;
+
+    /**
+     * @var string $internetid
+     * @ORM\Column(name="internetid", type="string", length=100, nullable=true)
+     */
+    protected $internetid;
 
     /** 
      *  @ORM\ManyToOne(targetEntity="Socios")
@@ -236,5 +243,28 @@ class Contactos {
     public function getSocios()
     {
         return $this->socios;
+    }
+
+    /**
+     * Set internetid
+     *
+     * @param string $internetid
+     * @return Contactos
+     */
+    public function setInternetid($internetid)
+    {
+        $this->internetid = $internetid;
+    
+        return $this;
+    }
+
+    /**
+     * Get internetid
+     *
+     * @return string 
+     */
+    public function getInternetid()
+    {
+        return $this->internetid;
     }
 }

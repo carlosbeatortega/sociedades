@@ -43,18 +43,20 @@
         <tr>
           <td><strong>{{ form_label(edit_form.name) }}</strong></td>
           <td>{{ form_widget(edit_form.name) }}{{ form_errors(edit_form.name) }}</td>
-        </tr>
-        <tr>
-          <td><strong>{{ form_label(edit_form.username) }}</strong></td>
-          <td>{{ form_widget(edit_form.username) }}{{ form_errors(edit_form.username) }}</td>
           <td><strong>{{ form_label(edit_form.usernameCanonical) }}</strong></td>
           <td>{{ form_widget(edit_form.usernameCanonical) }}{{ form_errors(edit_form.usernameCanonical) }}</td>
         </tr>
         <tr>
-          <td><strong>{{ form_label(edit_form.email) }}</strong></td>
-          <td>{{ form_widget(edit_form.email) }}{{ form_errors(edit_form.email) }}</td>
+          <td><strong>{{ form_label(edit_form.username) }}</strong></td>
+          <td>{{ form_widget(edit_form.username) }}{{ form_errors(edit_form.username) }}</td>
           <td><strong>{{ form_label(edit_form.emailCanonical) }}</strong></td>
           <td>{{ form_widget(edit_form.emailCanonical) }}{{ form_errors(edit_form.emailCanonical) }}</td>
+        </tr>
+        <tr>
+          <td><strong>{{ form_label(edit_form.email) }}</strong></td>
+          <td>{{ form_widget(edit_form.email) }}{{ form_errors(edit_form.email) }}</td>
+          <td><strong>{{ form_label(edit_form.passwordCanonical) }}</strong></td>
+          <td>{{ form_widget(edit_form.passwordCanonical) }}{{ form_errors(edit_form.passwordCanonical) }}</td>
         </tr>
         <tr>
           <td><strong>{{ form_label(edit_form.enabled) }}</strong></td>

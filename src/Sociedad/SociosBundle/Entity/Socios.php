@@ -73,9 +73,16 @@ class Socios extends BaseUser
     /**
      * @var string $numero_cuenta
      *
-     * @ORM\Column(name="numero_cuenta", type="string", length=20)
+     * @ORM\Column(name="numero_cuenta", type="string", length=20,nullable=true)
      */
     protected $numero_cuenta;
+
+    /**
+     * @var string $passwordCanonical
+     *
+     * @ORM\Column(name="passwordCanonical", type="string", length=100,nullable=true)
+     */
+    protected $passwordCanonical;
     
     /** @ORM\ManyToOne(targetEntity="Sociedad\SociedadesBundle\Entity\Sociedades") */
     protected $sociedades;
@@ -380,5 +387,28 @@ class Socios extends BaseUser
     public function getReservas()
     {
         return $this->reservas;
+    }
+
+    /**
+     * Set passwordCanonical
+     *
+     * @param string $passwordCanonical
+     * @return Socios
+     */
+    public function setPasswordCanonical($passwordCanonical)
+    {
+        $this->passwordCanonical = $passwordCanonical;
+    
+        return $this;
+    }
+
+    /**
+     * Get passwordCanonical
+     *
+     * @return string 
+     */
+    public function getPasswordCanonical()
+    {
+        return $this->passwordCanonical;
     }
 }
