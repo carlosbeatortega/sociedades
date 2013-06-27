@@ -51,13 +51,13 @@ class Contactos {
     
     /**
      * @var string $fijo
-     * @ORM\Column(name="fijo", type="string", length=9, nullable=true)
+     * @ORM\Column(name="fijo", type="string", length=20, nullable=true)
      */
     protected $fijo;
     
     /**
      * @var string $movil
-     * @ORM\Column(name="movil", type="string", length=9, nullable=true)
+     * @ORM\Column(name="movil", type="string", length=20, nullable=true)
      */
     protected $movil;
 

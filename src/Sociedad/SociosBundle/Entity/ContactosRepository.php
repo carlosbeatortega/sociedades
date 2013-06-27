@@ -12,6 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class ContactosRepository extends EntityRepository
 {
+    public function contactosSocio($idsocio,$internetid)
+    {
+        
+        $consulta=$this->getEntityManager()
+                    ->createQuery('SELECT c FROM  Sociedad\SociosBundle\Entity\Contactos c
+                                         WHERE c.socios_id=:id
+                                         and c.internetid=:google');
+            
+        $consulta->setParameter('id', $idsocio);
+        $consulta->setParameter('google', $internetid);
+        $consulta->useResultCache(true, 3600);
+        
+        return $consulta->getResult();
+        
+    }    
+
+    
+    
 }
 
 ?>

@@ -233,6 +233,9 @@ class DefaultController extends Controller
         foreach($feed as $entry){
             $obj = new \stdClass;
             $obj->edit = $entry->getEditLink()->href;
+            $temp = explode('/', $obj->edit);
+            $idunico = $temp[8];
+            
             $apoyo=$entry->getXML();
             $xml = simplexml_load_string($entry->getXML());
             $obj->name = (string) $entry->title;
@@ -249,9 +252,38 @@ class DefaultController extends Controller
             foreach ($xml->website as $w) {
             $obj->website[] = (string) $w['href'];
             }
-//            $obj->i_unico = (string) $xml->externo->i_unico;
+            $contacto = $em->getRepository('SociedadSociosBundle:Contactos')->contactosSocio($userManager->getId(),$idunico);
+            if(!$contacto){
+                $contacto  = new Contactos();
+                $contacto->setSocios($userManager);
+                $contacto->setSociedadesId($userManager->getSociedadesId());
+                $contacto->setInternetid($idunico);
+            }else{
+                $contacto=$contacto[0];
+            }
+            
+            $contacto->setNombre($obj->name);
+            foreach ($xml->email as $e) {
+                $contacto->setEmail((string) $e['address']);
+                break;
+            }
+            $contador=0;
+            foreach ($xml->phoneNumber as $p) {
+                if($contador==0){
+                    $contacto->setMovil((string) $p);
+                }
+                if($contador==1){
+                    $contacto->setFijo((string) $p);
+                }
+                $contador++;
+            }
+            $em->persist($contacto);
+            $em->flush();
+            
             $results[] = $obj; 
         }
+        return $this->redirect($this->generateUrl('contactos'));      
+        
         $response = new Response(json_encode($results));
         $response->headers->set('Content-Type', 'application/json; charset=utf-8');
         return $response;

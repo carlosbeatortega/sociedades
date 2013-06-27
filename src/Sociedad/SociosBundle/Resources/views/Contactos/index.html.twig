@@ -1,6 +1,6 @@
 {% extends "SociedadSociedadesBundle::layout.html.twig" %}
 {% block content %}
-  <div class="span5">
+  <div class="span6">
     <h3>Contactos</h3>
     <form action="{{ path('contactos_activa') }}" method="get" id="f_Invita">
         <input type="submit" value="{{'Invitar'|trans}}" class="btn" style="float: right"/>
@@ -10,6 +10,7 @@
         <table id="tablaprincipal" class="tablagrid contactos table table-striped">
             <thead>
                 <tr>
+                    {{ linkInterno("",{ "id" : "colNombre","class":"span1","texto":"Editar"},'','',"th")|raw }}
                     {{ linkInterno("",{ "id" : "colNombre","class":"span5","texto":"Nombre"},'','',"th")|raw }}
                     {{ linkInterno("",{ "id" : "colEmail","class":"span5","texto":"Email"},'','',"th")|raw }}
                     {{ linkInterno("",{ "id" : "colEmail","class":"span5","texto":"Fijo"},'','',"th")|raw }}
@@ -20,11 +21,12 @@
             <tbody>
             {% for entity in entities %}
                 <tr>
-                    {{ linkInterno("sociedad_edit",{"entity_id" : "entity.id","name":"Nombre","classa":"editSociedad" })|raw }}
+                    {{ linkInterno("contactos_edit",{"entity_id" : "entity.id","name":"Nombre","classa":"editSociedad" })|raw }}
                     {{ linkInterno("",{"name":"nombre","class":"posicionr","texto":'entity.nombre'})|raw }} 
                     {{ linkInterno("",{"name":"email","class":"posicionr","texto":'entity.email'})|raw }} 
                     {{ linkInterno("",{"name":"fijo","class":"posicionr","texto":'entity.fijo'})|raw }} 
                     {{ linkInterno("",{"name":"movil","class":"posicionr","texto":'entity.movil'})|raw }} 
+                    {{ linkInterno("",{"align":"center","headers":"colSel","class":"porcentaje3","name":{"chequear_":"entity.id"},"valuea":"entity.id","type":"checkbox" },'','')|raw }}
                 </tr>
             {% endfor %}
             </tbody>
