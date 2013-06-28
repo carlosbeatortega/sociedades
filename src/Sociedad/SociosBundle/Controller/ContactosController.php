@@ -103,6 +103,8 @@ class ContactosController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
+            $userManager = $this->get('security.context')->getToken()->getUser();
+            $entity->setSocios($userManager);
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -125,6 +127,7 @@ class ContactosController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $userManager = $this->get('security.context')->getToken()->getUser();
 
         $entity = $em->getRepository('SociedadSociosBundle:Contactos')->find($id);
 
@@ -137,6 +140,7 @@ class ContactosController extends Controller
 
         return array(
             'entity'      => $entity,
+            'socio'       => $userManager,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -181,14 +185,15 @@ class ContactosController extends Controller
      * Deletes a Contactos entity.
      *
      * @Route("/{id}/delete", name="contactos_delete")
-     * @Method("POST")
+     * @Method("GET")
      */
     public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
         $form->bind($request);
 
-        if ($form->isValid()) {
+//        if ($form->isValid()) {
+          if(true){  
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('SociedadSociosBundle:Contactos')->find($id);
 

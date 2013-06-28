@@ -17,7 +17,6 @@ class ContactosType extends AbstractType
             ->add('nombre')
             ->add('fijo')
             ->add('movil')
-            ->add('socios')
         ;
     }
 

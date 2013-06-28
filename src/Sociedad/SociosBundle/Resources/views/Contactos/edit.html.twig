@@ -1,22 +1,48 @@
-<h1>Contactos edit</h1>
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span6">
+        <h2>{{ socio.name }} </h2>  
 
-<form action="{{ path('contactos_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit">Edit</button>
-    </p>
-</form>
-
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('contactos') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('contactos_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
+        <form action="{{ path('contactos_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+            {{ form_errors(edit_form) }}
+            <h2> {{ 'Edición de Contactos'|trans }} </h2>
+            <table class="sin_relleno">
+              <tr>
+                <td><strong>{{ form_label(edit_form.nombre) }}</strong></td>
+                <td>{{ form_widget(edit_form.nombre) }}{{ form_errors(edit_form.nombre) }}</td>
+              </tr>
+              <tr>
+                <td><strong>{{ form_label(edit_form.email) }}</strong></td>
+                <td>{{ form_widget(edit_form.email) }}{{ form_errors(edit_form.email) }}</td>
+              </tr>
+              <tr>
+                <td><strong>{{ form_label(edit_form.fijo) }}</strong></td>
+                <td>{{ form_widget(edit_form.fijo) }}{{ form_errors(edit_form.fijo) }}</td>
+              </tr>
+              <tr>
+                <td><strong>{{ form_label(edit_form.movil) }}</strong></td>
+                <td>{{ form_widget(edit_form.movil) }}{{ form_errors(edit_form.movil) }}</td>
+              </tr>
+            </table>
+              {{ form_rest(edit_form) }}
+            <br/>
+            <table class="record_actions">
+                <tr>
+                    <button class="btn botonesseparados" type="submit">{{ 'Grabar'|trans }}</button>
+                </tr>
+                <tr>
+                    <a onclick='preguntarSiNo("form_delete","{{ 'Va a eliminar el Contacto. ¿Desea continuar?'|trans }}","{{ path('contactos_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados">{{'Borrar'|trans}}</a>
+                </tr>
+                <tr>
+                    <a class="btn botonesseparados" href="{{ path('contactos') }}">
+                        {{ 'Contactos'|trans }}
+                    </a>
+                </tr>
+            </table>
         </form>
-    </li>
-</ul>
+    </div>
+  <div id="dialog-Borrar-reserva" title="¿Eliminar la Contacto?">
+        <p><span  style="float: left; margin: 0 7px 20px 0;"></span></p>
+  </div>
+{% endblock content %}
+
