@@ -72,10 +72,19 @@ class ContactosController extends Controller
     public function newAction()
     {
         $entity = new Contactos();
+        $userManager = $this->get('security.context')->getToken()->getUser();
+        $sociedades_id=$userManager->getSociedadesId();
+        $em = $this->getDoctrine()->getManager();
+        $entity->setSocios($userManager);
+        $entity->setSociedadesId($sociedades_id);
+        $entity->setSociosId($userManager->getId());
+
+        
         $form   = $this->createForm(new ContactosType(), $entity);
 
         return array(
             'entity' => $entity,
+            'socio' => $userManager,
             'form'   => $form->createView(),
         );
     }
@@ -98,7 +107,7 @@ class ContactosController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('contactos_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('contactos'));
         }
 
         return array(

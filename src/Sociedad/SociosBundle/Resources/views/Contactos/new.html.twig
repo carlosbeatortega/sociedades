@@ -1,16 +1,41 @@
-<h1>Contactos creation</h1>
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block content %}
+  <div class="span6">
+        <h2>{{ socio.name }} </h2>  
 
-<form action="{{ path('contactos_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
+        <form action="{{ path('contactos_create') }}" method="post" {{ form_enctype(form) }}>
+          {{ form_errors(form) }}
+           <h2> {{ 'Alta de Contactos'|trans }} </h2>
+           <table class="sin_relleno">
+            <tr>
+              <td><strong>{{ form_label(form.nombre) }}</strong></td>
+              <td>{{ form_widget(form.nombre) }}{{ form_errors(form.nombre) }}</td>
+            </tr>
+            <tr>
+              <td><strong>{{ form_label(form.email) }}</strong></td>
+              <td>{{ form_widget(form.email) }}{{ form_errors(form.email) }}</td>
+            </tr>
+            <tr>
+              <td><strong>{{ form_label(form.fijo) }}</strong></td>
+              <td>{{ form_widget(form.fijo) }}{{ form_errors(form.fijo) }}</td>
+            </tr>
+            <tr>
+              <td><strong>{{ form_label(form.movil) }}</strong></td>
+              <td>{{ form_widget(form.movil) }}{{ form_errors(form.movil) }}</td>
+            </tr>
+           </table>
+           {{ form_rest(form) }}
+            <table class="record_actions">
+                <tr>
+                    <button class="btn botonesseparados" type="submit">{{ 'Grabar'|trans }}</button>
+                </tr>
+                <tr>
+                    <a class="btn botonesseparados" href="{{ path('contactos') }}">
+                        {{ 'Contactos'|trans }}
+                    </a>
+                </tr>
+            </table>
+        </form>
+    </div>
+{% endblock content %}
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('contactos') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>

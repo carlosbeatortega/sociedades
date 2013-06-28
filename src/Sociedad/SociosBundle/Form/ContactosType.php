@@ -11,8 +11,8 @@ class ContactosType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('sociedades_id')
-            ->add('socios_id')
+            ->add('sociedades_id', 'hidden')
+            ->add('socios_id', 'hidden')
             ->add('email')
             ->add('nombre')
             ->add('fijo')
@@ -30,6 +30,6 @@ class ContactosType extends AbstractType
 
     public function getName()
     {
-        return 'sociedad_sociosbundle_contactostype';
+        return 'registro_de_contactos';
     }
 }
