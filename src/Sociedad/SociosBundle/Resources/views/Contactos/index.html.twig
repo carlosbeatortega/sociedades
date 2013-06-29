@@ -3,9 +3,12 @@
   <div class="span6">
     <h3>Contactos</h3>
     <form action="{{ path('contactos_activa') }}" method="get" id="f_Invita">
-        <input type="submit" value="{{'Invitar'|trans}}" class="btn" style="float: right"/>
-        <div style="clear:both"></div>
-        <br/>
+        {% if app.session.get('reservaid') %}
+            Dia {{ app.session.get('hoy') }} Hora {{ app.session.get('turno') }}
+            <input type="submit" value="{{'Invitar'|trans}}" class="btn" style="float: right"/>
+            <div style="clear:both"></div>
+            <br/>
+        {% endif %}
 
         <table id="tablaprincipal" class="tablagrid contactos table table-striped">
             <thead>

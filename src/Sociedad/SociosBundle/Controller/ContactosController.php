@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sociedad\SociosBundle\Entity\Contactos;
+use Sociedad\ReservasBundle\Entity\Invitados;
 use Sociedad\SociosBundle\Form\ContactosType;
 
 /**
@@ -229,19 +230,26 @@ class ContactosController extends Controller
 //            return $this->indexAction();
             return $this->redirect($this->generateUrl('contactos'));
         }
-        
-        $apo=serialize($apo1);
         $em = $this->getDoctrine()->getEntityManager();
+        $session = $this->get('request')->getSession();
+        $userManager = $this->get('security.context')->getToken()->getUser();        
+        $apo=serialize($apo1);
         $entities = $em->getRepository('SociedadSociedadesBundle:Sociedades')->sociedadesActivas($this->container->getParameter('sociedad.defecto'));
+        $reservas = $em->getRepository('SociedadReservasBundle:Reservas')->find($session->get('reservaid'));
         
-        $datos = array();
-        foreach($apo1 as $idsocio){
-          $datos[] = $em->getRepository('SociedadSociosBundle:Socios')->find($idsocio);  
+        foreach($apo1 as $idcontacto){
+          $existe = $em->getRepository('SociedadReservasBundle:Invitados')->findby(array('reservas_id'=>$session->get('reservaid'),'contactos_id'=>$idcontacto));  
+          if(!$existe){
+            $dato = $em->getRepository('SociedadSociosBundle:Contactos')->find($idcontacto);  
+            $entity  = new Invitados();
+            $entity->setContacto($dato);
+            $entity->setReserva($reservas);
+            $entity->setSociosId($userManager->getId());
+            $entity->setSociedadesId($userManager->getSociedadesId());
+            $em->persist($entity);
+            $em->flush();
+          }
         }
-        
-        return $this->render('SociedadSociosBundle:Socios:invitacion.html.twig', array(
-            'entities' => $entities,'socios'=>$apo, 'datos' => $datos
-        ));
-        
+        return $this->redirect($this->generateUrl('reservas_edit',array('id' => $session->get('reservaid'))));
     }
 }
