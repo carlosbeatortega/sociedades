@@ -2,6 +2,7 @@
 
 namespace Sociedad\SociosBundle\Entity;
 use Sociedad\SociosBundle\Entity\Socios;
+use Sociedad\ReservasBundle\Entity\Invitados;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -73,6 +74,10 @@ class Contactos {
      */
     protected $socios;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Sociedad\ReservasBundle\Entity\Invitados", mappedBy="contacto", cascade={"remove"})
+     */
+    private $invitados;
 
     /**
      * Get id
@@ -266,5 +271,45 @@ class Contactos {
     public function getInternetid()
     {
         return $this->internetid;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->invitados = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add invitados
+     *
+     * @param \Sociedad\ReservasBundle\Entity\Invitados $invitados
+     * @return Contactos
+     */
+    public function addInvitado(\Sociedad\ReservasBundle\Entity\Invitados $invitados)
+    {
+        $this->invitados[] = $invitados;
+    
+        return $this;
+    }
+
+    /**
+     * Remove invitados
+     *
+     * @param \Sociedad\ReservasBundle\Entity\Invitados $invitados
+     */
+    public function removeInvitado(\Sociedad\ReservasBundle\Entity\Invitados $invitados)
+    {
+        $this->invitados->removeElement($invitados);
+    }
+
+    /**
+     * Get invitados
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInvitados()
+    {
+        return $this->invitados;
     }
 }

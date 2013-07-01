@@ -60,18 +60,18 @@ class Invitados
      */
     protected $acepta;
 
-     /**
-     * @ORM\ManyToOne(targetEntity="Sociedad\ReservasBundle\Entity\Reservas", inversedBy="invitados", cascade={"remove"})
+    /**
+     * @ORM\ManyToOne(targetEntity="Sociedad\ReservasBundle\Entity\Reservas", inversedBy="invitados")
      * @ORM\JoinColumn(name="reservas_id", referencedColumnName="id")
      */
     protected $reserva;    
-    
-     /**
-     * @ORM\ManyToOne(targetEntity="Sociedad\SociosBundle\Entity\Contactos", inversedBy="invitados", cascade={"remove"})
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Sociedad\SociosBundle\Entity\Contactos", inversedBy="invitados")
      * @ORM\JoinColumn(name="contactos_id", referencedColumnName="id")
      */
     protected $contacto;    
-    
+
     public function __construct()
     {
         $this->acepta = false;

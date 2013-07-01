@@ -5,12 +5,14 @@ namespace Sociedad\ReservasBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Sociedad\SociosBundle\Entity\Socios;
 use Sociedad\ReservasBundle\Entity\MesasReservadas;
+use Sociedad\ReservasBundle\Entity\Invitados;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Sociedad\ReservasBundle\Entity\Reservas
  *
  * @ORM\Table(name="reservas")
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="reservas",indexes={@ORM\index(name="customer_idx", columns={"sociedades_id"})})
  * @ORM\Entity(repositoryClass="Sociedad\ReservasBundle\Entity\ReservasRepository")
  */
@@ -51,6 +53,12 @@ class Reservas
      * @ORM\Column(name="fechahasta", type="date", nullable=false)
      */
     protected $fechahasta;
+    /**
+     * @var string $fechamodi
+     *
+     * @ORM\Column(name="fechamodi", type="datetime", nullable=false)
+     */
+    protected $fechamodi;
 
     /**
      * @var string $comida
@@ -90,6 +98,11 @@ class Reservas
      */
     private $mesasreservadas;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Sociedad\ReservasBundle\Entity\Invitados", mappedBy="reserva", cascade={"remove"})
+     */
+    private $invitados;
+    
 
     /**
      * Constructor
@@ -97,6 +110,7 @@ class Reservas
     public function __construct()
     {
         $this->mesasreservadas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->fechamodi= new \DateTime();
     }
     
     /**
@@ -347,5 +361,70 @@ class Reservas
     public function getSociedadesId()
     {
         return $this->sociedades_id;
+    }
+
+    /**
+     * Add invitados
+     *
+     * @param \Sociedad\ReservasBundle\Entity\Invitados $invitados
+     * @return Reservas
+     */
+    public function addInvitado(\Sociedad\ReservasBundle\Entity\Invitados $invitados)
+    {
+        $this->invitados[] = $invitados;
+    
+        return $this;
+    }
+
+    /**
+     * Remove invitados
+     *
+     * @param \Sociedad\ReservasBundle\Entity\Invitados $invitados
+     */
+    public function removeInvitado(\Sociedad\ReservasBundle\Entity\Invitados $invitados)
+    {
+        $this->invitados->removeElement($invitados);
+    }
+
+    /**
+     * Get invitados
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInvitados()
+    {
+        return $this->invitados;
+    }
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setFechamodiValue()
+    {
+        date_default_timezone_set('Europe/Madrid');     
+        $this->fechamodi= new \DateTime(date(DATE_ATOM, strtotime(date('Y-m-d H:i:s'))));
+    }    
+
+    /**
+     * Set fechamodi
+     *
+     * @param \DateTime $fechamodi
+     * @return Reservas
+     */
+    public function setFechamodi($fechamodi)
+    {
+        $this->fechamodi = $fechamodi;
+    
+        return $this;
+    }
+
+    /**
+     * Get fechamodi
+     *
+     * @return \DateTime 
+     */
+    public function getFechamodi()
+    {
+        return $this->fechamodi;
     }
 }

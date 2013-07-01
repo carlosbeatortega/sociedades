@@ -236,7 +236,7 @@ class ContactosController extends Controller
         $apo=serialize($apo1);
         $entities = $em->getRepository('SociedadSociedadesBundle:Sociedades')->sociedadesActivas($this->container->getParameter('sociedad.defecto'));
         $reservas = $em->getRepository('SociedadReservasBundle:Reservas')->find($session->get('reservaid'));
-        
+        $hemodificado=false;
         foreach($apo1 as $idcontacto){
           $existe = $em->getRepository('SociedadReservasBundle:Invitados')->findby(array('reservas_id'=>$session->get('reservaid'),'contactos_id'=>$idcontacto));  
           if(!$existe){
@@ -248,6 +248,11 @@ class ContactosController extends Controller
             $entity->setSociedadesId($userManager->getSociedadesId());
             $em->persist($entity);
             $em->flush();
+            $hemodificado=true;
+          }
+          if($hemodificado){
+            $em->persist($reservas);
+            $em->flush();              
           }
         }
         return $this->redirect($this->generateUrl('reservas_edit',array('id' => $session->get('reservaid'))));

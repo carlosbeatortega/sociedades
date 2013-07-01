@@ -12,4 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class InvitadosRepository extends EntityRepository
 {
+    public function InvitadosEmail($idreserva)
+    {
+        
+        $consulta=$this->getEntityManager()
+                    ->createQuery('SELECT c.internetid,c.email FROM  Sociedad\ReservasBundle\Entity\Invitados i
+                                         JOIN i.contacto c
+                                         WHERE i.reservas_id=:id and c.internetid is not null and c.email is not null');
+            
+        $consulta->setParameter('id', $idreserva);
+        $consulta->useResultCache(true, 3600);
+        
+        return $consulta->getResult();
+        
+    }    
+    
 }

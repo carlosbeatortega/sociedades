@@ -37,10 +37,10 @@ class DefaultController extends Controller
     if (!$userManager) {
         throw $this->createNotFoundException('Imposible encontrar socio.');
     }
-    
-    $usuario=$userManager->getSociedades()->getEmail();
-    $pass=$userManager->getSociedades()->getPassword();
-    $idcalendario=$userManager->getSociedades()->getCalendario();
+    $Sociedades=$userManager->getSociedades();
+    $usuario=$Sociedades->getEmail();
+    $pass=$Sociedades->getPassword();
+    $idcalendario=$Sociedades->getCalendario();
     $reservas = $em->getRepository('SociedadReservasBundle:Reservas')->TodasReservasFuturas($userManager->getSociedadesId());
       
     
@@ -61,14 +61,21 @@ class DefaultController extends Controller
         $eventos[$contador]['id']=(is_null($reserva->getCalendarid())) ? '' : $reserva->getCalendarid();
         $eventos[$contador]['start']=$reserva->getFechadesde()->format('Y-m-d H:i:s');
         $eventos[$contador]['end']=$reserva->getFechahasta()->format('Y-m-d H:i:s');
-        $eventos[$contador]['titulo']=$reserva->getComida();
-        $eventos[$contador]['descripcion']='Invitación para '.$reserva->getComida().' día '.$eventos[$contador]['start'];
+        $eventos[$contador]['titulo']=$reserva->getComida().' en '.$Sociedades->getNombre();
+        $eventos[$contador]['descripcion']=$userManager->getName().' te invita a la '.$reserva->getComida().' día '.$eventos[$contador]['start'].' en '.$Sociedades->getNombre();
         $eventos[$contador]['i_unico']=$reserva->getId();
-        $eventos[$contador]['lugar']=$userManager->getSociedades()->getDireccion();
+        $eventos[$contador]['lugar']=$Sociedades->getDireccion();
         $eventos[$contador]['email']=$reserva->getCalendario();
-        $eventos[$contador]['contac_id']='';
-        $eventos[$contador]['gmail_id']='';
-        $eventos[$contador]['modificado']='';
+        $invitados = $em->getRepository('SociedadReservasBundle:Invitados')->InvitadosEmail($reserva->getId());
+        $contai=0;
+        foreach ($invitados as $invitado){
+            if(!empty($invitado['internetid']) && !empty($invitado['email'])){
+                $eventos[$contador]['contac_id'][$contai][0]=$invitado['email'];
+                $eventos[$contador]['contac_id'][$contai][1]=$invitado['internetid'];
+                $contai++;
+            }
+        }
+        $eventos[$contador]['modificado']=$reserva->getFechamodi();
         switch ($reserva->getComida()) {
             case 'Desayuno':
                 $eventos[$contador]['start']=  str_replace("00:00:00", "08:00:00", $eventos[$contador]['start']);
@@ -131,11 +138,12 @@ class DefaultController extends Controller
         date_default_timezone_set('Europe/Madrid');
         $e['start'] = date(DATE_ATOM, strtotime($e['start']));
         $e['end'] = date(DATE_ATOM, strtotime($e['end']));
-        $e['modificado']= date(DATE_ATOM, strtotime($e['modificado']));
+        //$e['modificado']= date(DATE_ATOM, strtotime($e['modificado']));
         if($e['id'] == ''){
           $evento = gCalendar::crearEvento($e, $gcal,null,$usuario,$modo,$minutos);
           if($evento){
             $eventos[$i]['id'] = gCalendar::getIdEvento($evento);
+            $resultado = $em->getRepository('SociedadReservasBundle:Reservas')->modificaGoogleId($eventos[$i]['i_unico'],$eventos[$i]['id']);        
           }
         }
         //editar una visita en google
@@ -143,12 +151,12 @@ class DefaultController extends Controller
           $evento = gCalendar::obtenerEvento($e['id'], $gcal, $idcalendario, false,$e['modificado']);
           if($evento){
             gCalendar::editarEvento($e, $gcal, $evento,$usuario);
+            $resultado = $em->getRepository('SociedadReservasBundle:Reservas')->modificaGoogleId($eventos[$i]['i_unico'],$eventos[$i]['id']);        
           }
           else{
               $eventos[$i]['id']="";
           }
         }
-        $resultado = $em->getRepository('SociedadReservasBundle:Reservas')->modificaGoogleId($eventos[$i]['i_unico'],$eventos[$i]['id']);        
       }
         $reservaid = $this->get('request')->getSession()->get('reservaid');
         if($reservaid){

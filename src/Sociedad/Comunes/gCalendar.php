@@ -137,14 +137,23 @@ class gCalendar {
             $when->reminders=array($reminder);
         }
 
-        $attendeeA = $gcal->newWho($myEmail, null, null,
-            $gcal->newAttendeeStatus('http://schemas.google.com/g/2005#event.accepted'));
-        if(empty($datos['contac_id']) || empty($datos['email']) || empty($datos['gmail_id'])){
+        if(empty($datos['contac_id']) || empty($datos['email']) ){
+            $attendeeA = $gcal->newWho($myEmail, null, null,
+                $gcal->newAttendeeStatus('http://schemas.google.com/g/2005#event.accepted'));
             $event->who = array($attendeeA);        
-        }else{
-            $attendeeB = $gcal->newWho($datos['email'], null, $datos['gmail_id'],
-                $gcal->newAttendeeStatus('http://schemas.google.com/g/2005#event.invited'));
-            $event->who = array($attendeeA, $attendeeB);        
+         }else{
+            $invited=array();
+            $attendeeA = $gcal->newWho($myEmail, null, null,
+                $gcal->newAttendeeStatus('http://schemas.google.com/g/2005#event.accepted'));
+            $invited[]=$attendeeA;
+            foreach($datos['contac_id'] as $adatos){
+                    if($adatos){
+                        $attendeeB = $gcal->newWho($adatos[0], null, $adatos[1],
+                            $gcal->newAttendeeStatus('http://schemas.google.com/g/2005#event.invited'));
+                        $invited[]=$attendeeB;
+                    }
+                }
+            $event->who = $invited;        
         }
         $newEvent = $gcal->insertEvent($event,$url); 
       }catch (Zend_Gdata_App_Exception $e) {
@@ -167,17 +176,32 @@ class gCalendar {
             $event->where = array($where);
         }
         $event->content = $gcal->newContent($datos['descripcion']);
-//        $who=$gcal->newWho();
-//        $who->setEmail($datos['email']);
-//        $event->setWho(array($who));
-        $attendeeA = $gcal->newWho($myEmail, null, null,
-            $gcal->newAttendeeStatus('http://schemas.google.com/g/2005#event.accepted'));
-        if(empty($datos['contac_id']) || empty($datos['email']) || empty($datos['gmail_id'])){
-            $event->who = array($attendeeA); 
-        }else{
-            $attendeeB = $gcal->newWho($datos['email'], null, $datos['gmail_id'],
-                $gcal->newAttendeeStatus('http://schemas.google.com/g/2005#event.invited'));
-            $event->who = array($attendeeA, $attendeeB);        
+//        $attendeeA = $gcal->newWho($myEmail, null, null,
+//            $gcal->newAttendeeStatus('http://schemas.google.com/g/2005#event.accepted'));
+//        if(empty($datos['contac_id']) || empty($datos['email']) || empty($datos['gmail_id'])){
+//            $event->who = array($attendeeA); 
+//        }else{
+//            $attendeeB = $gcal->newWho($datos['email'], null, $datos['gmail_id'],
+//                $gcal->newAttendeeStatus('http://schemas.google.com/g/2005#event.invited'));
+//            $event->who = array($attendeeA, $attendeeB);        
+//        }
+        if(empty($datos['contac_id']) || empty($datos['email']) ){
+            $attendeeA = $gcal->newWho($myEmail, null, null,
+                $gcal->newAttendeeStatus('http://schemas.google.com/g/2005#event.accepted'));
+            $event->who = array($attendeeA);        
+         }else{
+            $invited=array();
+            $attendeeA = $gcal->newWho($myEmail, null, null,
+                $gcal->newAttendeeStatus('http://schemas.google.com/g/2005#event.accepted'));
+            $invited[]=$attendeeA;
+            foreach($datos['contac_id'] as $adatos){
+                    if($adatos){
+                        $attendeeB = $gcal->newWho($adatos[0], null, $adatos[1],
+                            $gcal->newAttendeeStatus('http://schemas.google.com/g/2005#event.invited'));
+                        $invited[]=$attendeeB;
+                    }
+                }
+            $event->who = $invited;        
         }
         $event->save();   
       }catch (Zend_Gdata_App_Exception $e) {
