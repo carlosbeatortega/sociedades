@@ -29,7 +29,12 @@
                     {{ linkInterno("",{"name":"email","class":"posicionr","texto":'entity.email'})|raw }} 
                     {{ linkInterno("",{"name":"fijo","class":"posicionr","texto":'entity.fijo'})|raw }} 
                     {{ linkInterno("",{"name":"movil","class":"posicionr","texto":'entity.movil'})|raw }} 
-                    {{ linkInterno("",{"align":"center","headers":"colSel","class":"porcentaje3","name":{"chequear_":"entity.id"},"valuea":"entity.id","type":"checkbox" },'','')|raw }}
+                    {% set cadena="invitados["~entity.id ~"]" %}
+                    {% if myevaluateString(cadena) %}
+                        {{ linkInterno("",{"align":"center","headers":"colSel","class":"porcentaje3","name":{"chequear_":"entity.id"},"valuea":"entity.id","type":"checkbox", "checked":"1" },'','')|raw }}
+                    {% else %}
+                        {{ linkInterno("",{"align":"center","headers":"colSel","class":"porcentaje3","name":{"chequear_":"entity.id"},"valuea":"entity.id","type":"checkbox" },'','')|raw }}
+                    {% endif %}    
                 </tr>
             {% endfor %}
             </tbody>

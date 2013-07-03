@@ -27,16 +27,25 @@ class ContactosController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        $session = $this->get('request')->getSession();
+        $reservaid=$session->get('reservaid');
+        $invitados2=array();
         $userManager = $this->get('security.context')->getToken()->getUser();
         $socios_id=$userManager->getId();
 
         $entities = $em->getRepository('SociedadSociosBundle:Contactos')->findBy(array('socios_id'=>$socios_id));
         $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->findBy(array('id'=>$userManager->getSociedadesId()));
+        if($reservaid){
+            $invitados = $em->getRepository('SociedadReservasBundle:Invitados')->findBy(array('reservas_id'=>$reservaid));
+            foreach ($invitados as $invi) {
+                $invitados2[$invi->getContactosId()]=$invi->getId();                
+            }
+        }
 
         return array(
             'entities' => $entities,
-            'sociedades' => $sociedades
+            'sociedades' => $sociedades,
+            'invitados'  => $invitados2
         );
     }
 
@@ -251,6 +260,7 @@ class ContactosController extends Controller
             $hemodificado=true;
           }
           if($hemodificado){
+            $reservas->setFechamodiValue();
             $em->persist($reservas);
             $em->flush();              
           }

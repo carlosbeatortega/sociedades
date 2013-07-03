@@ -44,6 +44,9 @@ class GridExtension extends \Twig_Extension
                      'lineaEditable' => new \Twig_Function_Method($this, 'lineaEditable'),
                      'linkaEdita' => new \Twig_Function_Method($this, 'linkaEdita', array(
                          'needs_environment' => true,
+                         'needs_context'     => true)),
+                    'myevaluateString' => new \Twig_Function_Method($this, 'myevaluateString', array(
+                         'needs_environment' => true,
                          'needs_context'     => true)));
     }        
     public function replace_username($matches)
@@ -90,6 +93,7 @@ class GridExtension extends \Twig_Extension
         //uso en la plantilla
         //{{ linkInterno("tareas",{"idpagina":"query_pagina"},"Tareas")|raw }}
         $comienza=0;
+        $checked="";
         $ida="";
         $valuea="";
         $classa="";
@@ -298,10 +302,12 @@ class GridExtension extends \Twig_Extension
                     $valuea.=" value='".$valor."'";
                     $data.=" data-".$origen."=".$valor;
                     break;
-                case 'valign';
+                case 'valign':
                     $valign.=" value='".$valor."'";
                     $data.=" data-".$origen."=".$valor;
                     break;
+                case 'checked':
+                    $checked="checked";
             }
                     //$parametros[$cadaNombreParametro]="#";
             
@@ -321,14 +327,14 @@ class GridExtension extends \Twig_Extension
                 switch($salida){
                     case 'type':
                         if($td=='td'){
-                           $link = '<td '.$valign.' '.$id.' '.$class.' '.$align.' '.$headers.' '.$data.'><input '.' '.$type.' '.$name.' '.$valuea.' '.$classa.' '.$ida.' '.$center.'>' .$scr. $text . '</td>';   
+                           $link = '<td '.$valign.' '.$id.' '.$class.' '.$align.' '.$headers.' '.$data.'><input '.' '.$type.' '.$name.' '.$valuea.' '.$classa.' '.$ida.' '.$checked.' '.$center.'>' .$scr. $text . '</td>';   
                         }else{
                             $link = '<th '.$id.' '.$class.' '.$align.' '.$headers.' '.$data.'><input '.' '.$type.' '.$name.' '.$valuea.' '.$classa.' '.$ida.' '.$center.'>' . $text . '</th>';   
                         }
                         break;
                     default:
                         if($td=='td'){
-                            $link = '<td '.$valign.' '.$id.' '.$class.' '.$name.' '.$value.' '.$type.' '.$align.' '.$center.' '.$headers.' '.$data.'>'.$scr . $text . '</td>';
+                            $link = '<td '.$valign.' '.$id.' '.$class.' '.$name.' '.$value.' '.$type.' '.$checked.' '.$align.' '.$center.' '.$headers.' '.$data.'>'.$scr . $text . '</td>';
                         }else{
                             $link = '<th '.$id.' '.$class.' '.$name.' '.$value.' '.$type.' '.$align.' '.$center.' '.$headers.' '.$data.'>' . $text . '</th>';
                         }
@@ -336,7 +342,7 @@ class GridExtension extends \Twig_Extension
                 }
             }else{
                 if($td=='td'){
-                    $link = '<td '.$valign.' '.$id.' '.$class.' '.$name.' '.$value.' '.$type.' '.$align.' '.$center.' '.$headers.' '.$data.'>'.$scr . $text . '</td>';
+                    $link = '<td '.$valign.' '.$id.' '.$class.' '.$name.' '.$value.' '.$type.' '.$checked.' '.$align.' '.$center.' '.$headers.' '.$data.'>'.$scr . $text . '</td>';
                 }else {
                     $link = '<th '.$id.' '.$class.' '.$name.' '.$value.' '.$type.' '.$align.' '.$center.' '.$headers.' '.$data.'>' . $text . '</th>';
                 }
@@ -581,6 +587,9 @@ class GridExtension extends \Twig_Extension
         }
         return $valor;
     }
+    public function myevaluateString( \Twig_Environment $environment, $context, $string ) {
+        return $this->evaluateString($environment, $context, $string );
+    }
     public function evaluateString( \Twig_Environment $environment, $context, $string ) {
         $loader = $environment->getLoader( );
         $parsed = $this->parseString( $environment, $context, $string );
@@ -638,7 +647,22 @@ class GridExtension extends \Twig_Extension
                         }
                     }
                 }else{
-                    $retorno=$string;                                
+                    $apovar=explode("[", $string);
+                    $retorno=null;
+                    if(count($apovar)>1){
+                        try {
+                                $var1=$context[$apovar[0]];
+                                $var2=explode("]", $apovar[1]);
+                                if(isset($var1[$var2[0]])){
+                                    $retorno=$var1[$var2[0]];
+                                }
+                            } catch (Exception $exc) {
+                                $retorno=null;
+                            }
+                        }else{
+                            $retorno=$string;                                
+                    }
+                    
                 }            
         }
         

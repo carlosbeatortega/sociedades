@@ -91,6 +91,9 @@ _security_logout:
 externo:
     pattern:  /externo
     defaults: { _controller: SociedadGridBundle:Default:externo }
+interno:
+    pattern:  /interno
+    defaults: { _controller: SociedadGridBundle:Default:interno }
 calendarios:
     pattern:  /calendarios
     defaults: { _controller: SociedadGridBundle:Default:listacalendarios }

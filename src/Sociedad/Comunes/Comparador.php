@@ -1,5 +1,5 @@
 <?php
-namespace aner\posicionBundle\comunes;
+namespace Sociedad\Comunes;
 
 class Comparador
 {

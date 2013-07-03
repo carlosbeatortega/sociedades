@@ -158,18 +158,10 @@ class DefaultController extends Controller
           }
         }
       }
-        $reservaid = $this->get('request')->getSession()->get('reservaid');
-        if($reservaid){
-            return $this->redirect($this->generateUrl('reservas_edit',array('id'=>$reservaid)));      
-        }
     }
-    else{
-      //obtener listado de visitas de google a partir de la fecha de hoy
-      $eventos = array();
-      if($gcal){
-        $myfechaunmesatras=date(DATE_ATOM,strtotime('-1 month ',strtotime(date('Y-m-d'))));
-        $eventos = gCalendar::listaEventosArray($gcal,$idcalendario,$myfechaunmesatras,'',true);
-      }
+    $reservaid = $this->get('request')->getSession()->get('reservaid');
+    if($reservaid){
+        return $this->redirect($this->generateUrl('reservas_edit',array('id'=>$reservaid)));      
     }
     $response = new Response(json_encode($eventos));
 
@@ -178,6 +170,53 @@ class DefaultController extends Controller
     
     echo json_encode($eventos);
   }
+
+  public function internoAction(){
+      
+    $em = $this->getDoctrine()->getManager();
+    $userManager = $this->get('security.context')->getToken()->getUser();
+    if (!$userManager) {
+        throw $this->createNotFoundException('Imposible encontrar socio.');
+    }
+    $Sociedades=$userManager->getSociedades();
+    $usuario=$Sociedades->getEmail();
+    $pass=$Sociedades->getPassword();
+    $idcalendario=$Sociedades->getCalendario();
+    $eventos = array();
+    $contador = 0;
+    $modo = $this->get('request')->request->get('modo');
+    $minutos = $this->get('request')->request->get('minutos');
+    if($minutos=="0"){
+        $minutos="";
+    }
+   
+    if(!$idcalendario){
+        $idcalendario = 'default';
+    }
+    //$gCalendar = new \Zend_Gdata_Calendar(); 
+    $gcal = gCalendar::activarServicio($usuario, $pass);
+
+    //obtener listado de visitas de google a partir de la fecha de hoy
+    $eventos = array();
+    if($gcal){
+      $myfechaunmesatras=date(DATE_ATOM,strtotime('-1 month ',strtotime(date('Y-m-d'))));
+      $eventos = gCalendar::listaEventosArray($gcal,$idcalendario,$myfechaunmesatras,'',true);
+    }
+    $response = new Response(json_encode($eventos));
+
+    $reservaid = $this->get('request')->getSession()->get('reservaid');
+    if($reservaid){
+        return $this->redirect($this->generateUrl('reservas_edit',array('id'=>$reservaid)));      
+    }
+
+    $response->headers->set('Content-Type', 'application/json; charset=utf-8');
+    return $response;
+    
+    echo json_encode($eventos);
+  }
+  
+  
+  
   public function listacalendariosAction(){
     $usuario = $this->get('request')->request->get('usuario');
     $pass = $this->get('request')->request->get('password');
