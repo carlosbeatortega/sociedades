@@ -7,7 +7,7 @@
 * https://github.com/jonseg/mysql-search-replace
 *
 */
-namespace Aner\WebBundle\Comunes;
+namespace Sociedad\Comunes;
 
 class mysqlSearchAndReplace
 {

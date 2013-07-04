@@ -54,11 +54,18 @@ class Invitados
     protected $reservas_id;
 
     /**
-     * @var boolean $acepta
+     * @var string $acepta
      *
-     * @ORM\Column(name="acepta", type="boolean", nullable=false)
+     * @ORM\Column(name="acepta", type="string", length=20, nullable=false)
      */
     protected $acepta;
+
+    /**
+     * @var string $comentario
+     *
+     * @ORM\Column(name="comentario", type="string", length=255, nullable=true)
+     */
+    protected $comentario;
 
     /**
      * @ORM\ManyToOne(targetEntity="Sociedad\ReservasBundle\Entity\Reservas", inversedBy="invitados")
@@ -74,7 +81,7 @@ class Invitados
 
     public function __construct()
     {
-        $this->acepta = false;
+        $this->acepta = 'invitado';
     }
 
     /**
@@ -230,7 +237,7 @@ class Invitados
     /**
      * Set acepta
      *
-     * @param boolean $acepta
+     * @param string $acepta
      * @return Invitados
      */
     public function setAcepta($acepta)
@@ -243,10 +250,33 @@ class Invitados
     /**
      * Get acepta
      *
-     * @return boolean 
+     * @return string 
      */
     public function getAcepta()
     {
         return $this->acepta;
+    }
+
+    /**
+     * Set comentario
+     *
+     * @param string $comentario
+     * @return Invitados
+     */
+    public function setComentario($comentario)
+    {
+        $this->comentario = $comentario;
+    
+        return $this;
+    }
+
+    /**
+     * Get comentario
+     *
+     * @return string 
+     */
+    public function getComentario()
+    {
+        return $this->comentario;
     }
 }

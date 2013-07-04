@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="reservas")
  * @ORM\HasLifecycleCallbacks()
- * @ORM\Table(name="reservas",indexes={@ORM\index(name="customer_idx", columns={"sociedades_id"})})
+ * @ORM\Table(name="reservas",indexes={@ORM\index(name="sociedades_idx", columns={"sociedades_id"}),@ORM\index(name="calendario_idx", columns={"calendarid"})})
  * @ORM\Entity(repositoryClass="Sociedad\ReservasBundle\Entity\ReservasRepository")
  */
 class Reservas

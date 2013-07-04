@@ -392,6 +392,7 @@ class gCalendar {
         
         foreach($f->who as $w){
           $apo11=$w;
+          $apo13=$w->getRel();
           $evento['email'][$lncontador]=$w->email;             
           $arr=array();
           if($w->getAttendeeStatus()){
@@ -399,13 +400,25 @@ class gCalendar {
             if(!$param1){
                 $param1=preg_match_all('(accepted)', $w->getAttendeeStatus()->getValue(), $arr, PREG_PATTERN_ORDER);
                 if(!$param1){
-                    $arr[0][0]='accepted';
+                    $param1=preg_match_all('(declined)', $w->getAttendeeStatus()->getValue(), $arr, PREG_PATTERN_ORDER);
+                    if(!$param1){
+                        $arr[0][0]='accepted';
+                    }
                 }
             }
           }else{
               $arr[0][0]='accepted';
           }
           $evento['status'][$lncontador]=$arr[0][0];
+          
+          if($apo13){
+            $param1=preg_match_all('(organizer)', $apo13, $arr, PREG_PATTERN_ORDER);
+            if(!$param1){
+                   $arr[0][0]='attendee';
+                }
+            }
+          $evento['rol'][$lncontador]=$arr[0][0];
+          
           $lncontador++;
 //              $apo1=$f->getLink($w->rel);
         }

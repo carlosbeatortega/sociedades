@@ -202,13 +202,55 @@ class DefaultController extends Controller
       $myfechaunmesatras=date(DATE_ATOM,strtotime('-1 month ',strtotime(date('Y-m-d'))));
       $eventos = gCalendar::listaEventosArray($gcal,$idcalendario,$myfechaunmesatras,'',true);
     }
-    $response = new Response(json_encode($eventos));
+    foreach($eventos as $i => $e){
+        $id=  explode('#', $e['id']);
+        $reserva = $em->getRepository('SociedadReservasBundle:Reservas')->findBy(array('calendarid'=>$id[0]));
+        if(!$reserva){
+            continue;
+        }
+        date_default_timezone_set('Europe/Madrid');
+        $modificado=date(DATE_ATOM,strtotime($reserva[0]->getFechamodi()->format('Y-m-d H:i:s')));
+        if($modificado>$e['modificado']){
+            continue;
+        }
+        $modificado=false;
+        for($x=0;$x<count($e['email']);$x++){
+            if($e['rol'][$x]=="organizer"){
+                continue;
+            }
+            if($e['status'][$x]=="invited"){
+                continue;
+            }
+            $email=$e['email'][$x];
+            $contacto = $em->getRepository('SociedadSociosBundle:Contactos')->findBy(array('email'=>$email));
+            if(!$contacto){
+                continue;
+            }
+            $invitado = $em->getRepository('SociedadReservasBundle:Invitados')->findBy(array('reservas_id'=>$reserva[0]->getId(),'contactos_id'=>$contacto[0]->getId()));
+            if(!$invitado){
+                continue;
+            }
+            if($e['status'][$x]=='accepted'){
+                $invitado[0]->setAcepta('aceptado');
+            }else{
+                $invitado[0]->setAcepta('rechazado');
+            }
+            $modificado=true;
+        }
+        if($modificado){
+            $reserva[0]->setFechamodiValue();
+            $em->persist($reserva[0]);
+            $em->flush();                          
+        }
+    }
+
+    
 
     $reservaid = $this->get('request')->getSession()->get('reservaid');
     if($reservaid){
         return $this->redirect($this->generateUrl('reservas_edit',array('id'=>$reservaid)));      
     }
-
+    $response = new Response(json_encode($eventos));
     $response->headers->set('Content-Type', 'application/json; charset=utf-8');
     return $response;
     

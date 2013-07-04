@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Sociedad\SociosBundle\Entity\Contactos
  *
  * @ORM\Table(name="contactos")
- * @ORM\Table(name="contactos",indexes={@ORM\index(name="internet", columns={"internetid"})})
+ * @ORM\Table(name="contactos",indexes={@ORM\index(name="internet", columns={"internetid"}),@ORM\index(name="email", columns={"email"})})
  * @ORM\Entity(repositoryClass="Sociedad\SociosBundle\Entity\ContactosRepository")
  */
 
