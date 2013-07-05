@@ -17,6 +17,7 @@ class RegistrationController extends BaseController
         $sociedades =$em->getRepository('SociedadSociedadesBundle:Sociedades')->find($this->container->getParameter('sociedad.defecto'));
         $formHandler->SetSociedades($sociedades);
         $formHandler->SetDirImagenes($this->container->getParameter('sociedad.directorio.imagenes'));
+        $formHandler->SetImagenporDefecto($this->container->getParameter('sociedad.nofoto'));
         $process = $formHandler->process($confirmationEnabled);
         if ($process) {
             $user = $form->getData();
@@ -35,7 +36,8 @@ class RegistrationController extends BaseController
                 $response=new Response("");
                 $this->authenticateUser($user,$response);
                 $route = 'fos_user_registration_confirmed';
-            }
+                $route= 'invitadosIndex';
+             }
 
             $this->setFlash('fos_user_success', 'registration.flash.user_created');
             $url = $this->container->get('router')->generate($route);

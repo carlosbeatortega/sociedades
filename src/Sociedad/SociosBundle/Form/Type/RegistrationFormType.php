@@ -13,7 +13,7 @@ class RegistrationFormType extends BaseType
 
         // add your custom field
         $builder->add('name');
-        $builder->add('foto', 'file', array());
+        $builder->add('foto', 'file', array('required'=>false));
         $builder->add('dni');
         $builder->add('fechanacimiento', 'date', array(
                 'widget' => 'choice',    ));

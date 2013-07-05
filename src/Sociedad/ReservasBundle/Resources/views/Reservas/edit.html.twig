@@ -4,7 +4,9 @@
         <h2>{{ sociedades.nombre }} </h2>  
         <form action="{{ path('reservas_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
           {{ form_errors(edit_form) }}
-           <h2> {{ 'Edición de Reservas'|trans }} </h2>
+          <div class="row-fluid" >
+          <div class="span5" style="float: left;">
+            <h4> {{ 'Edición de Reservas'|trans }} </h4>
            <table class="sin_relleno">
             <tr>
               <td><strong>{{ form_label(edit_form.fechadesde) }}</strong></td>
@@ -24,7 +26,11 @@
             </tr>
            </table>
            {{ form_rest(edit_form) }}
+            </div>
+           {% include "SociedadReservasBundle:Reservas:invitados.html.twig" %}   
+          </div>
           <br/>
+          <div class="span12" style="clear:both">
             <table class="record_actions">
                 <tr>
                     <button class="btn botonesseparados" type="submit">{{ 'Grabar'|trans }}</button>
@@ -38,11 +44,6 @@
                     <a onclick='preguntarSiNo("form_delete","{{ 'Va a eliminar la Reserva. ¿Desea continuar?'|trans }}","{{ path('reservas_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados">{{'Borrar'|trans}}</a>
                 </tr>
                 <tr>
-                    <a class="btn botonesseparados" href="{{ path('contactos') }}">
-                        {{ 'Contactos'|trans }}
-                    </a>
-                </tr>
-                <tr>
                     <a class="btn botonesseparados" href="{{ path('externo') }}">
                         {{ 'Subir Google'|trans }}
                     </a>
@@ -53,6 +54,7 @@
                     </a>
                 </tr>
             </table>
+          </div>
         </form>
     <iframe src="https://www.google.com/calendar/embed?src={{ sociedades.email }}&ctz=Europe/Madrid" 
             style="border: 0" width="500" height="300" frameborder="0" scrolling="no"></iframe>    

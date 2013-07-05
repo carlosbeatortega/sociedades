@@ -233,6 +233,7 @@ class ReservasController extends Controller
         $misreservas = $em->getRepository('SociedadReservasBundle:Reservas')->reservaMesasPlantaSocioFecha($entity->getSociosId(),$entity->getFechadesde(),$entity->getComida(),$plantaid);
         $sinreservar = $em->getRepository('SociedadReservasBundle:MesasPlantas')->mesasNoReservadasFecha($entity->getSociedadesId(),$entity->getFechadesde(),$entity->getComida(),$plantaid);
 
+        $invitados = $em->getRepository('SociedadReservasBundle:Invitados')->InvitadosEmail($id);
         
         $editForm = $this->createForm(new ReservasType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
@@ -242,6 +243,7 @@ class ReservasController extends Controller
             'sociedades' => $sociedades,
             'plantas'=>$plantas,
             'plantafoto'=>$planta,
+            'invitados'=>$invitados,
             'misreservas'=>$misreservas,
             'sinreservar'=>$sinreservar,
             'edit_form'   => $editForm->createView(),

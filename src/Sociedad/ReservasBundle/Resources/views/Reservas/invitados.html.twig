@@ -1,0 +1,22 @@
+  <div class="span6" style="float: right">
+      <h4><a href="{{ path('contactos') }}"> {{ 'Invitados'|trans }} </a></h4>
+  <div class="span6 lamismaltura" style="overflow-y: auto;overflow-x: hidden;width: 100%">
+    <table class="table table-striped table-bordered" >
+        <thead>
+        </thead>
+        <tbody>
+        {% for invitado in invitados %}
+            <tr>
+                {{ linkInterno("",{"name":"contacto","class":"posicionr","texto":'invitado.nombre'})|raw }} 
+                {{ linkInterno("",{"name":"movil","class":"posicionr","texto":'invitado.movil'})|raw }} 
+                {{ linkInterno("",{"name":"status","class":"posicionr","texto":'invitado.acepta'})|raw }} 
+            </tr>
+        {% else %}
+            <tr>
+            <td colspan="2">{{'No hay Invitados'|trans}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>        
+    </table>
+  </div>
+  </div>

@@ -28,7 +28,7 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
         //$dropdown = $this->createDropdownMenuItem($menu,'Gente', true);
         $dropdown->addChild('Socios', array('route' => 'register'));
         $dropdown->addChild('Contactos', array('route' => 'contactos'));
-        $dropdown->addChild('Invitados', array('route' => 'sociedades'));
+        $dropdown->addChild('Invitados', array('route' => 'invitadosIndex'));
         // ... add more children
         // para que se vea una flechita hacia abajo
         //$dropdown2 = $this->createDropdownMenuItem($menu, 'Herramientas', true, array('icon' => 'caret'));

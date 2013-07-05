@@ -45,7 +45,7 @@ class Socios extends BaseUser
     /**
      * @var string $foto
      *
-     * @ORM\Column(name="foto", type="string", length=255)
+     * @ORM\Column(name="foto", type="string", length=255, nullable=true)
      */
     protected $foto;
 
@@ -345,10 +345,11 @@ class Socios extends BaseUser
         return $this->credentialsExpireAt;
     }
     
-    public function subirFoto($directorioDestino)
+    public function subirFoto($directorioDestino,$imagendefecto)
     {
         if (null === $this->foto) {
-        return;
+            $this->setFoto($imagendefecto);
+            return;
         }
         $nombreArchivoFoto = uniqid('socio-').'-foto1.jpg';
         $this->foto->move($directorioDestino, $nombreArchivoFoto);

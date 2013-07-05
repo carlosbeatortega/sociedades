@@ -16,7 +16,7 @@ class InvitadosRepository extends EntityRepository
     {
         
         $consulta=$this->getEntityManager()
-                    ->createQuery('SELECT c.internetid,c.email FROM  Sociedad\ReservasBundle\Entity\Invitados i
+                    ->createQuery('SELECT c.internetid,c.email,c.nombre,c.fijo,c.movil,i.acepta FROM  Sociedad\ReservasBundle\Entity\Invitados i
                                          JOIN i.contacto c
                                          WHERE i.reservas_id=:id and c.internetid is not null and c.email is not null');
             

@@ -125,6 +125,7 @@ class SociosController extends Controller
         $session = $this->get('request')->getSession();
         $session->set('foto',$entity->getFoto());
         $reservas = $em->getRepository('SociedadReservasBundle:Reservas')->reservaSocioFuturas($entity->getId());
+        $entity->setLastLogin(new \DateTime);
 
         $editForm = $this->createForm(new SociosType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
@@ -154,6 +155,7 @@ class SociosController extends Controller
             throw $this->createNotFoundException('Unable to find Socios entity.');
         }
 
+        $entity->setLastLogin(new \DateTime);
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new SociosType(), $entity);
         $editForm->bind($request);
@@ -162,7 +164,8 @@ class SociosController extends Controller
             $foto=$entity->getFoto();
             $formula=preg_match_all('/(:)/', $foto,$salida);
             if($formula>0){
-                $entity->subirFoto($this->container->getParameter('sociedad.directorio.imagenes'));
+                $entity->subirFoto($this->container->getParameter('sociedad.directorio.imagenes'),
+                        $this->container->getParameter('sociedad.nofoto'));
             }else{
                 $session = $this->get('request')->getSession();
                 $entity->setFoto($session->get('foto'));
@@ -277,6 +280,23 @@ class SociosController extends Controller
         }
 //        return $this->indexAction();
             return $this->redirect($this->generateUrl('socios'));
+    }
+    /**
+     * Lists all Socios entities.
+     *
+     * @Route("/invitadosIndex", name="invitadosIndex")
+     * @Template()
+     */
+    public function invitadosIndexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $userManager = $this->get('security.context')->getToken()->getUser();
+        $sociedades_id=$this->container->getParameter('sociedad.defecto');
+
+        $entities = $em->getRepository('SociedadSociosBundle:Socios')->findBy(array('sociedades_id'=>$sociedades_id));
+        $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($sociedades_id);
+        return $this->render('SociedadSociosBundle:Socios:index.html.twig', array(
+                    'entities' => $entities,'sociedades' => $sociedades));
     }
     
 }

@@ -19,7 +19,7 @@ class SociosType extends AbstractType
             ->add('enabled',null,array('label' => 'Activo','required'=>false))
             ->add('salt', 'hidden')
             ->add('password', 'hidden')
-            ->add('lastLogin',null,array('format' => 'dd-MM-yyyy HH:mm','read_only'=> true,'label'=>'Última Visita','widget' => 'single_text'))
+            ->add('lastLogin',null,array('format' => 'dd-MM-yyyy HH:mm','read_only'=> true,'label'=>'Última Visita','widget' => 'single_text','required'=>false))
             ->add('locked',null,array('label' => 'Bloqueado','required'=>false))
             ->add('expired',null,array('label' => 'Expirado','required'=>false))
             ->add('expiresAt','hidden')

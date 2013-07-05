@@ -13,6 +13,11 @@ jQuery(document).ready(function(){
 //                }
 //            }
 //        });
+        var altura=$(".lamismaltura");
+        if(altura){
+            var copialtura=$(".sin_relleno");
+            altura.height(copialtura.height());
+        }
         $(".turno").change(function(){
             $('.reservar').trigger('click');
         })

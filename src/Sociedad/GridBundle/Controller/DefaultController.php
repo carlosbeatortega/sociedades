@@ -222,7 +222,7 @@ class DefaultController extends Controller
                 continue;
             }
             $email=$e['email'][$x];
-            $contacto = $em->getRepository('SociedadSociosBundle:Contactos')->findBy(array('email'=>$email));
+            $contacto = $em->getRepository('SociedadSociosBundle:Contactos')->findBy(array('email'=>$email,'socios_id'=>$userManager->getId()));
             if(!$contacto){
                 continue;
             }
