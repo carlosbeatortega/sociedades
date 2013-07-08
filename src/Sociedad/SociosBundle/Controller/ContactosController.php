@@ -88,7 +88,7 @@ class ContactosController extends Controller
         $entity->setSocios($userManager);
         $entity->setSociedadesId($sociedades_id);
         $entity->setSociosId($userManager->getId());
-
+        $entity->setFechamodiValue();
         
         $form   = $this->createForm(new ContactosType(), $entity);
 
@@ -116,6 +116,7 @@ class ContactosController extends Controller
             $userManager = $this->get('security.context')->getToken()->getUser();
             $entity->setSocios($userManager);
             $em = $this->getDoctrine()->getManager();
+            $entity->setFechamodiValue();
             $em->persist($entity);
             $em->flush();
 
@@ -181,7 +182,7 @@ class ContactosController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('contactos_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('contactos'));
         }
 
         return array(

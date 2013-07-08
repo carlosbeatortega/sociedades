@@ -93,7 +93,8 @@ class SociosController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $entity->subirFoto($this->container->getParameter('sociedad.directorio.imagenes'));
+            $entity->subirFoto($this->container->getParameter('sociedad.directorio.imagenes'),
+                        $this->container->getParameter('sociedad.nofoto'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -117,11 +118,22 @@ class SociosController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        if($this->get('security.context')->getToken()->getUser()->getId()!=$id
+                && !$this->get('security.context')->isGranted("ROLE_SUPER_ADMIN")){
+            print '<script language="JavaScript">';
+            print 'alert("Operación no Permitida");';
+            print '</script>';
+            return $this->redirect($this->generateUrl('socios'));            
+        }
         $entity = $em->getRepository('SociedadSociosBundle:Socios')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Socios entity.');
         }
+        
+        
+        
+        
         $session = $this->get('request')->getSession();
         $session->set('foto',$entity->getFoto());
         $reservas = $em->getRepository('SociedadReservasBundle:Reservas')->reservaSocioFuturas($entity->getId());
@@ -161,6 +173,10 @@ class SociosController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
+            // no sirve de nada pero es valido para sacar informacion del request
+//            $userc=$request->request->all();
+//            $emailc=$userc['sociedad_sociosbundle_sociostype']['emailCanonical'];
+//            $usernamec=$userc['sociedad_sociosbundle_sociostype']['usernameCanonical'];
             $foto=$entity->getFoto();
             $formula=preg_match_all('/(:)/', $foto,$salida);
             if($formula>0){
@@ -171,9 +187,13 @@ class SociosController extends Controller
                 $entity->setFoto($session->get('foto'));
                 
             }
+            // no sirve de nada porque iguala los canonical a userneme e email principal
+//            $entity->setUsernameCanonical($usernamec);
+//            $entity->setEmailCanonical($emailc);
             $em->persist($entity);
             $em->flush();
 
+            
             return $this->redirect($this->generateUrl('socios'));
         }
 

@@ -83,6 +83,13 @@ class Socios extends BaseUser
      * @ORM\Column(name="passwordCanonical", type="string", length=100,nullable=true)
      */
     protected $passwordCanonical;
+
+    /**
+     * @var string $calendario
+     *
+     * @ORM\Column(name="calendario", type="string", length=100,nullable=true)
+     */
+    protected $calendario;
     
     /** @ORM\ManyToOne(targetEntity="Sociedad\SociedadesBundle\Entity\Sociedades") */
     protected $sociedades;
@@ -411,5 +418,28 @@ class Socios extends BaseUser
     public function getPasswordCanonical()
     {
         return $this->passwordCanonical;
+    }
+
+    /**
+     * Set calendario
+     *
+     * @param string $calendario
+     * @return Socios
+     */
+    public function setCalendario($calendario)
+    {
+        $this->calendario = $calendario;
+    
+        return $this;
+    }
+
+    /**
+     * Get calendario
+     *
+     * @return string 
+     */
+    public function getCalendario()
+    {
+        return $this->calendario;
     }
 }

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Sociedad\SociosBundle\Entity\Contactos
  *
  * @ORM\Table(name="contactos")
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Table(name="contactos",indexes={@ORM\index(name="internet", columns={"internetid"}),@ORM\index(name="email", columns={"email"})})
  * @ORM\Entity(repositoryClass="Sociedad\SociosBundle\Entity\ContactosRepository")
  */
@@ -67,6 +68,13 @@ class Contactos {
      * @ORM\Column(name="internetid", type="string", length=100, nullable=true)
      */
     protected $internetid;
+
+    /**
+     * @var string $fechamodi
+     *
+     * @ORM\Column(name="fechamodi", type="datetime", nullable=false)
+     */
+    protected $fechamodi;
 
     /** 
      *  @ORM\ManyToOne(targetEntity="Socios")
@@ -311,5 +319,37 @@ class Contactos {
     public function getInvitados()
     {
         return $this->invitados;
+    }
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setFechamodiValue()
+    {
+        date_default_timezone_set('Europe/Madrid');     
+        $this->fechamodi= new \DateTime(date(DATE_ATOM, strtotime(date('Y-m-d H:i:s'))));
+    }    
+
+    /**
+     * Set fechamodi
+     *
+     * @param \DateTime $fechamodi
+     * @return Contactos
+     */
+    public function setFechamodi($fechamodi)
+    {
+        $this->fechamodi = $fechamodi;
+    
+        return $this;
+    }
+
+    /**
+     * Get fechamodi
+     *
+     * @return \DateTime 
+     */
+    public function getFechamodi()
+    {
+        return $this->fechamodi;
     }
 }

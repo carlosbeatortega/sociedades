@@ -57,6 +57,60 @@ class gCalendar {
       }
       return $feed;
   }
+  public static function getCliente($gdata,$e){
+      $xml=false;
+      $vuelta=false;
+      try{
+        $id='https://www.google.com/m8/feeds/contacts/default/full/'.$e['id'];
+        $query = new Zend_Gdata_Query($id);
+        $entry = $gdata->getEntry($query);
+        if($entry){
+            $modi=$e['modificado']->format('Y-m-d H:i:s');
+            if(!isset($modi)){
+                return null;
+            }
+            date_default_timezone_set('Europe/Madrid');
+            $modificado=date(DATE_ATOM,strtotime((string)$entry->updated->text));
+            $modificado2=date(DATE_ATOM,strtotime($modi));
+            if($modificado2>$modificado){
+                return $entry;
+            }
+//            $xml = simplexml_load_string($entry->getXML());
+//            $xml->name->namePrefix = "(".$usuario.")";
+//            $xml->name->fullname=$e['nombre'];
+//            $email=$xml->email['address'];
+//            foreach ($xml->email as $em) {
+//                $email1=(string) $em['address'];
+//                if((string) $em['primary']=='true'){
+//                    $em['address']=$e['email'];
+//                }
+//            }
+//            $email=$xml->email->Attributes();
+//            $email1=(string)$email->address;
+//            foreach ($xml->phoneNumber as $em) {
+//                $fonenumber=(string) $em[0];
+//                $apo=(string) $em['rel'];
+//                $apo1=explode('/',$apo);
+//                $apo2=explode('#',$apo1[4]);
+//                if($apo2[1]=='mobile'){
+//                    $em[0]=$e['movil'];
+//                }
+//                if($apo2[1]=='work'){
+//                    $em[0]=$e['telefono'];
+//                }
+//            }
+//            $fonenumber=(string)$xml->phoneNumber[0];
+//            $fonenumber=(string)$xml->phoneNumber[1];
+//            $entryResult  = $gdata->updateEntry($xml->saveXML(),$entry->getEditLink()->href,null,array('If-Match'=>'*'));
+//            if ($entryResult){
+//                $vuelta=true;
+//            }
+        }
+      }catch (Zend_Gdata_App_AuthException $myerror){
+         return null; 
+      }
+      return null;
+  }
   public static function getClienteControlador($user, $pass,$gcal=null){
       if(!$gcal){
         $gcal = Zend_Gdata_Calendar::AUTH_SERVICE_NAME;
@@ -81,6 +135,7 @@ class gCalendar {
       }
       return $gdata;
   }
+
   public static function getClienteModificaControlador($gdata,$id,$usuario){
       $xml=false;
       $vuelta=false;

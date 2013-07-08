@@ -104,6 +104,13 @@ borravisita:
 getcontactos:
     pattern:  /getcontactos
     defaults: { _controller: SociedadGridBundle:Default:client }
+setcontactos:
+    pattern:  /setcontactos
+    defaults: { _controller: SociedadGridBundle:Default:setClient }
+inoutcontactos:
+    pattern:  /inoutcontactos
+    defaults: { _controller: SociedadGridBundle:Default:inoutContactos }
+
 contactosprowin:
     pattern:  /contactosprowin
     defaults: { _controller: SociedadGridBundle:Default:setClient }

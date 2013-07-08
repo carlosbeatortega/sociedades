@@ -85,7 +85,7 @@ abstract class AbstractNavbarMenuBuilder
         // TODO: make XSS safe $icon contents escaping
         if (isset($icon['icon'])) {
             $icon = array_merge(array('tag'=>'i'), $icon);
-            $dropdown->setLabel($title. ' <'.$icon['tag'].' class="'.$icon['icon'].'"></'.$icon['tag'].'>')
+            $dropdown->setLabel($title. '<'.$icon['tag'].' class="'.$icon['icon'].'"></'.$icon['tag'].'>')
                      ->setExtra('safe_label', true);
         }
 

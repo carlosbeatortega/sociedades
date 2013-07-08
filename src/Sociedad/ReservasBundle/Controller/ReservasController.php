@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sociedad\ReservasBundle\Entity\Reservas;
 use Sociedad\ReservasBundle\Form\ReservasType;
 
+
 /**
  * Reservas controller.
  *
@@ -82,7 +83,8 @@ class ReservasController extends Controller
             'plantafoto'=>$planta,
             'mesasplantas'=>$mesasplantas,
             'misreservas'=>$misreservas,
-            'sinreservar'=>$sinreservar
+            'sinreservar'=>$sinreservar,
+            'user'=>$userManager
         );
     }
 
@@ -159,6 +161,7 @@ class ReservasController extends Controller
             'plantafoto'=>$planta,
             'misreservas'=>$misreservas,
             'sinreservar'=>$sinreservar,
+            'socioid'=>$socio_id,
             'form'   => $form->createView(),
         );
     }
@@ -223,10 +226,17 @@ class ReservasController extends Controller
             return $this->redirect($this->generateUrl('reservasplanta',array('plantaid' => $plantaid)));
             
         }
+        
+        
         $request->query->set('plantaid',$plantaid);
         $session->set('reservaid',$id);
 
         $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($entity->getSociedadesId());
+//        $usuario=$sociedades->getEmail();
+//        $pass=$sociedades->getPassword();
+//        $idcalendario=$sociedades->getCalendario();
+//        $gcal = gCalendar::activarServicio($usuario, $pass);
+//        $gt = new GoogleTasks($usuario,$pass);
         $plantas = $em->getRepository('SociedadReservasBundle:Plantas')->findBy(array('sociedades_id'=>$entity->getSociedadesId()));
         $planta = $em->getRepository('SociedadReservasBundle:Plantas')->findBy(array('id'=>$plantaid));
 

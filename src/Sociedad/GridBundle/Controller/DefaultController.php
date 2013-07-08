@@ -38,9 +38,15 @@ class DefaultController extends Controller
         throw $this->createNotFoundException('Imposible encontrar socio.');
     }
     $Sociedades=$userManager->getSociedades();
-    $usuario=$Sociedades->getEmail();
-    $pass=$Sociedades->getPassword();
-    $idcalendario=$Sociedades->getCalendario();
+    $usuariosociedad=$Sociedades->getEmail();
+    //$pass=$Sociedades->getPassword();
+    //$idcalendario=$Sociedades->getCalendario();
+
+    $usuario=$userManager->getEmailCanonical();
+    $pass=$userManager->getPasswordCanonical();
+    $idcalendario=$userManager->getCalendario();
+    $contactosociedad = $em->getRepository('SociedadSociosBundle:Contactos')->findBy(array('socios_id'=>$userManager->getId(),'email'=>$usuariosociedad));
+    
     $reservas = $em->getRepository('SociedadReservasBundle:Reservas')->TodasReservasFuturas($userManager->getSociedadesId());
       
     
@@ -68,13 +74,25 @@ class DefaultController extends Controller
         $eventos[$contador]['email']=$reserva->getCalendario();
         $invitados = $em->getRepository('SociedadReservasBundle:Invitados')->InvitadosEmail($reserva->getId());
         $contai=0;
+        $haysociedad=false;
         foreach ($invitados as $invitado){
             if(!empty($invitado['internetid']) && !empty($invitado['email'])){
                 $eventos[$contador]['contac_id'][$contai][0]=$invitado['email'];
                 $eventos[$contador]['contac_id'][$contai][1]=$invitado['internetid'];
+                if($invitado['email']==$usuariosociedad){
+                    $haysociedad=true;
+                }
                 $contai++;
             }
         }
+        if(!$haysociedad && $contactosociedad){
+            $emailsoci=$contactosociedad[0]->getEmail();
+            $internetsoci=$contactosociedad[0]->getEmail();
+            if(!empty($internetsoci) && !empty($emailsoci)){
+                $eventos[$contador]['contac_id'][$contai][0]=$contactosociedad[0]->getEmail();
+                $eventos[$contador]['contac_id'][$contai][1]=$contactosociedad[0]->getInternetid();
+            }
+        }            
         $eventos[$contador]['modificado']=$reserva->getFechamodi();
         switch ($reserva->getComida()) {
             case 'Desayuno':
@@ -179,9 +197,12 @@ class DefaultController extends Controller
         throw $this->createNotFoundException('Imposible encontrar socio.');
     }
     $Sociedades=$userManager->getSociedades();
-    $usuario=$Sociedades->getEmail();
-    $pass=$Sociedades->getPassword();
-    $idcalendario=$Sociedades->getCalendario();
+//    $usuario=$Sociedades->getEmail();
+//    $pass=$Sociedades->getPassword();
+//    $idcalendario=$Sociedades->getCalendario();
+    $usuario=$userManager->getEmailCanonical();
+    $pass=$userManager->getPasswordCanonical();
+    $idcalendario=$userManager->getCalendario();
     $eventos = array();
     $contador = 0;
     $modo = $this->get('request')->request->get('modo');
@@ -256,9 +277,6 @@ class DefaultController extends Controller
     
     echo json_encode($eventos);
   }
-  
-  
-  
   public function listacalendariosAction(){
     $usuario = $this->get('request')->request->get('usuario');
     $pass = $this->get('request')->request->get('password');
@@ -301,6 +319,11 @@ class DefaultController extends Controller
     
     //echo json_encode($eventos);
   }
+    public function inoutContactosAction(){
+        $primera=$this->clientAction();
+        $segunda=$this->setClientAction();
+        return $this->redirect($this->generateUrl('contactos'));      
+    }
     public function clientAction(){
     $em = $this->getDoctrine()->getManager();
     $userManager = $this->get('security.context')->getToken()->getUser();
@@ -310,7 +333,7 @@ class DefaultController extends Controller
     
     $usuario=$userManager->getEmailCanonical();
     $pass=$userManager->getPasswordCanonical();
-
+            
      if($_SERVER['SERVER_NAME']=="localhost"){
 //        $usuario = 'carlosbeatortega@gmail.com';
 //        $pass = 'mikeleaitana';
@@ -349,9 +372,21 @@ class DefaultController extends Controller
                 $contacto->setInternetid($idunico);
             }else{
                 $contacto=$contacto[0];
+                $modi2=$contacto->getFechamodi();
+                $modi=$modi2->format('Y-m-d H:i:s');
+                if(!isset($modi)){
+                    continue;
+                }
+                date_default_timezone_set('Europe/Madrid');
+                $modificado=date(DATE_ATOM,strtotime((string)$entry->updated->text));
+                $modificado2=date(DATE_ATOM,strtotime($modi));
+                if($modificado2>$modificado){
+                    continue;
+                }
             }
             
             $contacto->setNombre($obj->name);
+            $contacto->setFechamodiValue();
             foreach ($xml->email as $e) {
                 $contacto->setEmail((string) $e['address']);
                 break;
@@ -371,18 +406,42 @@ class DefaultController extends Controller
             
             $results[] = $obj; 
         }
-        return $this->redirect($this->generateUrl('contactos'));      
+        //$response=$this->setClientAction();
+        //return $this->redirect($this->generateUrl('contactos'));      
         
         $response = new Response(json_encode($results));
         $response->headers->set('Content-Type', 'application/json; charset=utf-8');
         return $response;
         
     }    
+  
   public function setClientAction(){
-    $usuario = $this->get('request')->request->get('usuario');
-    $pass = $this->get('request')->request->get('password');
-    $eventos = json_decode($this->get('request')->request->get('contactos'));
+//    $usuario = $this->get('request')->request->get('usuario');
+//    $pass = $this->get('request')->request->get('password');
+//    $eventos = json_decode($this->get('request')->request->get('contactos'));
     $idcalendario = $this->get('request')->request->get('idcalendario');
+
+    $em = $this->getDoctrine()->getManager();
+    $userManager = $this->get('security.context')->getToken()->getUser();
+    if (!$userManager) {
+        throw $this->createNotFoundException('Imposible encontrar socio.');
+    }
+    
+    $usuario=$userManager->getEmailCanonical();
+    $pass=$userManager->getPasswordCanonical();
+    $contactos = $em->getRepository('SociedadSociosBundle:Contactos')->findBy(array('socios_id'=>$userManager->getId()));
+    $eventos = array();
+    $contador = 0;
+    foreach ($contactos as $contacto) {
+        $eventos[$contador]['id']=(is_null($contacto->getInternetid())) ? '' : $contacto->getInternetid();
+        $eventos[$contador]['nombre']=$contacto->getNombre();
+        $eventos[$contador]['i_unico']=$contacto->getId();
+        $eventos[$contador]['email']=$contacto->getEmail();
+        $eventos[$contador]['telefono']=$contacto->getFijo();
+        $eventos[$contador]['movil']=$contacto->getMovil();
+        $eventos[$contador]['modificado']=$contacto->getFechamodi();
+        $contador++;
+    }
     
      if($_SERVER['SERVER_NAME']=="localhost"){
 //           $usuario = 'fortizdezarate@ecenarro.com';
@@ -406,8 +465,39 @@ class DefaultController extends Controller
       //crear o editar visitas
       foreach($eventos as $i => $e){
         //crear una nueva visita en google
-        $e = get_object_vars($e);
+//        $e = get_object_vars($e);
              // create new entry
+        if(!empty($e['id'])){
+            $entry=gCalendar::getCliente($gdata,$e,$usuario);
+            if(!$entry){
+                continue;
+            }
+            $xml = simplexml_load_string($entry->getXML());
+            //$xml->name->namePrefix = "(".$usuario.")";
+            $xml->name->fullname=$e['nombre'];
+            $email=$xml->email['address'];
+            foreach ($xml->email as $em) {
+                $email1=(string) $em['address'];
+                if((string) $em['primary']=='true'){
+                    $em['address']=$e['email'];
+                }
+            }
+            foreach ($xml->phoneNumber as $em) {
+                $fonenumber=(string) $em[0];
+                $apo=(string) $em['rel'];
+                $apo1=explode('/',$apo);
+                $apo2=explode('#',$apo1[4]);
+                if($apo2[1]=='mobile'){
+                    $em[0]=$e['movil'];
+                }
+                if($apo2[1]=='work'){
+                    $em[0]=$e['telefono'];
+                }
+            }
+            $entryResult  = $gdata->updateEntry($xml->saveXML(),$entry->getEditLink()->href,null,array('If-Match'=>'*'));
+            continue;
+            
+        }
         $doc  = new \DOMDocument();
         $doc->formatOutput = true;
         $entry = $doc->createElement('atom:entry');
@@ -420,14 +510,6 @@ class DefaultController extends Controller
         if(empty($e['nombre'])){
             $e['nombre']="Vacio";
         }
-        if(empty($e['empresa'])){
-            $e['empresa']="Vacio";
-        }
-        //$e['nombre']=  utf8_encode($e['nombre']);
-        //$e['empresa']=  utf8_encode($e['empresa']);
-        if($e['empresa']){
-            $e['nombre']=$e['nombre']."(".$e['empresa'].")";
-        }
         $fullName = $doc->createElement('gd:fullName', $e['nombre']);
         $name->appendChild($fullName);
         // add email element
@@ -435,12 +517,6 @@ class DefaultController extends Controller
         $email->setAttribute('address' ,$e['email']);
         $email->setAttribute('rel' ,'http://schemas.google.com/g/2005#home');
         $entry->appendChild($email);
-        // add org name element
-        $org = $doc->createElement('gd:organization');
-        $org->setAttribute('rel' ,'http://schemas.google.com/g/2005#work');
-        $entry->appendChild($org);
-        $orgName = $doc->createElement('gd:orgName', $e['empresa']);
-        $org->appendChild($orgName);
         if(!empty($e['movil'])){
             // añade movil
             $phone = $doc->createElement('gd:phoneNumber', $e['movil']);
@@ -452,39 +528,6 @@ class DefaultController extends Controller
             $fijo = $doc->createElement('gd:phoneNumber', $e['telefono']);
             $fijo->setAttribute('rel' ,'http://schemas.google.com/g/2005#work');
             $entry->appendChild($fijo);
-        }
-        $direccion = $doc->createElement('gd:structuredPostalAddress');
-        $direccion->setAttribute('rel' ,'http://schemas.google.com/g/2005#work');
-        $entry->appendChild($direccion);
-        if(!empty($e['direccion'])){
-            
-            $addres = $doc->createElement('gd:street', $e['direccion']);
-            $direccion->appendChild($addres);
-            
-        }
-        if(!empty($e['pais'])){
-            
-            $pais = $doc->createElement('gd:country', $e['pais']);
-            $direccion->appendChild($pais);
-            
-        }
-        if(!empty($e['poblacion'])){
-            
-            $poblacion = $doc->createElement('gd:city', $e['poblacion']);
-            $direccion->appendChild($poblacion);
-            
-        }
-        if(!empty($e['postal'])){
-
-                $postal = $doc->createElement('gd:postcode', $e['postal']);
-                $direccion->appendChild($postal);
-
-        }
-        if(!empty($e['provincia'])){
-
-                $provincia = $doc->createElement('gd:region', $e['provincia']);
-                $direccion->appendChild($provincia);
-
         }
 //        if(!empty($e['url'])){
 //            $url = $doc->createElement('gd:website');
@@ -503,8 +546,14 @@ class DefaultController extends Controller
         // insert entry
         $entryResult = $gdata->insertEntry($doc->saveXML(),'https://www.google.com/m8/feeds/contacts/default/full');
         if(!is_null($entryResult)){
-            $tablavuelta[$vuelta][0]=utf8_encode($entryResult->getId()->getText());
-            $tablavuelta[$vuelta][1]=$e['i_unico'];
+//            $tablavuelta[$vuelta][0]=utf8_encode($entryResult->getId()->getText());
+//            $tablavuelta[$vuelta][1]=$e['i_unico'];
+//            $eventos[$i]['id'] = gCalendar::getIdEvento($evento);
+            $temp = explode('/', utf8_encode($entryResult->getId()->getText()));
+            $idunico = $temp[8];
+            
+            $resultado = $em->getRepository('SociedadSociosBundle:Contactos')->modificaGoogleId($e['i_unico'],$idunico);        
+
             $vuelta++;
         }
        // echo '<h2>Add Contact</h2>';

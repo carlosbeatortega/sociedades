@@ -58,7 +58,7 @@
         </form>
     <iframe src="https://www.google.com/calendar/embed?src={{ sociedades.email }}&ctz=Europe/Madrid" 
             style="border: 0" width="500" height="300" frameborder="0" scrolling="no"></iframe>    
-
+        <a href="https://accounts.google.com/ServiceLogin?hl=es&continue=https://www.google.es/" target="_blank" style='visibility: none'>Login</a>
   </div>
   {% include "SociedadReservasBundle:Reservas:plantas.html.twig" %}    
   <div id="dialog-Borrar-reserva" title="¿Eliminar la Reserva?">
@@ -66,3 +66,58 @@
   </div>
   
 {% endblock content %}
+{% block footer %}
+
+            <button id='authorize-button' onclick = 'handleAuthClick()' style='visibility: block'>Authorize</button>
+            <script type='text/javascript'>
+            var clientId = '697885352902-99bm1dqg2s2u9bkka7qi46d1vspjnlc2.apps.googleusercontent.com';
+            var apiKey = 'AIzaSyCrywKx3941y3S89dmRJhpXAhYy7IhCjPc';
+
+            var scopes = 'https://www.googleapis.com/auth/plus.me';
+
+            function handleClientLoad() {
+                gapi.client.setApiKey(apiKey);
+                window.setTimeout(checkAuth,1);
+            }
+
+            function checkAuth() {
+                gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+            }
+
+
+            function handleAuthResult(authResult) {
+                var authorizeButton = document.getElementById('authorize-button');
+                if (authResult && !authResult.error) {
+                authorizeButton.style.visibility = 'hidden';
+                makeApiCall();
+                } else {
+                authorizeButton.style.visibility = '';
+                authorizeButton.onclick = handleAuthClick;
+                }
+            }
+
+            function handleAuthClick(event) {
+                gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+                return false;
+            }
+
+            function makeApiCall() {
+                gapi.client.load('plus', 'v1', function() {
+                var request = gapi.client.plus.people.get({
+                    'userId': 'me'
+                });
+                request.execute(function(resp) {
+                    var heading = document.createElement('h4');
+                    var image = document.createElement('img');
+                    image.src = resp.image.url;
+                    heading.appendChild(image);
+                    heading.appendChild(document.createTextNode(resp.displayName));
+
+                    document.getElementById('content').appendChild(heading);
+                });
+                });
+            }
+            </script>
+            <script src=https://apis.google.com/js/client.js?onload=handleClientLoad'></script>
+            <div id='content'></div>
+    {% endblock footer %}

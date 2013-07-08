@@ -12,10 +12,10 @@ class SociosType extends AbstractType
     {
         $builder
             ->add('username',null,array('label'=>'Usuario'))
-            ->add('usernameCanonical')
+            ->add('usernameCanonical',null,array('label'=>'Usuario Google'))
             ->add('email')
-            ->add('emailCanonical')
-            ->add('passwordCanonical','password')
+            ->add('emailCanonical',null,array('label'=>'Email Google'))
+            ->add('passwordCanonical','password',array('label'=>'Password Google'))
             ->add('enabled',null,array('label' => 'Activo','required'=>false))
             ->add('salt', 'hidden')
             ->add('password', 'hidden')

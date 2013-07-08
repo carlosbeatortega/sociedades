@@ -34,7 +34,7 @@ class SociedadesType extends AbstractType
                 'attr' => array(
                     'class' => 'input-large',
                     'placeholder' => 'Cuenta Gmail',)))
-            ->add('password')
+            ->add('password','password',array('label'=>'Password Google'))
             ->add('calendario')
         ;
     }

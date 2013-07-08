@@ -28,6 +28,20 @@ class ContactosRepository extends EntityRepository
         
     }    
 
+    public function modificaGoogleId($id=null,$internetid='') {
+      $manager=$this->getEntityManager();
+      if($id){
+          date_default_timezone_set('Europe/Madrid');
+          $fechamodi= "'".date(DATE_ATOM, strtotime(date('Y-m-d H:i:s')))."'";
+          $internetid="'".$internetid."'";
+          $consulta2=$manager->createQuery('update Sociedad\SociosBundle\Entity\Contactos c
+                                        SET c.internetid ='.$internetid.', c.fechamodi='.$fechamodi.'
+                                        WHERE c.id=:id');
+          $consulta2->setParameter('id', $id);
+          $consulta2->getResult();
+      }
+      
+    }
     
     
 }
