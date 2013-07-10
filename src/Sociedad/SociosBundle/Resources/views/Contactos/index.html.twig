@@ -4,7 +4,7 @@
     <h3>Contactos</h3>
     <form action="{{ path('contactos_activa') }}" method="get" id="f_Invita">
         {% if app.session.get('reservaid') %}
-            Dia {{ app.session.get('hoy') }} Hora {{ app.session.get('turno') }}
+            Dia {{ app.session.get('hoy')|date("d/m/Y")  }} Hora {{ app.session.get('turno') }}
             <input type="submit" value="{{'Invitar'|trans}}" class="btn" style="float: right"/>
             <div style="clear:both"></div>
             <br/>

@@ -53,12 +53,19 @@
                         {{ 'Bajar Google'|trans }}
                     </a>
                 </tr>
+                <tr>
+                    <button class="btn botonesseparados" id='authorize-button' onclick = 'handleAuthClick()' style='visibility: block'>Calendario</button>
+                </tr>
             </table>
           </div>
         </form>
-    <iframe src="https://www.google.com/calendar/embed?src={{ sociedades.email }}&ctz=Europe/Madrid" 
+    <iframe id="calendarioframe" src="https://www.google.com/calendar/embed?src={{ sociedades.email }}&ctz=Europe/Madrid" 
             style="border: 0" width="500" height="300" frameborder="0" scrolling="no"></iframe>    
-        <a href="https://accounts.google.com/ServiceLogin?hl=es&continue=https://www.google.es/" target="_blank" style='visibility: none'>Login</a>
+        <a href="https://accounts.google.com/ServiceLogin?hl=es&continue=https://www.google.es/" target="_blank" style='visibility: hidden'>Login</a>
+                    <a class="btn" href="{{ path('milogin') }}" style='visibility: hidden'>
+                        {{ 'Login'|trans }}
+                    </a>
+        <iframe id="logoutframe" src="" style="display: none"></iframe>
   </div>
   {% include "SociedadReservasBundle:Reservas:plantas.html.twig" %}    
   <div id="dialog-Borrar-reserva" title="¿Eliminar la Reserva?">
@@ -68,7 +75,7 @@
 {% endblock content %}
 {% block footer %}
 
-            <button id='authorize-button' onclick = 'handleAuthClick()' style='visibility: block'>Authorize</button>
+            
             <script type='text/javascript'>
             var clientId = '697885352902-99bm1dqg2s2u9bkka7qi46d1vspjnlc2.apps.googleusercontent.com';
             var apiKey = 'AIzaSyCrywKx3941y3S89dmRJhpXAhYy7IhCjPc';
@@ -87,16 +94,20 @@
 
             function handleAuthResult(authResult) {
                 var authorizeButton = document.getElementById('authorize-button');
+                var logoutbutton = document.getElementById('logoutframe');
                 if (authResult && !authResult.error) {
-                authorizeButton.style.visibility = 'hidden';
-                makeApiCall();
+                    authorizeButton.style.visibility = 'hidden';
+                    makeApiCall();
                 } else {
-                authorizeButton.style.visibility = '';
-                authorizeButton.onclick = handleAuthClick;
+                    authorizeButton.style.visibility = '';
+                    authorizeButton.onclick = handleAuthClick;
+                    logoutbutton.src="";
                 }
             }
 
             function handleAuthClick(event) {
+                var logoutbutton = document.getElementById('logoutframe');
+                logoutbutton.src="https://accounts.google.com/logout";
                 gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
                 return false;
             }
@@ -107,6 +118,14 @@
                     'userId': 'me'
                 });
                 request.execute(function(resp) {
+                    if(resp.message=="Not Found"){
+                        var authorizeButton = document.getElementById('authorize-button');
+                        var logoutbutton = document.getElementById('logoutframe');
+                        authorizeButton.style.visibility = '';
+                        authorizeButton.onclick = handleAuthClick;
+                        logoutbutton.src="https://accounts.google.com/logout";
+                        return false;
+                    }
                     var heading = document.createElement('h4');
                     var image = document.createElement('img');
                     image.src = resp.image.url;
@@ -114,10 +133,14 @@
                     heading.appendChild(document.createTextNode(resp.displayName));
 
                     document.getElementById('content').appendChild(heading);
+                    var logoutbutton = document.getElementById('logoutframe');
+                    if(logoutbutton.src=="https://accounts.google.com/logout"){
+                        document.location.reload(true);
+                    }
                 });
                 });
             }
             </script>
-            <script src=https://apis.google.com/js/client.js?onload=handleClientLoad'></script>
+            <script src='https://apis.google.com/js/client.js?onload=handleClientLoad'></script>
             <div id='content'></div>
     {% endblock footer %}

@@ -110,6 +110,9 @@ setcontactos:
 inoutcontactos:
     pattern:  /inoutcontactos
     defaults: { _controller: SociedadGridBundle:Default:inoutContactos }
+milogin:
+    pattern:  /milogin
+    defaults: { _controller: SociedadGridBundle:Default:milogin }
 
 contactosprowin:
     pattern:  /contactosprowin

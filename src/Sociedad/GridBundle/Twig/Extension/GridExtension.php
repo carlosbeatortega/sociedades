@@ -93,6 +93,8 @@ class GridExtension extends \Twig_Extension
         //uso en la plantilla
         //{{ linkInterno("tareas",{"idpagina":"query_pagina"},"Tareas")|raw }}
         $comienza=0;
+        $left=0;
+        $right=0;
         $checked="";
         $ida="";
         $valuea="";
@@ -308,13 +310,28 @@ class GridExtension extends \Twig_Extension
                     break;
                 case 'checked':
                     $checked="checked";
+                case 'left':
+                    $left=$valor;
             }
                     //$parametros[$cadaNombreParametro]="#";
+            
+        }
+        if($text)
+        if($left>0){
             
         }
         ///convertir fecha a string
         if($text instanceof \DateTime){
             $text=$text->format("d/m/Y");
+        }
+        if(!empty($text)){
+            $lgtext=$text;
+            if($left>0){
+                $text=substr($text,0,$left);    
+            }
+            if( strlen($lgtext)>strlen($text)){
+                $text=$text."...";
+            }
         }
         if(empty($etiqueta1)){
             

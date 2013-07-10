@@ -10,10 +10,9 @@ use Sociedad\Comunes\gCalendar;
 use Sociedad\Comunes\mysqlSearchAndReplace;
 use Sociedad\Comunes\gTareas;
 use Sociedad\Comunes\GoogleTasks;
-use Sociedad\Controller\oauthClientClass;
 use Sociedad\ReservasBundle\Entity\Reservas;
 use Sociedad\SociosBundle\Entity\Contactos;
-
+use Sociedad\GridBundle\Controller\oauthClientClass;
 use \OAuthStore;
 use \OAuthRequester;
 
@@ -476,22 +475,22 @@ class DefaultController extends Controller
             //$xml->name->namePrefix = "(".$usuario.")";
             $xml->name->fullname=$e['nombre'];
             $email=$xml->email['address'];
-            foreach ($xml->email as $em) {
-                $email1=(string) $em['address'];
-                if((string) $em['primary']=='true'){
-                    $em['address']=$e['email'];
+            foreach ($xml->email as $ema) {
+                $email1=(string) $ema['address'];
+                if((string) $ema['primary']=='true'){
+                    $ema['address']=$e['email'];
                 }
             }
-            foreach ($xml->phoneNumber as $em) {
-                $fonenumber=(string) $em[0];
-                $apo=(string) $em['rel'];
+            foreach ($xml->phoneNumber as $ema) {
+                $fonenumber=(string) $ema[0];
+                $apo=(string) $ema['rel'];
                 $apo1=explode('/',$apo);
                 $apo2=explode('#',$apo1[4]);
                 if($apo2[1]=='mobile'){
-                    $em[0]=$e['movil'];
+                    $ema[0]=$e['movil'];
                 }
                 if($apo2[1]=='work'){
-                    $em[0]=$e['telefono'];
+                    $ema[0]=$e['telefono'];
                 }
             }
             $entryResult  = $gdata->updateEntry($xml->saveXML(),$entry->getEditLink()->href,null,array('If-Match'=>'*'));
@@ -1052,7 +1051,7 @@ class DefaultController extends Controller
                 });
             }
             </script>
-            <script src=https://apis.google.com/js/client.js?onload=handleClientLoad'></script>
+            <script src='https://apis.google.com/js/client.js?onload=handleClientLoad'></script>
             <div id='content'></div>
             <p>Retrieves your profile name using the Google Plus API.</p>
         </body>
@@ -1223,7 +1222,7 @@ class DefaultController extends Controller
 	$client = new oauthClientClass();
 	$client->server = 'Google';
 	$client->offline = true;
-
+        $client->request_token_url='4/upjGICCRFvIaW_FCCYMMY-8j4e8e.MvdyIzrF1U4WOl05ti8ZT3YFfXSDfwI';
 	$client->debug = false;
 	$client->debug_http = true;
 //	$client->redirect_uri = 'http://'.$_SERVER['HTTP_HOST'].
@@ -1244,11 +1243,11 @@ class DefaultController extends Controller
 	$client->client_secret = 'xAQdcQwR7rkxVuhq2QKHejz4';
 
         //Aritz Client ID for installed applications
-        $client->redirect_uri="urn:ietf:wg:oauth:2.0:oob";
-        $client->offline_dialog_url="";
-	$client->client_id = '394695921419-p887uvhvdhf5pr5m2ig29rf77lk9ej41.apps.googleusercontent.com'; 
-        $application_line = __LINE__;
-	$client->client_secret = '039xq3HDnKSxRud_7bx0EREG';
+//        $client->redirect_uri="urn:ietf:wg:oauth:2.0:oob";
+//        $client->offline_dialog_url="";
+//	$client->client_id = '394695921419-p887uvhvdhf5pr5m2ig29rf77lk9ej41.apps.googleusercontent.com'; 
+//        $application_line = __LINE__;
+//	$client->client_secret = '039xq3HDnKSxRud_7bx0EREG';
         
         
 	if(strlen($client->client_id) == 0
