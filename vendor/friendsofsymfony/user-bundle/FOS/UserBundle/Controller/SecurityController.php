@@ -18,6 +18,8 @@ class SecurityController extends ContainerAware
 {
     public function loginAction()
     {
+        $this->container->get('request')->setLocale($this->container->get('request')->getSession()->get('locale'));
+        
         $request = $this->container->get('request');
         /* @var $request \Symfony\Component\HttpFoundation\Request */
         $session = $request->getSession();

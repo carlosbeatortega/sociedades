@@ -37,6 +37,12 @@ class MesasController extends Controller
         $entities = $em->getRepository('SociedadReservasBundle:Mesas')->mesas($sociedades_id);
         $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($sociedades_id);
         $plantas = $em->getRepository('SociedadReservasBundle:Plantas')->findBy(array('sociedades_id'=>$sociedades_id));
+        if($plantaid==0){
+            if(isset($plantas[0])){
+                $plantaid=$plantas[0]->getId();
+            }
+        }
+        
         $planta = $em->getRepository('SociedadReservasBundle:Plantas')->findBy(array('id'=>$plantaid));
         $mesasplantas = $em->getRepository('SociedadReservasBundle:MesasPlantas')->findBy(array('plantas_id'=>$plantaid,'sociedades_id'=>$sociedades_id));
 

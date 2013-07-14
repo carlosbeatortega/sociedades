@@ -13,6 +13,9 @@ borramesa:
 portada:
     pattern:  /portada  
     defaults: { _controller: SociedadSociedadesBundle:Default:portada }
+idiomaportada:
+    pattern:  /{_locale}/idiomaportada  
+    defaults: { _controller: SociedadSociedadesBundle:Default:idiomaportada, _locale: es }
 plano:
     pattern:  /plano/{id}  
     defaults: { _controller: SociedadSociedadesBundle:Default:mapaGoogle }

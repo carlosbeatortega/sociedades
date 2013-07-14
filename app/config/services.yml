@@ -21,7 +21,7 @@ services:
         class: Knp\Menu\MenuItem
         factory_service: twig.menu_builder
         factory_method: createMainMenu
-        arguments: ["@request"]
+        arguments: ["@request","@service_container"]
         scope: request 
         tags:
             - { name: knp_menu.menu, alias: menu }

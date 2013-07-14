@@ -14,11 +14,24 @@ use Sociedad\GridBundle\Entity\Propiedades;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/hello/{name}")
+     * @Route("/{_locale}/idiomaportada", name="idiomaportada")
      * @Template()
      */
-    public function portadaAction()
+    public function idiomaportadaAction($_locale='es')
     {
+        $session = $this->get('request')->getSession();
+        $session->set('locale',$_locale);
+        return $this->redirect($this->generateUrl('portada'));
+    }
+    public function portadaAction()
+    { 
+        $session = $this->get('request')->getSession();
+        $locale = $session->get('locale');
+        if(empty($locale)){
+            $locale = $this->getRequest()->getLocale();
+            $session->set('locale',$locale);
+        }
+        $this->getRequest()->setLocale($locale);
         $em = $this->getDoctrine()->getEntityManager();
         $Sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->sociedadesActivas($this->container->getParameter('sociedad.defecto'));
         $Columnas = array();

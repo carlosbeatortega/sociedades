@@ -1,8 +1,10 @@
 <?php
 namespace Sociedad\GridBundle\Twig\Menu;
 use Liip\ThemeBundle\ActiveTheme;
+use Knp\Menu\FactoryInterface;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Mopa\Bundle\BootstrapBundle\Navbar\AbstractNavbarMenuBuilder;
 
 /**
@@ -14,21 +16,33 @@ use Mopa\Bundle\BootstrapBundle\Navbar\AbstractNavbarMenuBuilder;
  */
 class MenuBuilder extends AbstractNavbarMenuBuilder
 {
+   
 
-    public function createMainMenu(Request $request)
+    public function createMainMenu(Request $request,ContainerInterface $container)
     {
+        $request->setLocale($request->getSession()->get('locale'));
         $menu = $this->createNavbarMenuItem('navbar navbar-fixed-top');
         $menu->setChildrenAttribute('class', 'nav pull-left');
-
-        $menu->addChild('Organización', array('route' => 'sociedades'));
-        $menu->addChild('Sociedades', array('route' => 'sociedades'));
+        $sociedad=$container->get('translator')->trans('sociedad');
+        $portada=$container->get('translator')->trans('portada');
+        $plantas=$container->get('translator')->trans('plantas');
+        $mesas=$container->get('translator')->trans('mesas');
+        $dropdown1 = $this->createDropdownMenuItem($menu,$sociedad, true, array(),array('label'=>$sociedad, 'extras'=>array('safe_label'=>true)));
+        $dropdown1->addChild($sociedad, array('route' => 'sociedades'));
+        $dropdown1->addChild($portada, array('route' => 'portada'));
+        $dropdown1->addChild($plantas, array('route' => 'plantas'));
+        $dropdown1->addChild($mesas, array('route' => 'mesas'));
 
         // para que se vea una flechita hacia abajo
-        $dropdown = $this->createDropdownMenuItem($menu,'Gente', true, array('icon' => 'caret'),array('label'=>'Gente', 'extras'=>array('safe_label'=>true)));
-        //$dropdown = $this->createDropdownMenuItem($menu,'Gente', true);
-        $dropdown->addChild('Socios', array('route' => 'socios'));
-        $dropdown->addChild('Contactos', array('route' => 'contactos'));
-        $dropdown->addChild('Invitados', array('route' => 'invitadosIndex'));
+        $gente=$container->get('translator')->trans('gente');
+        $dropdown = $this->createDropdownMenuItem($menu,$gente, true, array(),array('label'=>$gente, 'extras'=>array('safe_label'=>true)));
+//        $dropdown = $this->createDropdownMenuItem($menu,'Gente', true, array('icon' => 'caret'),array('label'=>'Gente', 'extras'=>array('safe_label'=>true)));
+        $socios=$container->get('translator')->trans('socios');
+        $contactos=$container->get('translator')->trans('contactos');
+        $invitados=$container->get('translator')->trans('sociosinvitados');
+        $dropdown->addChild($socios, array('route' => 'socios'));
+        $dropdown->addChild($contactos, array('route' => 'contactos'));
+        $dropdown->addChild($invitados, array('route' => 'invitadosIndex'));
         // ... add more children
         // para que se vea una flechita hacia abajo
         //$dropdown2 = $this->createDropdownMenuItem($menu, 'Herramientas', true, array('icon' => 'caret'));

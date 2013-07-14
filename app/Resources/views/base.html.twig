@@ -3,7 +3,7 @@
         <div id="header">
 		<ul id="navigation2">
                     {% block contenido %}
-                        <h1><a href="#">SOCIEDADES</a></h1>
+                        <h1><a href="#">SOCIEDADES|trans</a></h1>
                         <img alt="Anagrama" src="/bundles/sociedad/uploads/images/chiquitero.png">
                     {% endblock %}
 		</ul>
@@ -24,5 +24,9 @@
 			<p class="footer-left">&copy; <a href="#" target="_blank">Carlos Beato Ortega</a>, 2012.</p>
 		</div>
 	</div>
+        <footer>
+            {% block footer %}
+            {% endblock footer %}
+        </footer>
 
 {% endblock %}
