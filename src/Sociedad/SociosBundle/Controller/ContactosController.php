@@ -41,7 +41,7 @@ class ContactosController extends Controller
                 $invitados2[$invi->getContactosId()]=$invi->getId();                
             }
         }
-
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         return array(
             'entities' => $entities,
             'sociedades' => $sociedades,
@@ -58,7 +58,7 @@ class ContactosController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale')); 
         $entity = $em->getRepository('SociedadSociosBundle:Contactos')->find($id);
 
         if (!$entity) {
@@ -91,7 +91,7 @@ class ContactosController extends Controller
         $entity->setFechamodiValue();
         
         $form   = $this->createForm(new ContactosType(), $entity);
-
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         return array(
             'entity' => $entity,
             'socio' => $userManager,
@@ -145,6 +145,7 @@ class ContactosController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Contactos entity.');
         }
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         $editForm = $this->createForm(new ContactosType(), $entity);
         $deleteForm = $this->createDeleteForm($id);

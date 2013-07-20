@@ -1,6 +1,6 @@
 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
       {{ form_errors(form) }}
-      <h2> {{ 'Registro de Usuarios'|trans }} </h2>
+      <h2> {{ 'alta.usuario'|trans }} </h2>
       <table class="sin_relleno">
         <tr>
           <td><strong>{{ form_label(form.username) }}</strong></td>
@@ -37,6 +37,6 @@
     </table>
         {{ form_rest(form) }}
     <div>
-        <input class="btn" type="submit" value="{{ 'Registrar'|trans({}, 'FOSUserBundle') }}" />
+        <input class="btn" type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
     </div>
 </form>

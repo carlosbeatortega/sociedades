@@ -43,7 +43,7 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                {{ linkInterno("reservas_edit",{ "entity_id" : "entity.id"  ,"name":"Reservas","classa":"editSociedad" })|raw }}
+                {{ linkInterno("reservas_edit",{ "entity_id" : "entity.id"  ,"name":"Reservas","classa":"editReserva" })|raw }}
                 {{ linkInterno("",{"name":"foto","id":"fotosocio","class":"imagesuperpequeGrid","scr":'entity.socio.foto'  })|raw }}
                 {{ linkInterno("",{"name":"socio","class":"posicionr","texto":'entity.socio.name'})|raw }} 
                 {{ linkInterno("",{"name":"comida","class":"posicionr","texto":'entity.comida'})|raw }} 

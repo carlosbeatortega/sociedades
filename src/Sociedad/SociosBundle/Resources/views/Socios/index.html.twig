@@ -2,22 +2,22 @@
 {% block content %}
   <div class="span12">
     <h2>{{ sociedades.nombre }} </h2>  
-    <h3>Socios</h3>
+    <h3>{{ 'socios'|trans }}</h3>
     <form action="{{ path('socios_activa') }}" method="get" id="f_Invita">
-        <input type="submit" value="{{'Activar'|trans}}" class="btn" style="float: right"/>
+        <input type="submit" value="{{'activar'|trans}}" class="btn" style="float: right"/>
         <div style="clear:both"></div>
         <br/>
         <table id="tablaprincipal" class="tablagrid socios table table-striped">
             <thead>
                 <tr>
-                    {{ linkInterno("",{ "id" : "colFoto","class":"span1","texto":"Foto"},'','',"th")|raw }}
-                    {{ linkInterno("",{ "id" : "colNombre","class":"span5","texto":"Nombre"},'','',"th")|raw }}
-                    {{ linkInterno("",{ "id" : "colNombreUsuario","class":"span10","texto":"Nombre Usuario"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colFoto","class":"span1","texto":"foto"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colNombre","class":"span5","texto":"nombre"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colNombreUsuario","class":"span10","texto":"nombre_usuario"},'','',"th")|raw }}
                     {{ linkInterno("",{ "id" : "colEmail","class":"span5","texto":"Email"},'','',"th")|raw }}
                     {{ linkInterno("",{ "id" : "colRoles","class":"span5","texto":"Roles"},'','',"th")|raw }}
                     {{ linkInterno("",{ "id" : "colDni","class":"span5","texto":"Dni"},'','',"th")|raw }}
-                    {{ linkInterno("",{ "id" : "colFechaAlta","class":"span5","texto":"Fecha Alta"},'','',"th")|raw }}
-                    {{ linkInterno("",{ "id" : "colFechaNacimiento","class":"span7","texto":"Fecha Nacimiento"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colFechaAlta","class":"span5","texto":"fecha_Creacion"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colFechaNacimiento","class":"span7","texto":"fecha_nacimiento"},'','',"th")|raw }}
                     {{ linkInterno("",{ "id" : "colSel","class":"span1","type":"checkbox","ida":"seleccionartodos","valuea":"true","classa":"checkbox"},'','',"th")|raw }}
 
                 </tr>
@@ -43,7 +43,7 @@
         <tbody>
              <tr>
                  {{ linkInterno("registro",{ "texto": "REGISTRO" ,"classa" : "'btn btn-large btn-primary '"  })|raw }}
-                  {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "Sociedad" ,"classa" : "'btn btn-large'"  })|raw }}
+                  {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "sociedad" ,"classa" : "'btn btn-large'"  })|raw }}
              </tr>
             
         </tbody>

@@ -46,7 +46,8 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
         // ... add more children
         // para que se vea una flechita hacia abajo
         //$dropdown2 = $this->createDropdownMenuItem($menu, 'Herramientas', true, array('icon' => 'caret'));
-        $dropdown2 = $this->createDropdownMenuItem($menu, 'Herramientas', true);
+        $herramientas=$container->get('translator')->trans('herramientas');
+        $dropdown2 = $this->createDropdownMenuItem($menu, $herramientas, true);
         $dropdown2->addChild('Symfony', array('uri' => 'http://www.symfony.com'));
         $dropdown2->addChild('bootstrap', array('uri' => 'http://twitter.github.com/bootstrap/'));
         $dropdown2->addChild('node.js', array('uri' => 'http://nodejs.org/'));

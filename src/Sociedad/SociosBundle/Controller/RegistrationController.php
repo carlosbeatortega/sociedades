@@ -2,6 +2,7 @@
 
 namespace Sociedad\SociosBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use FOS\UserBundle\Controller\RegistrationController as BaseController;
@@ -10,6 +11,7 @@ class RegistrationController extends BaseController
 {
     public function registerAction()
     {
+        $this->container->get('request')->setLocale($this->container->get('request')->getSession()->get('locale'));
         $form = $this->container->get('fos_user.registration.form');
         $formHandler = $this->container->get('fos_user.registration.form.handler');
         $confirmationEnabled = $this->container->getParameter('fos_user.registration.confirmation.enabled');

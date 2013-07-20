@@ -1,11 +1,10 @@
-{% extends "SociedadSociedadesBundle::layout.html.twig" %}
 {% block content %}
   <div class="span6">
         <h2>{{ socio.name }} </h2>  
 
         <form action="{{ path('contactos_create') }}" method="post" {{ form_enctype(form) }}>
           {{ form_errors(form) }}
-           <h2> {{ 'Alta de Contactos'|trans }} </h2>
+           <h2> {{ 'alta.contacto'|trans }} </h2>
            <table class="sin_relleno">
             <tr>
               <td><strong>{{ form_label(form.nombre) }}</strong></td>
@@ -27,11 +26,11 @@
            {{ form_rest(form) }}
             <table class="record_actions">
                 <tr>
-                    <button class="btn botonesseparados" type="submit">{{ 'Grabar'|trans }}</button>
+                    <button class="btn botonesseparados" type="submit">{{ 'grabar'|trans }}</button>
                 </tr>
                 <tr>
                     <a class="btn botonesseparados" href="{{ path('contactos') }}">
-                        {{ 'Contactos'|trans }}
+                        {{ 'contactos'|trans }}
                     </a>
                 </tr>
             </table>

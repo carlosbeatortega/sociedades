@@ -2,7 +2,7 @@
 {% block content %}
   <div class="span6">
     <h2>{{ sociedades.nombre }} </h2>  
-    <h3>Mesas</h3>
+    <h3 class='titulo'>Mesas</h3>
 
     <table id="tablaprincipal" class="tablagrid mesasportada table table-striped">
         <thead>
@@ -31,7 +31,7 @@
     <table class="table">
         <tbody>
              <tr>
-                  {{ linkInterno("mesas_new",{ "texto": "Crear Mesa" ,"classa" : "'btn btn-large'"  })|raw }}
+                  {{ linkInterno("mesas_new",{ "texto": "Crear Mesa" ,"classa" : "'btn btn-large  altaSociedad'"  })|raw }}
                   {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "Sociedad" ,"classa" : "'btn btn-large'"  })|raw }}
              </tr>
         </tbody>

@@ -31,6 +31,10 @@ table .editSociedad{
   padding: 2px 0px 2px 20px;
   background: url('../../mopabootstrap/img/glyphicons_150_edit.png') no-repeat top center!important;
 }
+table .editReserva{
+  padding: 2px 0px 2px 20px;
+  background: url('../../mopabootstrap/img/glyphicons_150_edit.png') no-repeat top center!important;
+}
 #droppable {position:relative}
 
 #planta {position:relative;}

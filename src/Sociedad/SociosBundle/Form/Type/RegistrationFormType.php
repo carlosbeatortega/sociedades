@@ -12,12 +12,12 @@ class RegistrationFormType extends BaseType
         parent::buildForm($builder, $options);
 
         // add your custom field
-        $builder->add('name');
-        $builder->add('foto', 'file', array('required'=>false));
+        $builder->add('name',null,array('label' => 'nombre'));
+        $builder->add('foto', 'file', array('required'=>false,'label' => 'foto'));
         $builder->add('dni');
         $builder->add('fechanacimiento', 'date', array(
-                'widget' => 'choice',    ));
-        $builder->add('numero_cuenta');
+                'widget' => 'choice','label' => 'fechanacimiento'));
+        $builder->add('numero_cuenta',null,array('label' => 'numerocuenta'));
        
     }
 

@@ -14,9 +14,9 @@ class ContactosType extends AbstractType
             ->add('sociedades_id', 'hidden')
             ->add('socios_id', 'hidden')
             ->add('email')
-            ->add('nombre')
-            ->add('fijo')
-            ->add('movil')
+            ->add('nombre',null,array('label' => 'nombre'))
+            ->add('fijo',null,array('label' => 'fijo'))
+            ->add('movil',null,array('label' => 'movil'))
         ;
     }
 

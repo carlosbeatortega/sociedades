@@ -92,6 +92,13 @@ class GridExtension extends \Twig_Extension
     {
         //uso en la plantilla
         //{{ linkInterno("tareas",{"idpagina":"query_pagina"},"Tareas")|raw }}
+        $traducir=false;
+        if($td=='th'){
+            $traducir=true;
+        }
+        if(!empty($text)){
+            $traducir=true;
+        }
         $comienza=0;
         $left=0;
         $right=0;
@@ -211,10 +218,12 @@ class GridExtension extends \Twig_Extension
                                     $origen=$cadaNombreParametro;
                                     $cadaNombreParametro=$param3[$x];
                                     $valor=$param3[$x];
+                                    $traducir=true;
                                 }
                             }else{
                                 $cadaNombreParametro=$param3[$x];
                                 $valor=$param3[$x];                                
+                                $traducir=true;
                             }
                         }
                     }
@@ -235,6 +244,9 @@ class GridExtension extends \Twig_Extension
                     break;
                 case 'texto':
                     $data.=" data-".$origen."='".$cadaNombreParametro."'";
+                    if($traducir && is_string($valor)){
+                        $valor=$this->getContainer()->get('translator')->trans($valor);
+                    }
                     $text=$valor;
                     break;
                 case 'scr':
@@ -316,15 +328,11 @@ class GridExtension extends \Twig_Extension
                     //$parametros[$cadaNombreParametro]="#";
             
         }
-        if($text)
-        if($left>0){
-            
-        }
         ///convertir fecha a string
         if($text instanceof \DateTime){
             $text=$text->format("d/m/Y");
         }
-        if(!empty($text)){
+        if(is_string($text) && !empty($text)){
             $lgtext=$text;
             if($left>0){
                 $text=substr($text,0,$left);    

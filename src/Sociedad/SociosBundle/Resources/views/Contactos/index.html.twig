@@ -1,11 +1,11 @@
 {% extends "SociedadSociedadesBundle::layout.html.twig" %}
 {% block content %}
   <div class="span6">
-    <h3>Contactos</h3>
+    <h3 class='titulo'>{{ 'contactos'|trans }}</h3>
     <form action="{{ path('contactos_activa') }}" method="get" id="f_Invita">
         {% if app.session.get('reservaid') %}
             Dia {{ app.session.get('hoy')|date("d/m/Y")  }} Hora {{ app.session.get('turno') }}
-            <input type="submit" value="{{'Invitar'|trans}}" class="btn" style="float: right"/>
+            <input type="submit" value="{{'invitar'|trans}}" class="btn" style="float: right"/>
             <div style="clear:both"></div>
             <br/>
         {% endif %}
@@ -13,11 +13,11 @@
         <table id="tablaprincipal" class="tablagrid contactos table table-striped">
             <thead>
                 <tr>
-                    {{ linkInterno("",{ "id" : "colNombre","class":"span1","texto":"Editar"},'','',"th")|raw }}
-                    {{ linkInterno("",{ "id" : "colNombre","class":"span5","texto":"Nombre"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colNombre","class":"span1","texto":"editar"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colNombre","class":"span5","texto":"nombre"},'','',"th")|raw }}
                     {{ linkInterno("",{ "id" : "colEmail","class":"span5","texto":"Email"},'','',"th")|raw }}
-                    {{ linkInterno("",{ "id" : "colEmail","class":"span5","texto":"Fijo"},'','',"th")|raw }}
-                    {{ linkInterno("",{ "id" : "colEmail","class":"span5","texto":"Móvil"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colEmail","class":"span5","texto":"fijo"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colEmail","class":"span5","texto":"movil"},'','',"th")|raw }}
                     {{ linkInterno("",{ "id" : "colSel","class":"span1","type":"checkbox","ida":"seleccionartodos","valuea":"true","classa":"checkbox"},'','',"th")|raw }}
                 </tr>
             </thead>
@@ -43,9 +43,9 @@
     <table class="table">
         <tbody>
              <tr>
-                  {{ linkInterno("contactos_new",{ "texto": "+ Contacto" ,"classa" : "'btn btn-large'"  })|raw }}
-                  {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "Sociedad" ,"classa" : "'btn btn-large'"  })|raw }}
-                  {{ linkInterno("inoutcontactos",{"texto": "Contactos Google" ,"classa" : "'btn btn-large'"  })|raw }}
+                  {{ linkInterno("contactos_new",{ "texto": "_contacto" ,"classa" : "'btn btn-large altaSociedad'"  })|raw }}
+                  {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "sociedad" ,"classa" : "'btn btn-large'"  })|raw }}
+                  {{ linkInterno("inoutcontactos",{"texto": "contactos_google" ,"classa" : "'btn btn-large'"  })|raw }}
              </tr>
         </tbody>
     </table>

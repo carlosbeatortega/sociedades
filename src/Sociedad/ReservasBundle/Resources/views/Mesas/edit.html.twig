@@ -1,12 +1,8 @@
-{% extends "SociedadSociedadesBundle::layout.html.twig" %}
 {% block content %}
-  <div class="span3">
-  </div>
-  <div class="span9">
+  <div class="span6">
     <h2>{{ sociedades.nombre }} </h2>    
     <form action="{{ path('mesas_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
       {{ form_errors(edit_form) }}
-      <h2> {{ 'Edición de Mesas'|trans }} </h2>
       <table class="sin_relleno">
         <tr>
           <td><strong>{{ form_label(edit_form.nombre) }}</strong></td>

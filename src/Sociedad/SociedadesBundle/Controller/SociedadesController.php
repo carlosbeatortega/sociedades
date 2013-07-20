@@ -26,6 +26,7 @@ class SociedadesController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         $entities = $em->getRepository('SociedadSociedadesBundle:Sociedades')->findAll();
 
@@ -60,7 +61,7 @@ class SociedadesController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         return array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
@@ -77,6 +78,7 @@ class SociedadesController extends Controller
     {
         $entity = new Sociedades();
         $form   = $this->createForm(new SociedadesType(), $entity);
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         return array(
             'entity' => $entity,
@@ -93,6 +95,7 @@ class SociedadesController extends Controller
      */
     public function createAction(Request $request)
     {
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         $entity  = new Sociedades();
         $form = $this->createForm(new SociedadesType(), $entity);
         $form->bind($request);
@@ -123,6 +126,7 @@ class SociedadesController extends Controller
      */
     public function editAction($id)
     {
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($id);
@@ -151,6 +155,7 @@ class SociedadesController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($id);
@@ -195,6 +200,7 @@ class SociedadesController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         $form = $this->createDeleteForm($id);
         $form->bind($request);
 
@@ -216,6 +222,8 @@ class SociedadesController extends Controller
 
     private function createDeleteForm($id)
     {
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
+        
         return $this->createFormBuilder(array('id' => $id))
             ->add('id', 'hidden')
             ->getForm()

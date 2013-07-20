@@ -1,12 +1,8 @@
-{% extends "SociedadSociedadesBundle::layout.html.twig" %}
 {% block content %}
-  <div class="span3">
-  </div>
-  <div class="span9">
+  <div class="span6">
     <h2>{{ sociedades.nombre }} </h2>    
     <form action="{{ path('plantas_create') }}" method="post" {{ form_enctype(form) }}>
       {{ form_errors(form) }}
-      <h2> {{ 'Alta de Plantas'|trans }} </h2>
       <table class="sin_relleno">
         <tr>
           <td><strong>{{ form_label(form.planta) }}</strong></td>

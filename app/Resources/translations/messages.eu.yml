@@ -1,5 +1,5 @@
 titulo:
-    portada: elkarte gastronomikoen arteko harremana
+    portada: Elkarte Gastronomikoen Arteko Harremana
 organizacion: Erakundea     
 sociedad: Gizartea
 portada: Aurrealdea
@@ -9,4 +9,28 @@ gente: Jendea
 socios: Bazkideak
 contactos: Kontaktuak
 sociosinvitados: Gonbidatu bazkideak
+foto: Argazki
+nombre: Izena
+direccion: Helbidea
+herramientas: Tresnak
+REGISTRO: ERREGISTRATU
+telefono: Telefono
+poblacion: Biztanleria
+fecha_Creacion: Sorrera dataren
+reservas: Erreserbak
+nombre_usuario: Erabiltzaile izena
+fecha_nacimiento: Jaiotze-Data
+activar: aktibatze
+editar: Editatu
+fijo: Tfono
+movil: Mobile
+invitar: Gonbidatzen
+_contacto: +kontaktuan
+contactos_google: Google Kontaktuak
+grabar: Erregistroa
+fechanacimiento: Jaiotze-data
+numerocuenta: Kontu-zenbakia
+alta:
+  contacto: kontaktu berriak
+  usuario: Erabiltzaile Berria
 

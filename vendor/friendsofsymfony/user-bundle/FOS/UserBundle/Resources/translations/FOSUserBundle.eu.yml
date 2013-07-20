@@ -17,7 +17,7 @@ group:
 security:
     login:
         username: "Erabiltzaile-izena:"
-        password: "pasahitza:"
+        password: "Pasahitza:"
         remember_me: gogoratu
         submit: Sartu
 
@@ -42,7 +42,7 @@ registration:
     check_email: Se ha enviado un email a %email%. Contiene un enlace de activación que debes presionar para activar tu cuenta.
     confirmed: Felicidades %username%, tu cuenta está ahora confirmada.
     back: Volver a la página original.
-    submit: Registrar
+    submit: Erregistroa
     flash:
         user_created: El usuario se ha creado satisfactoriamente
     email:
@@ -82,16 +82,16 @@ layout:
     logout: utzi
     login: Sartu
     register: Registrar
-    logged_in_as: Identificado como %username%
+    logged_in_as: Identifikatu %username%
 
 # Form field labels
 form:
     group_name: "Nombre de grupo:"
-    username: "Nombre de usuario:"
+    username: "Erabiltzaile-izena:"
     email: "Email:"
     current_password: "Contraseña actual:"
-    password: "Contraseña:"
-    password_confirmation: "Repita la contraseña:"
+    password: "Pasahitza:"
+    password_confirmation: "errepikatu pasahitza:"
     new_password: "Nueva contraseña:"
     new_password_confirmation: "Repita la contraseña:"
 sociedad:

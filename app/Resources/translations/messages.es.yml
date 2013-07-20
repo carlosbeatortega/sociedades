@@ -9,3 +9,27 @@ gente: Gente
 socios: Socios
 contactos: Contactos
 sociosinvitados: Socios Invitados
+foto: Foto
+nombre: Nombre
+direccion: Direccion
+herramientas: Herramientas
+REGISTRO: REGISTRO
+telefono: Teléfono
+poblacion: Población
+fecha_Creacion: Fecha Alta
+reservas: Reservas
+nombre_usuario: Nombre Usuario
+fecha_nacimiento: Fecha Nacimiento
+activar: Activar
+editar: Editar
+fijo: Fijo
+movil: Móvil
+invitar: Invitar
+_contacto: +Contacto
+contactos_google: Contactos Google
+grabar: Grabar
+fechanacimiento: Fecha de Nacimiento
+numerocuenta: Número de cuenta
+alta:
+  contacto: Nuevo Contacto
+  usuario: Registro de Usuarios

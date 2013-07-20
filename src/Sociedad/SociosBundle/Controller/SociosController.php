@@ -28,6 +28,7 @@ class SociosController extends Controller
         $em = $this->getDoctrine()->getManager();
         $userManager = $this->get('security.context')->getToken()->getUser();
         $sociedades_id=$userManager->getSociedadesId();
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         $entities = $em->getRepository('SociedadSociosBundle:Socios')->findBy(array('sociedades_id'=>$sociedades_id));
         $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($sociedades_id);
