@@ -11,8 +11,8 @@ class PlantasType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('planta')
-            ->add('foto', 'file', array())
+            ->add('planta',null,array('label' => 'planta'))
+            ->add('foto', 'file', array('label' => 'foto'))
         ;
     }
 

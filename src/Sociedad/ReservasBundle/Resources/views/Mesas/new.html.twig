@@ -26,11 +26,17 @@
         </tr>
       </table>
         {{ form_rest(form) }}
-        <br/>
-        <p>
-            {{ linkInterno("mesas",{"texto": "mesas" ,"classa" : "'btn'"  })|raw }}
-            <button type="submit">{{ 'Grabar'|trans }}</button>
-        </p>
+        </br>
+        <table class="record_actions">
+            <tr>
+                <button class="btn botonesseparados" type="submit">{{ 'grabar'|trans }}</button>
+            </tr>
+            <tr>
+                <a class="btn botonesseparados" href="{{ path('mesas') }}">
+                    {{ 'mesas'|trans }}
+                </a>
+            </tr>
+        </table>
     </form>
 
   </div>

@@ -14,11 +14,17 @@
         </tr>
       </table>
         {{ form_rest(form) }}
-        <br/>
-        <p>
-            {{ linkInterno("plantas",{"texto": "Plantas" ,"classa" : "'btn'"  })|raw }}
-            <button type="submit">{{ 'Grabar'|trans }}</button>
-        </p>
+        </br>
+        <table class="record_actions">
+            <tr>
+                <button class="btn botonesseparados" type="submit">{{ 'grabar'|trans }}</button>
+            </tr>
+            <tr>
+                <a class="btn botonesseparados" href="{{ path('plantas') }}">
+                    {{ 'plantas'|trans }}
+                </a>
+            </tr>
+        </table>
     </form>
   </div>
 {% endblock content %}

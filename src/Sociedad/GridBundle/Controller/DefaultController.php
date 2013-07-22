@@ -95,10 +95,12 @@ class DefaultController extends Controller
         $eventos[$contador]['modificado']=$reserva->getFechamodi();
         switch ($reserva->getComida()) {
             case 'Desayuno':
+            case 'Hamaiketako':
                 $eventos[$contador]['start']=  str_replace("00:00:00", "08:00:00", $eventos[$contador]['start']);
                 $eventos[$contador]['end']=  str_replace("00:00:00", "10:00:00", $eventos[$contador]['end']);
                 break;
             case 'Comida':
+            case 'Bazkari':
                 $eventos[$contador]['start']=  str_replace("00:00:00", "14:00:00", $eventos[$contador]['start']);
                 $eventos[$contador]['end']=  str_replace("00:00:00", "16:00:00", $eventos[$contador]['end']);
                 break;

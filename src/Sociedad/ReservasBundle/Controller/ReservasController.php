@@ -75,6 +75,7 @@ class ReservasController extends Controller
 
         $misreservas = $em->getRepository('SociedadReservasBundle:Reservas')->reservaMesasPlantaSocioFecha($socio_id,$diahoy,$turno,$plantaid);
         $sinreservar = $em->getRepository('SociedadReservasBundle:MesasPlantas')->mesasNoReservadasFecha($sociedades_id,$diahoy,$turno,$plantaid);
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         
         return array(
             'entities' => $entities,
@@ -105,6 +106,7 @@ class ReservasController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         return array(
             'entity'      => $entity,
@@ -152,6 +154,7 @@ class ReservasController extends Controller
 
         $misreservas = $em->getRepository('SociedadReservasBundle:Reservas')->reservaMesasPlantaSocioFecha($socio_id,$hoy,$turno,$plantaid);
         $sinreservar = $em->getRepository('SociedadReservasBundle:MesasPlantas')->mesasNoReservadasFecha($sociedades_id,$hoy,$turno,$plantaid);
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         
         
         return array(
@@ -247,6 +250,7 @@ class ReservasController extends Controller
         
         $editForm = $this->createForm(new ReservasType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         return array(
             'entity'      => $entity,

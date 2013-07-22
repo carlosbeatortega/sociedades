@@ -4,7 +4,6 @@
 
         <form action="{{ path('contactos_create') }}" method="post" {{ form_enctype(form) }}>
           {{ form_errors(form) }}
-           <h2> {{ 'alta.contacto'|trans }} </h2>
            <table class="sin_relleno">
             <tr>
               <td><strong>{{ form_label(form.nombre) }}</strong></td>
@@ -24,6 +23,7 @@
             </tr>
            </table>
            {{ form_rest(form) }}
+           </br>
             <table class="record_actions">
                 <tr>
                     <button class="btn botonesseparados" type="submit">{{ 'grabar'|trans }}</button>

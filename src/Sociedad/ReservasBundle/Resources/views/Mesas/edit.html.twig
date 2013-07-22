@@ -29,15 +29,15 @@
       <br/>
         <table class="record_actions">
             <tr>
-                <button class="btn botonesseparados" type="submit">{{ 'Grabar'|trans }}</button>
+                <button class="btn botonesseparados" type="submit">{{ 'grabar'|trans }}</button>
+            </tr>
+            <tr>
+                <a onclick='preguntarSiNo("form_delete","{{ 'baja.mesa'|trans }}","{{ path('mesas_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados">{{'borrar'|trans}}</a>
             </tr>
             <tr>
                 <a class="btn botonesseparados" href="{{ path('mesas') }}">
-                    {{ 'Mesas'|trans }}
+                    {{ 'mesas'|trans }}
                 </a>
-            </tr>
-            <tr>
-                <a onclick='preguntarSiNo("form_delete","{{ 'Va a eliminar la Mesa. ¿Desea continuar?'|trans }}","{{ path('mesas_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados">{{'Borrar'|trans}}</a>
             </tr>
         </table>
     </form>

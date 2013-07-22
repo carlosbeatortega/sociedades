@@ -3,15 +3,17 @@
   <div class="span1">
   </div>
   <div class="span9">
+    <span class="altaregistro">{{ 'alta.planta'|trans }}</span>
+    <span class="edicionregistro">{{ 'edicion.planta'|trans }}</span>
     <h2>{{ sociedades.nombre }} </h2>    
-    <h3 class='titulo'>Plantas</h3>
+    <h3 class='titulo'>{{ 'plantas'|trans }}</h3>
 
     <table id="tablaprincipal" class="tablagrid mesasportada table table-striped">
         <thead>
             <tr>
-                {{ linkInterno("",{ "id" : "colEditar","span2":"ancho15","texto":"Editar"},'','',"th")|raw }}
-                {{ linkInterno("",{ "id" : "colNombre","span6":"ancho25","texto":"Planta"},'','',"th")|raw }}
-                {{ linkInterno("",{ "id" : "colFoto","class":"span3","texto":"Foto"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colEditar","span2":"ancho15","texto":"editar"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colNombre","span6":"ancho25","texto":"planta"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colFoto","class":"span3","texto":"foto"},'','',"th")|raw }}
             </tr>
         </thead>
         <tbody>
@@ -26,8 +28,8 @@
     <table class="table">
         <tbody>
              <tr>
-                  {{ linkInterno("plantas_new",{"texto": "Crear" ,"classa" : "'btn btn-large altaSociedad'"  })|raw }}
-                  {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "Sociedad" ,"classa" : "'btn btn-large'"  })|raw }}
+                  {{ linkInterno("plantas_new",{"texto": "altaplanta" ,"classa" : "'btn btn-large altaSociedad'"  })|raw }}
+                  {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "sociedad" ,"classa" : "'btn btn-large'"  })|raw }}
              </tr>
         </tbody>
     </table>

@@ -1,18 +1,20 @@
 {% extends "SociedadSociedadesBundle::layout.html.twig" %}
 {% block content %}
   <div class="span6">
+    <span class="altaregistro">{{ 'alta.mesa'|trans }}</span>
+    <span class="edicionregistro">{{ 'edicion.mesa'|trans }}</span>
     <h2>{{ sociedades.nombre }} </h2>  
-    <h3 class='titulo'>Mesas</h3>
+    <h3 class='titulo'>{{ 'mesas'|trans }}</h3>
 
     <table id="tablaprincipal" class="tablagrid mesasportada table table-striped">
         <thead>
             <tr>
-                {{ linkInterno("",{ "id" : "colEditar","class":"ancho15","texto":"Editar"},'','',"th")|raw }}
-                {{ linkInterno("",{ "id" : "colNombre","class":"ancho25","texto":"Mesa"},'','',"th")|raw }}
-                {{ linkInterno("",{ "id" : "colPlanta","class":"ancho25","texto":"Planta"},'','',"th")|raw }}
-                {{ linkInterno("",{ "id" : "colSala","class":"ancho25","texto":"Sala"},'','',"th")|raw }}
-                {{ linkInterno("",{ "id" : "colComensales","class":"ancho25","texto":"Comensales"},'','',"th")|raw }}
-                {{ linkInterno("",{ "id" : "colFoto","class":"ancho25","texto":"Foto"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colEditar","class":"ancho15","texto":"editar"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colNombre","class":"ancho25","texto":"mesa"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colPlanta","class":"ancho25","texto":"planta"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colSala","class":"ancho25","texto":"sala"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colComensales","class":"ancho25","texto":"comensales"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colFoto","class":"ancho25","texto":"foto"},'','',"th")|raw }}
             </tr>
         </thead>
         <tbody>
@@ -31,8 +33,8 @@
     <table class="table">
         <tbody>
              <tr>
-                  {{ linkInterno("mesas_new",{ "texto": "Crear Mesa" ,"classa" : "'btn btn-large  altaSociedad'"  })|raw }}
-                  {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "Sociedad" ,"classa" : "'btn btn-large'"  })|raw }}
+                  {{ linkInterno("mesas_new",{ "texto": "altamesa" ,"classa" : "'btn btn-large  altaSociedad'"  })|raw }}
+                  {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "sociedad" ,"classa" : "'btn btn-large'"  })|raw }}
              </tr>
         </tbody>
     </table>

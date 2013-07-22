@@ -11,11 +11,11 @@ class MesasType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre')
-            ->add('planta')
-            ->add('sala')
-            ->add('comensales')
-            ->add('foto', 'file', array())
+            ->add('nombre',null,array('label' => 'nombre'))
+            ->add('planta',null,array('label' => 'planta'))
+            ->add('sala',null,array('label' => 'sala'))
+            ->add('comensales',null,array('label' => 'comensales'))
+            ->add('foto', 'file', array('label' => 'foto'))
         ;
     }
 

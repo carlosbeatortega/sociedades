@@ -30,7 +30,32 @@ contactos_google: Google Kontaktuak
 grabar: Erregistroa
 fechanacimiento: Jaiotze-data
 numerocuenta: Kontu-zenbakia
+borrar: Kendu
+sala: Gela
+comensales: Mahaikide
+mesa: Mahaia
+planta: Solairua
+altamesa: Mahaia berriak
+altaplanta: Solairua berriak
+altareserva: Berriak Erreserba
+fecha: Data
+turno: Txanda
+desayuno: Hamaiketako
+comida: Bazkari
+merienda: Merienda
+cena: Afari
+seleccionar: Aukeratu
+socio: Bazkide
 alta:
   contacto: kontaktu berriak
   usuario: Erabiltzaile Berria
-
+  planta: Solairua berriak
+  mesa: Mahaia berriak
+edicion:
+  contacto: kontaktu edizio
+  planta: Solairua edizio
+  mesa: Mahaia edizio
+baja:
+  contacto: ¿Kendu kontaktu?  
+  mesa: ¿Kendu Mahia?
+  planta: ¿Kendu Solairua?

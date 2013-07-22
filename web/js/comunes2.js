@@ -136,25 +136,28 @@ jQuery(document).ready(function(){
                     });
          checkear($("#seleccionartodos"));
          var clonico=$("a.editSociedad");
-         var titulotabla=$("h3.titulo");
-         var titulo1="";
-         if(titulotabla){
-             titulo1=titulotabla[0].textContent;
+         var tituloaltatabla=$("span.altaregistro");
+         var tituloediciontabla=$("span.edicionregistro");
+         var alta="Alta Registro";
+         var edicion="Edición Registro";
+         if(tituloaltatabla[0]){
+             alta=tituloaltatabla[0].textContent;
          }
+         if(tituloediciontabla[0]){
+             edicion=tituloediciontabla[0].textContent;
+         }
+         alta='"'+alta+'"'
+         edicion='"'+edicion+'"'
          for(var x=0;x<clonico.length;x++){
             var cadenaref=clonico[x].attributes['href'];
             var parametro1='"'+cadenaref.value+'"';
-            var titulo="Edición de "+titulo1;
-            titulo='"'+titulo+'"'
-            clonico[x].outerHTML="<a class='editSociedad' href='javascript:void(0);'onclick='sacarEdicionVentanaFlotante("+parametro1+","+titulo+")'></a>";
+            clonico[x].outerHTML="<a class='editSociedad' href='javascript:void(0);'onclick='sacarEdicionVentanaFlotante("+parametro1+","+edicion+")'></a>";
         }
          var clonico2=$("a.altaSociedad");
          if(clonico2){
             var cadenaref2=clonico2[0].attributes['href'];
             var parametro12='"'+cadenaref2.value+'"';
-            var titulo="Alta de "+titulo1;
-            titulo='"'+titulo+'"'
-            clonico2[0].outerHTML="<a class='btn btn-large altaSociedad' href='javascript:void(0);'onclick='sacarEdicionVentanaFlotante("+parametro12+","+titulo+")'>"+clonico2[0].text+"</a>";
+            clonico2[0].outerHTML="<a class='btn btn-large altaSociedad' href='javascript:void(0);'onclick='sacarEdicionVentanaFlotante("+parametro12+","+alta+")'>"+clonico2[0].text+"</a>";
          }
 
     }
@@ -262,9 +265,10 @@ function preguntarSiNo($form,$msg,$ruta){
     $( "#dialog-Borrar-reserva" ).dialog({
         resizable: false,
         height:140,
+        title: $msg,
         modal: true,
         buttons: {
-            "Si": function() {
+            "Ok": function() {
                 $(location).attr('href',$ruta);
             },
             Cancel: function() {

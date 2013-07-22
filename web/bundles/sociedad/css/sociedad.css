@@ -68,3 +68,9 @@ table .editReserva{
   margin-left: 2px;
 }
 
+.altaregistro{
+    display: none;
+}
+.edicionregistro{
+    display: none;
+}

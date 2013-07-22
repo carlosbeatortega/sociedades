@@ -45,6 +45,7 @@ class MesasController extends Controller
         
         $planta = $em->getRepository('SociedadReservasBundle:Plantas')->findBy(array('id'=>$plantaid));
         $mesasplantas = $em->getRepository('SociedadReservasBundle:MesasPlantas')->findBy(array('plantas_id'=>$plantaid,'sociedades_id'=>$sociedades_id));
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         return array(
             'entities' => $entities,
@@ -72,6 +73,7 @@ class MesasController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         return array(
             'entity'      => $entity,
@@ -93,6 +95,7 @@ class MesasController extends Controller
         $form   = $this->createForm(new MesasType(), $entity);
         $em = $this->getDoctrine()->getManager();
         $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($sociedades_id);
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         return array(
             'entity' => $entity,
@@ -155,6 +158,7 @@ class MesasController extends Controller
 
         $editForm = $this->createForm(new MesasType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         return array(
             'entity'      => $entity,

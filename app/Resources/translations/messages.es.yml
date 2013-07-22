@@ -30,6 +30,32 @@ contactos_google: Contactos Google
 grabar: Grabar
 fechanacimiento: Fecha de Nacimiento
 numerocuenta: Número de cuenta
+borrar: Borrar
+sala: Sala
+mesa: Mesa
+planta: Planta
+comensales: Comensales
+altamesa: Nueva Mesa
+altaplanta: Nueva Planta
+altareserva: Nueva Reserva
+fecha: Fecha
+turno: Turno
+desayuno: Desayuno
+comida: Comida
+merienda: Merienda
+cena: Cena
+seleccionar: Seleccionar
+socio: Socio
 alta:
   contacto: Nuevo Contacto
   usuario: Registro de Usuarios
+  planta: Nueva Planta
+  mesa: Nueva Mesa
+edicion:
+  contacto: Edición de Contacto
+  planta: Edición de Planta
+  mesa: Edición de Mesa
+baja:
+  contacto: ¿Eliminar el Contacto?
+  mesa: ¿Eliminar Mesa?
+  planta: ¿Eliminar Planta?

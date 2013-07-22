@@ -1,6 +1,8 @@
 {% extends "SociedadSociedadesBundle::layout.html.twig" %}
 {% block content %}
   <div class="span6">
+    <span class="altaregistro">{{ 'alta.contacto'|trans }}</span>
+    <span class="edicionregistro">{{ 'edicion.contacto'|trans }}</span>
     <h3 class='titulo'>{{ 'contactos'|trans }}</h3>
     <form action="{{ path('contactos_activa') }}" method="get" id="f_Invita">
         {% if app.session.get('reservaid') %}

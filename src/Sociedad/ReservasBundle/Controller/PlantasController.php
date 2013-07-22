@@ -33,9 +33,11 @@ class PlantasController extends Controller
         $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($sociedades_id);
         $request = $this->get('request');        
         $request->query->set('plantaid',0);
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         if($entities){
             $request->query->set('plantaid',$entities[0]->getId());
         }
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         return array(
             'entities' => $entities,
@@ -55,6 +57,8 @@ class PlantasController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('SociedadReservasBundle:Plantas')->find($id);
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Plantas entity.');
@@ -89,6 +93,8 @@ class PlantasController extends Controller
         if($plantas){
             $request->query->set('plantaid',$plantas[0]->getId());
         }
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         return array(
             'entity' => $entity,
@@ -150,6 +156,8 @@ class PlantasController extends Controller
 
         $editForm = $this->createForm(new PlantasType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         return array(
             'entity'      => $entity,

@@ -2,30 +2,30 @@
 {% block content %}
   <div class="span6">
     <h2>{{ sociedades.nombre }} </h2>  
-    <h3>Reservas</h3>
+    <h3>{{ 'reservas'|trans }}</h3>
     <form action="{{ path('reservas', {'plantaid': app.request.query.get('plantaid') }) }}"  method="get" id="f_Vertodos">
       <table class="sin_relleno">
         <tr>
             <td>
-                {{'Fecha'|trans}}:
+                {{'fecha'|trans}}:
             </td>
             <td> 
                 <input name="hoy" class="{{ app.request.query.get('plantaid') }}" type="text" id="datepicker" value="{{ app.request.query.get('hoy')|date('d/m/Y') }}"/>
             </td>
             <td>
-                {{'Turno'|trans}}:
+                {{'turno'|trans}}:
             </td>
             <td>
                 <select name="turno" class="turno">
                 <option value=""></option>
-                <option value="Desayuno" {{ app.session.get('turno')=='Desayuno' ? 'selected' : '' }}>{{'Desayuno'|trans}}</option>
-                <option value="Comida" {{ app.session.get('turno')=='Comida' ? 'selected' : '' }}>{{'Comida'|trans}}</option>
-                <option value="Merienda" {{ app.session.get('turno')=='Merienda' ? 'selected' : '' }}>{{'Merienda'|trans}}</option>
-                <option value="Cena" {{ app.session.get('turno')=='Cena' ? 'selected' : '' }}>{{'Cena'|trans}}</option>
+                <option value="Desayuno" {{ app.session.get('turno')=='Desayuno' ? 'selected' : '' }}>{{'desayuno'|trans}}</option>
+                <option value="Comida" {{ app.session.get('turno')=='Comida' ? 'selected' : '' }}>{{'comida'|trans}}</option>
+                <option value="Merienda" {{ app.session.get('turno')=='Merienda' ? 'selected' : '' }}>{{'merienda'|trans}}</option>
+                <option value="Cena" {{ app.session.get('turno')=='Cena' ? 'selected' : '' }}>{{'cena'|trans}}</option>
                 </select>
             </td>
             <td>
-                <input class="btn reservar" type="submit" value="{{'Seleccionar'|trans}}"/>
+                <input class="btn reservar" type="submit" value="{{'seleccionar'|trans}}"/>
             </td>
         </tr>
       </table>
@@ -33,11 +33,11 @@
     <table id="tablaprincipal" class="tablagrid mesasportada table table-striped">
         <thead>
             <tr>
-                {{ linkInterno("",{ "id" : "colEditar","class":"span1","texto":"Editar"},'','',"th")|raw }}
-                {{ linkInterno("",{ "id" : "colFoto","class":"span2","texto":"Foto"},'','',"th")|raw }}
-                {{ linkInterno("",{ "id" : "colSocio","class":"span2","texto":"Socio"},'','',"th")|raw }}
-                {{ linkInterno("",{ "id" : "colComida","class":"span2","texto":"Turno"},'','',"th")|raw }}
-                {{ linkInterno("",{ "id" : "colComensales","class":"span1","texto":"Comensales"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colEditar","class":"span1","texto":"editar"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colFoto","class":"span2","texto":"foto"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colSocio","class":"span2","texto":"socio"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colComida","class":"span2","texto":"turno"},'','',"th")|raw }}
+                {{ linkInterno("",{ "id" : "colComensales","class":"span1","texto":"comensales"},'','',"th")|raw }}
             </tr>
         </thead>
         <tbody>
@@ -55,9 +55,9 @@
     <table class="table">
         <tbody>
              <tr>
-                  {{ linkInterno("reservas_new",{ "texto": "Crear Reserva" ,"classa" : "'btn btn-large'"  })|raw }}
-                  {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "Sociedad" ,"classa" : "'btn btn-large'"  })|raw }}
-                  {{ linkInterno("socios_edit",{"entity_id":"user.id","texto": "Socio" ,"classa" : "'btn btn-large'"  })|raw }}
+                  {{ linkInterno("reservas_new",{ "texto": "altareserva" ,"classa" : "'btn btn-large'"  })|raw }}
+                  {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "sociedad" ,"classa" : "'btn btn-large'"  })|raw }}
+                  {{ linkInterno("socios_edit",{"entity_id":"user.id","texto": "socio" ,"classa" : "'btn btn-large'"  })|raw }}
              </tr>
         </tbody>
     </table>
