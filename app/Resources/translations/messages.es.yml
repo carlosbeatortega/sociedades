@@ -46,16 +46,32 @@ merienda: Merienda
 cena: Cena
 seleccionar: Seleccionar
 socio: Socio
+Desayuno: Desayuno
+Comida: Comida
+Merienda: Merienda
+Cena: Cena
+hora Desayuno: Desayuno
+hora Comida: Comida
+hora Merienda: Merienda
+hora Cena: Cena
+dia: Día
+invitados: Invitados
 alta:
   contacto: Nuevo Contacto
   usuario: Registro de Usuarios
   planta: Nueva Planta
   mesa: Nueva Mesa
+  reserva: ¿Reservar Mesa?
 edicion:
   contacto: Edición de Contacto
   planta: Edición de Planta
   mesa: Edición de Mesa
+  reserva: Edición de Reserva
 baja:
   contacto: ¿Eliminar el Contacto?
   mesa: ¿Eliminar Mesa?
   planta: ¿Eliminar Planta?
+  mesareserva: ¿Eliminar mesa de la Reserva?
+  reserva: ¿Eliminar Reserva?
+  
+No hay Invitados: No hay Invitados  

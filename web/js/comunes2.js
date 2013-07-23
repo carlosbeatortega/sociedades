@@ -58,7 +58,7 @@ jQuery(document).ready(function(){
                 height:140,
                 modal: true,
                 buttons: {
-                    "Si": function() {
+                    "Ok": function() {
                         $( this ).dialog( "close" );
                         borramesa(uno,botones);
                     },
@@ -76,7 +76,7 @@ jQuery(document).ready(function(){
                 height:140,
                 modal: true,
                 buttons: {
-                    "Si": function() {
+                    "Ok": function() {
                         $( this ).dialog( "close" );
                         reservarmesa(uno,botones);
                     },
@@ -94,7 +94,7 @@ jQuery(document).ready(function(){
                 height:140,
                 modal: true,
                 buttons: {
-                    "Si": function() {
+                    "Ok": function() {
                         $( this ).dialog( "close" );
                         borrareservamesa(uno,botones);
                     },

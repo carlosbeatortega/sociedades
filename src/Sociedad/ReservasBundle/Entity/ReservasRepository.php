@@ -12,6 +12,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class ReservasRepository extends EntityRepository
 {
+    public function reservaSocioFechaTurno($idsocio,$fecha,$turno)
+    {
+        $consulta=$this->getEntityManager()
+                    ->createQuery('SELECT r FROM  Sociedad\ReservasBundle\Entity\Reservas r
+                                         WHERE r.socios_id=:id
+                                         and r.fechadesde=:fecha
+                                         and r.comida=:turno
+                                         ORDER BY r.comida');
+            
+        $consulta->setParameter('id', $idsocio);
+        $consulta->setParameter('fecha', $fecha);
+        $consulta->setParameter('turno', $turno);
+        $consulta->useResultCache(true, 3600);
+        
+        return $consulta->getResult();
+        
+    }    
     public function reservaSociedadFecha($idsociedad,$fecha,$turno)
     {
         if($turno){

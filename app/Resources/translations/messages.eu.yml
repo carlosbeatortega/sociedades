@@ -46,16 +46,32 @@ merienda: Merienda
 cena: Afari
 seleccionar: Aukeratu
 socio: Bazkide
+Desayuno: Hamaiketako
+Comida: Bazkari
+Merienda: Merienda
+Cena: Afari
+hora Desayuno: Hamaiketako
+hora Comida: Bazkari
+hora Merienda: Merienda
+hora Cena: Afari
+dia: Egun
+invitados: Gonbidatuak
 alta:
   contacto: kontaktu berriak
   usuario: Erabiltzaile Berria
   planta: Solairua berriak
   mesa: Mahaia berriak
+  reserva: ¿Mahai bat erreserbatu?
 edicion:
   contacto: kontaktu edizio
   planta: Solairua edizio
   mesa: Mahaia edizio
+  reserva: Erreserba edizio
 baja:
   contacto: ¿Kendu kontaktu?  
   mesa: ¿Kendu Mahia?
   planta: ¿Kendu Solairua?
+  mesareserva: ¿Ezabatu mahai erreserba?
+  reserva: ¿Kendu erreserba?
+  
+No hay Invitados: Gonbidatuak ez  

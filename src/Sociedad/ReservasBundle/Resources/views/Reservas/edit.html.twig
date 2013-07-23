@@ -6,7 +6,7 @@
           {{ form_errors(edit_form) }}
           <div class="row-fluid" >
           <div class="span5" style="float: left;">
-            <h4> {{ 'Edición de Reservas'|trans }} </h4>
+            <h4> {{ 'edicion.reserva'|trans }} </h4>
            <table class="sin_relleno">
             <tr>
               <td><strong>{{ form_label(edit_form.fechadesde) }}</strong></td>
@@ -33,15 +33,15 @@
           <div class="span12" style="clear:both">
             <table class="record_actions">
                 <tr>
-                    <button class="btn botonesseparados" type="submit">{{ 'Grabar'|trans }}</button>
+                    <button class="btn botonesseparados" type="submit">{{ 'grabar'|trans }}</button>
                 </tr>
                 <tr>
                     <a class="btn botonesseparados" href="{{ path('reservasplanta', {'plantaid': app.session.get('plantaid') }) }}">
-                        {{ 'Reservas'|trans }}
+                        {{ 'reservas'|trans }}
                     </a>
                 </tr>
                 <tr>
-                    <a onclick='preguntarSiNo("form_delete","{{ 'Va a eliminar la Reserva. ¿Desea continuar?'|trans }}","{{ path('reservas_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados">{{'Borrar'|trans}}</a>
+                    <a onclick='preguntarSiNo("form_delete","{{ 'baja.reserva'|trans }}","{{ path('reservas_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados">{{'borrar'|trans}}</a>
                 </tr>
                 <tr>
                     <a class="btn botonesseparados" href="{{ path('externo') }}">
@@ -68,7 +68,7 @@
         <iframe id="logoutframe" src="" style="display: none"></iframe>
   </div>
   {% include "SociedadReservasBundle:Reservas:plantas.html.twig" %}    
-  <div id="dialog-Borrar-reserva" title="¿Eliminar la Reserva?">
+  <div id="dialog-Borrar-reserva" title="{{ 'baja.reserva'|trans }}">
         <p><span  style="float: left; margin: 0 7px 20px 0;"></span></p>
   </div>
   

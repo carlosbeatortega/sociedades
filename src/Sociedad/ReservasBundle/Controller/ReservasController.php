@@ -122,7 +122,6 @@ class ReservasController extends Controller
      */
     public function newAction()
     {
-        $entity = new Reservas();
         $request = $this->get('request');
         $session = $this->get('request')->getSession();
         $plantaid = $session->get('plantaid');
@@ -135,11 +134,17 @@ class ReservasController extends Controller
             $diahoy=new \Datetime($hoy.' 00:00:00');
         }
         $turno=$session->get('turno');
-        $request->query->set('plantaid',$plantaid);
         $userManager = $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $reserva = $em->getRepository('SociedadReservasBundle:Reservas')->reservaSocioFechaTurno($userManager->getId(),$hoy,$turno);
+        if($reserva){
+            return $this->redirect($this->generateUrl('reservas_edit',array('id' => $reserva[0]->getId())));
+        }
+            
+        $entity = new Reservas();
+        $request->query->set('plantaid',$plantaid);
         $sociedades_id=$userManager->getSociedadesId();
         $socio_id=$userManager->getId();
-        $em = $this->getDoctrine()->getManager();
         $entity->setFechadesde($diahoy);
         $entity->setFechahasta($diahoy);
         $entity->setComida($turno);
