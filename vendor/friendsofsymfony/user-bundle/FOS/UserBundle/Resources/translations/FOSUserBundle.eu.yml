@@ -24,8 +24,9 @@ security:
 # Profile
 profile:
     show:
-        username: Nombre de usuario
+        username: Erabiltzaile-izena
         email: Email
+        password: Pasahitza
     edit:
         submit: Actualizar usuario
     flash:

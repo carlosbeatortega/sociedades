@@ -26,6 +26,7 @@ profile:
     show:
         username: Nombre de usuario
         email: Email
+        password: Contraseña
     edit:
         submit: Actualizar usuario
     flash:

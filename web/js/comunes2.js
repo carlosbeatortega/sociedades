@@ -154,7 +154,7 @@ jQuery(document).ready(function(){
             clonico[x].outerHTML="<a class='editSociedad' href='javascript:void(0);'onclick='sacarEdicionVentanaFlotante("+parametro1+","+edicion+")'></a>";
         }
          var clonico2=$("a.altaSociedad");
-         if(clonico2){
+         if(clonico2[0]){
             var cadenaref2=clonico2[0].attributes['href'];
             var parametro12='"'+cadenaref2.value+'"';
             clonico2[0].outerHTML="<a class='btn btn-large altaSociedad' href='javascript:void(0);'onclick='sacarEdicionVentanaFlotante("+parametro12+","+alta+")'>"+clonico2[0].text+"</a>";

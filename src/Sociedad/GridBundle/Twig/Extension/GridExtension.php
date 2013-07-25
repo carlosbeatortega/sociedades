@@ -255,7 +255,7 @@ class GridExtension extends \Twig_Extension
                     break;
                 case 'scra':
                     $data.=" data-".$origen."='".$cadaNombreParametro."'";
-                    $scra='<img src='.$valor.'>';
+                    $scra='<img class="img-rounded" src='.$valor.'>';
                     break;
                 case 'class':
                     $class.=" class='".$valor."'";

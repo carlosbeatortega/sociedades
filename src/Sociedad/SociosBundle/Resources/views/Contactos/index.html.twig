@@ -17,8 +17,8 @@
                 <tr>
                     {{ linkInterno("",{ "id" : "colNombre","class":"span1","texto":"editar"},'','',"th")|raw }}
                     {{ linkInterno("",{ "id" : "colNombre","class":"span5","texto":"nombre"},'','',"th")|raw }}
-                    {{ linkInterno("",{ "id" : "colEmail","class":"span5","texto":"Email"},'','',"th")|raw }}
-                    {{ linkInterno("",{ "id" : "colEmail","class":"span5","texto":"fijo"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colEmail","class":"span5  hidden-phone","texto":"Email"},'','',"th")|raw }}
+                    {{ linkInterno("",{ "id" : "colEmail","class":"span5  hidden-phone","texto":"fijo"},'','',"th")|raw }}
                     {{ linkInterno("",{ "id" : "colEmail","class":"span5","texto":"movil"},'','',"th")|raw }}
                     {{ linkInterno("",{ "id" : "colSel","class":"span1","type":"checkbox","ida":"seleccionartodos","valuea":"true","classa":"checkbox"},'','',"th")|raw }}
                 </tr>
@@ -28,8 +28,8 @@
                 <tr>
                     {{ linkInterno("contactos_edit",{"entity_id" : "entity.id","name":"Nombre","classa":"editSociedad" })|raw }}
                     {{ linkInterno("",{"name":"nombre","class":"posicionr","texto":'entity.nombre'})|raw }} 
-                    {{ linkInterno("",{"name":"email","class":"posicionr","texto":'entity.email'})|raw }} 
-                    {{ linkInterno("",{"name":"fijo","class":"posicionr","texto":'entity.fijo'})|raw }} 
+                    {{ linkInterno("",{"name":"email","class":"posicionr hidden-phone","texto":'entity.email'})|raw }} 
+                    {{ linkInterno("",{"name":"fijo","class":"posicionr hidden-phone","texto":'entity.fijo'})|raw }} 
                     {{ linkInterno("",{"name":"movil","class":"posicionr","texto":'entity.movil'})|raw }} 
                     {% set cadena="invitados["~entity.id ~"]" %}
                     {% if myevaluateString(cadena) %}
