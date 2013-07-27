@@ -106,7 +106,7 @@ jQuery(document).ready(function(){
         });
 
          $( "#datepicker" ).datepicker({
-                        numberOfMonths: 3,
+                        numberOfMonths: window.innerWidth<767 ? 1 : 3,
                         showButtonPanel: true,
         		closeText: 'Cerrar',
                         prevText: 'Sig.',
@@ -135,6 +135,7 @@ jQuery(document).ready(function(){
                         }
                     });
          checkear($("#seleccionartodos"));
+         var imagen=$("a.imageGrid");
          var clonico=$("a.editSociedad");
          var tituloaltatabla=$("span.altaregistro");
          var tituloediciontabla=$("span.edicionregistro");
@@ -159,6 +160,16 @@ jQuery(document).ready(function(){
             var parametro12='"'+cadenaref2.value+'"';
             clonico2[0].outerHTML="<a class='btn btn-large altaSociedad' href='javascript:void(0);'onclick='sacarEdicionVentanaFlotante("+parametro12+","+alta+")'>"+clonico2[0].text+"</a>";
          }
+         var lwidth=window.innerWidth;
+         if(lwidth<767){
+             $(".page-header").remove();
+             if(imagen[0]){
+                for(var x=0;x<imagen.length;x++){
+                   imagen[x].className="edit imagesuperpequeGrid";
+                }
+             }
+         }
+         
 
     }
     );

@@ -1,28 +1,45 @@
 {% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{%block fos_user_content %}
+    <table class="record_actions">
+        <tr>
+             <td>
+                 {{ parent() }}
+            </td>
+           <td class="imagesuperpequeGrid" >
+                <img class="hidden-desktop" alt="Anagrama" src="{{ asset(entity.foto) }}">                
+            </td>
+            <td>
+            <h5 class="hidden-desktop"><a href="#">{{ entity.nombre }} </a></h5>
+            </td>
+        </tr>
+    </table>
+
+ {% endblock fos_user_content %}   
 {% block content %}
+  </br>
   <div class="span3">
      <table class="table">
         <tbody>
-            <tr>
+            <tr class="hidden-phone hidden-tablet">
                 <th>{{ 'nombre'|trans }}</th>
                 <td>{{ entity.nombre }}</td>
             </tr>
-            <tr>
+            <tr class="hidden-phone hidden-tablet">
                 <th>{{ 'direccion'|trans }}</th>
                 <td>{{ entity.direccion }}</td>
             </tr>
-            <tr>
+            <tr class="hidden-phone hidden-tablet">
                 <th>{{ 'telefono'|trans }}</th>
                 <td>{{ entity.telefono }}</td>
             </tr>
-            <tr>
+            <tr class="hidden-phone hidden-tablet">
                 <th>{{ 'poblacion'|trans }}</th>
                 <td>{{ entity.poblacion }}</td>
             </tr>
-            <tr>
-                <img class=" img-rounded" alt="Anagrama" src="{{ asset(entity.foto) }}">                
+            <tr class="hidden-phone hidden-tablet">
+                <img class="img-rounded hidden-phone hidden-tablet" alt="Anagrama" src="{{ asset(entity.foto) }}">                
             </tr>
-            <tr>
+           <tr class="hidden-phone hidden-tablet">
                 <th>{{ 'fecha_Creacion'|trans }}</th>
                 <td>{{ entity.fechacreacion|date('d-m-Y') }}</td>
             </tr>

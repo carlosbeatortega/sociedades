@@ -1,23 +1,61 @@
 {% extends "SociedadSociedadesBundle::layoutconplano.html.twig" %}
 
 {% block menusuperior %}
+    <div class="hidden-phone hidden-tablet">
        {{ knp_menu_render('menu') }}
+    </div>
 {% endblock menusuperior %}
+{% block fos_user_content %}
+    <table class="record_actions">
+        <tr>
+            <td>
+                 {{ parent() }}
+            </td>
+            <td class="imagesuperpequeGrid" >
+                <img  class="hidden-desktop hidden-tablet" alt="Anagrama" src="{{ asset('bundles/sociedad/uploads/images/chiquitero.png') }}">
+            </td>
+            <td>
+            <h5 class="hidden-desktop hidden-tablet"><a href="#">{{ 'titulo.portada'|trans }} </a></h5>
+            </td>
+        </tr>
+    </table>
+ {% endblock fos_user_content %}   
 {% block content %}
-             <div class="span6">
-                <img alt="Anagrama" src="{{ asset('bundles/sociedad/uploads/images/chiquitero.png') }}">
-    
-                <h3><a href="#">{{ 'titulo.portada'|trans }} </a></h3>
+</br>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span10">
+                <div class="row-fluid hidden-phone">
+                    <div class="span3 ">
+                        <img class="hidden-phone" alt="Anagrama" src="{{ asset('bundles/sociedad/uploads/images/chiquitero.png') }}">
+                    </div>
+                    <div class="span7">
+                        {% block content_sidebar %}
+                         <div id="edicioncabecera" class="span3">
+                            <div id="map_canvas" class="mapainvisible" style="width:300px;height:200px"></div>
+                         </div>                
+                        <div class="span3">
+                           <p>  
+                           {{ linkInterno("registro",{ "texto": "REGISTRO" ,"classa" : "'btn btn-large btn-primary'"  })|raw }}
+                           </p>
+                            <h1><a href="#">RECETAS</a></h1>
+                            <img alt="Anagrama" src="{{ asset('bundles/sociedad/uploads/images/recetas.gif') }}">
+                         </div>
+                        {% endblock content_sidebar %}
+                    </div>
+                </div>
+
+                <h3 class="hidden-phone hidden-tablet"><a href="#">{{ 'titulo.portada'|trans }} </a></h3>
 
                    {% if columnas %}
                        {% include "SociedadGridBundle::cadaGridColumnas.html.twig" %}
                    {% else %}    
-                        <table id="tablaprincipal" class="tablagrid sociedadportada table table-striped" cellspacing="0">
+                        <table id="tablaprincipal" class="tablagrid sociedadportada table table-striped span6" cellspacing="0">
                         <thead>
                             <tr>
-                                {{ linkInterno("",{ "id" : "colEditarFoto","class":"ancho1","texto":"foto"},'','',"th")|raw }}
-                                {{ linkInterno("",{ "id" : "colNombre","class":"ancho25","texto":"nombre"},'','',"th")|raw }}
-                                {{ linkInterno("",{ "id" : "colDireccion","class":"ancho15","texto":"direccion"},'','',"th")|raw }}
+                                {{ linkInterno("",{ "id" : "colEditarFoto","class":"span2","texto":"foto"},'','',"th")|raw }}
+                                {{ linkInterno("",{ "id" : "colNombre","class":"span4","texto":"nombre"},'','',"th")|raw }}
+                                {{ linkInterno("",{ "id" : "colDireccion","class":"span4","texto":"direccion"},'','',"th")|raw }}
                             </tr>
                         </thead>
                         <tbody>
@@ -28,9 +66,9 @@
                              {% else %}
                                 <tr class="info">
                              {% endif %}
-                                {{ linkInterno("sociedades_show",{ "entity_id" : "entity.id"  ,"name":"Sociedades","classa":"'edit imageGrid'","scra":'entity.foto'  })|raw }}
-                                {{ linkInterno("",{"name":"nombre","class":"posicionr","texto":'entity.nombre'})|raw }} 
-                                {{ linkInterno("",{ "entity_id" : "entity.id","name":"direccion","class":"plano","texto":'entity.direccion'})|raw }} 
+                                {{ linkInterno("sociedades_show",{ "entity_id" : "entity.id"  ,"class":"span2","name":"Sociedades","classa":"'edit imageGrid'","scra":'entity.foto'  })|raw }}
+                                {{ linkInterno("",{"name":"nombre","class":"span4","texto":'entity.nombre'})|raw }} 
+                                {{ linkInterno("",{ "entity_id" : "entity.id","name":"direccion","class":"plano span4","texto":'entity.direccion'})|raw }} 
                             </tr>
                                 {% set linea = linea + 1 %}
                             {% else %}
@@ -41,20 +79,9 @@
                         </tbody>
                         </table>
                   {% endif %}
-                </div>
-            {% block content_sidebar %}
-             <div id="edicioncabecera" class="span3">
-                <div id="map_canvas" class="mapainvisible" style="width:300px;height:200px"></div>
-             </div>                
-            <div class="span3">
-               <p>  
-               {{ linkInterno("registro",{ "texto": "REGISTRO" ,"classa" : "'btn btn-large btn-primary'"  })|raw }}
-               </p>
-                <h1><a href="#">RECETAS</a></h1>
-                <img alt="Anagrama" src="{{ asset('bundles/sociedad/uploads/images/recetas.gif') }}">
-             </div>
-            {% endblock content_sidebar %}
-
+        </div>
+    </div>
+ </div>
 
   {% endblock content %}
 {% block footer %}

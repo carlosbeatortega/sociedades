@@ -7,7 +7,7 @@
     {% endif %}
     <h2 class="titulo2_index hidden-phone hidden-tablet">{{'sociedad.titulo'|trans({}, 'FOSUserBundle')}}</h2>
     <form class="well form-search modal" action="{{ path("fos_user_security_check") }}" method="post">
-        <h5 class="titulo2_index hidden-desktop">{{'sociedad.titulo'|trans({}, 'FOSUserBundle')}}</h2>
+        <h5 class="titulo2_index hidden-desktop">{{'sociedad.titulo'|trans({}, 'FOSUserBundle')}}</h5>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
         <div class="container-fluid">
             <div class="row-fluid">
