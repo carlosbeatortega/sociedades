@@ -104,9 +104,9 @@ jQuery(document).ready(function(){
                 }
             });            
         });
-
+        var nummeses=window.innerWidth<767 ? 1 : 3;
          $( "#datepicker" ).datepicker({
-                        numberOfMonths: window.innerWidth<767 ? 1 : 3,
+                        numberOfMonths:  nummeses,
                         showButtonPanel: true,
         		closeText: 'Cerrar',
                         prevText: 'Sig.',
@@ -136,6 +136,7 @@ jQuery(document).ready(function(){
                     });
          checkear($("#seleccionartodos"));
          var imagen=$("a.imageGrid");
+         var botonplanta=$("a.botonimagen");
          var clonico=$("a.editSociedad");
          var tituloaltatabla=$("span.altaregistro");
          var tituloediciontabla=$("span.edicionregistro");
@@ -163,11 +164,23 @@ jQuery(document).ready(function(){
          var lwidth=window.innerWidth;
          if(lwidth<767){
              $(".page-header").remove();
+             
+             var micontenedor=$("div.micontenedor");
+             if(micontenedor[0]){
+                 micontenedor[0].style.top=0;
+                 micontenedor[0].style.left=0;
+             }
              if(imagen[0]){
                 for(var x=0;x<imagen.length;x++){
                    imagen[x].className="edit imagesuperpequeGrid";
                 }
              }
+             if(botonplanta[0]){
+                for(var x=0;x<botonplanta.length;x++){
+                   botonplanta[x].className="";
+                }
+             }
+             
          }
          
 

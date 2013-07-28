@@ -1,8 +1,25 @@
 {% extends "SociedadSociedadesBundle::layout.html.twig" %}
-{% block content %}
+{% block fos_user_content %}
+    <table class="record_actions">
+        <tr>
+            <td>
+                 {{ parent() }}
+            </td>
+            <td class="imagesuperpequeGrid" >
+                <img class="hidden-desktop" alt="Anagrama" src="{{ asset(sociedades.foto) }}">                
+            </td>
+            <td>
+                <h5 class="hidden-desktop hidden-tablet"><a href="#">{{ 'reservas'|trans }} </a></h5>
+            </td>
+            <td class="span1"></td>
+            {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "sociedad" ,"class" : "hidden-desktop hidden-tablet"  })|raw }}
+        </tr>
+    </table>
+ {% endblock fos_user_content %}   
+ {% block content %}
   <div class="span6">
-    <h2>{{ sociedades.nombre }} </h2>  
-    <h3>{{ 'reservas'|trans }}</h3>
+    <h2 class="hidden-phone">{{ sociedades.nombre }} </h2>  
+    <h3 class="hidden-phone">{{ 'reservas'|trans }}</h3>
     <form action="{{ path('reservas', {'plantaid': app.request.query.get('plantaid') }) }}"  method="get" id="f_Vertodos">
       <table class="sin_relleno">
         <tr>
@@ -10,13 +27,13 @@
                 {{'fecha'|trans}}:
             </td>
             <td> 
-                <input name="hoy" class="{{ app.request.query.get('plantaid') }}" type="text" id="datepicker" value="{{ app.request.query.get('hoy')|date('d/m/Y') }}"/>
+                <input name="hoy" class="dateminphone {{ app.request.query.get('plantaid') }}" type="text" id="datepicker" value="{{ app.request.query.get('hoy')|date('d/m/Y') }}" style="width: 75px">
             </td>
             <td>
                 {{'turno'|trans}}:
             </td>
             <td>
-                <select name="turno" class="turno">
+                <select name="turno" class="turno" style="width: 100px">
                 <option value=""></option>
                 <option value="Desayuno" {{ app.session.get('turno')=='Desayuno' ? 'selected' : '' }}>{{'desayuno'|trans}}</option>
                 <option value="Comida" {{ app.session.get('turno')=='Comida' ? 'selected' : '' }}>{{'comida'|trans}}</option>
@@ -25,12 +42,12 @@
                 </select>
             </td>
             <td>
-                <input class="btn reservar" type="submit" value="{{'seleccionar'|trans}}"/>
+                <input class="hidden-phone btn reservar" type="submit" value="{{'seleccionar'|trans}}"/>
             </td>
         </tr>
       </table>
     </form>
-    <table id="tablaprincipal" class="tablagrid mesasportada table table-striped">
+    <table id="tablaprincipal" class="tablagrid mesasportada table table-striped hidden-phone">
         <thead>
             <tr>
                 {{ linkInterno("",{ "id" : "colEditar","class":"span1","texto":"editar"},'','',"th")|raw }}
@@ -52,7 +69,7 @@
         {% endfor %}
         </tbody>
     </table>
-    <table class="table">
+    <table class="table hidden-phone">
         <tbody>
              <tr>
                   {{ linkInterno("reservas_new",{ "texto": "altareserva" ,"classa" : "'btn btn-large'"  })|raw }}
