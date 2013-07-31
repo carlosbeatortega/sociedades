@@ -107,6 +107,7 @@ jQuery(document).ready(function(){
         var nummeses=window.innerWidth<767 ? 1 : 3;
          $( "#datepicker" ).datepicker({
                         numberOfMonths:  nummeses,
+                        autosize: true,
                         showButtonPanel: true,
         		closeText: 'Cerrar',
                         prevText: 'Sig.',
@@ -167,8 +168,12 @@ jQuery(document).ready(function(){
              
              var micontenedor=$("div.micontenedor");
              if(micontenedor[0]){
-                 micontenedor[0].style.top=0;
-                 micontenedor[0].style.left=0;
+                 micontenedor[0].style.top="-20 px";
+                 micontenedor[0].style.left="-10 px";
+             }
+             var plantacontenedor=$("#planta");
+             if(plantacontenedor[0]){
+                 plantacontenedor[0].id="plantaarriba";
              }
              if(imagen[0]){
                 for(var x=0;x<imagen.length;x++){

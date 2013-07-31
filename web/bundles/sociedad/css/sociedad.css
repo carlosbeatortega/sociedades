@@ -42,9 +42,14 @@ table .editReserva{
 #droppable {position:relative}
 
 #planta {position:relative;}
+#plantaarriba {position:relative;
+               top:-70px;
+               left: -30px;
+               min-width: 300px;}
 
 #droppable ul.gallery li {margin: 0; padding:0;list-style:none; }
 #planta ul.gallery li {margin: 0; padding:0;list-style:none; }
+#plantaarriba ul.gallery li {margin: 0; padding:0;list-style:none; }
 .pulsarborrar{z-index: 1;}
 .record_actions{list-style:none;}
 .ui-draggable{z-index: 2;}
@@ -77,4 +82,7 @@ table .editReserva{
 }
 .edicionregistro{
     display: none;
+}
+div.ui-datepicker{
+ font-size:10px;
 }
