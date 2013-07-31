@@ -16,7 +16,7 @@ class RegistrationFormType extends BaseType
         $builder->add('foto', 'file', array('required'=>false,'label' => 'foto'));
         $builder->add('dni');
         $builder->add('fechanacimiento', 'date', array(
-                'widget' => 'choice','label' => 'fechanacimiento'));
+                'widget' => 'choice','label' => 'fechanacimiento','format' => 'dd-MM-yyyy'));
         $builder->add('numero_cuenta',null,array('label' => 'numerocuenta'));
        
     }
