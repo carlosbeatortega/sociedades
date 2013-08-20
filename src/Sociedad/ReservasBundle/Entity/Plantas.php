@@ -4,7 +4,8 @@ namespace Sociedad\ReservasBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Validator\ExecutionContext;
 /**
  * Sociedad\ReservasBundle\Entity\Plantas
  *
@@ -131,14 +132,25 @@ class Plantas
         return $this->foto;
     }
 
-    public function subirFoto($directorioDestino)
+    public function subirFoto($directorioDestino,$imagendefecto)
     {
         if (null === $this->foto) {
-        return;
+            $this->setFoto($imagendefecto);
+            return;
         }
         $nombreArchivoFoto = uniqid('plantas-').'-foto1.jpg';
         $this->foto->move($directorioDestino, $nombreArchivoFoto);
         $directorioDestino= substr($directorioDestino, strpos($directorioDestino, 'web')+3); //'/bundles/sociedad/uploads/images/';
         $this->setFoto($directorioDestino.$nombreArchivoFoto);
+    }    
+    public function esFotoValida(ExecutionContext $context)
+    {
+        $id = $this->getId();
+        $foto=$this->getFoto();
+        // Comprobar que el formato sea correcto
+        if (empty($id) && empty($foto)) {
+        $context->addViolationAtSubPath('foto', 'el valor no puede estar vacío', array(), null);
+        return;
+        }    
     }    
 }

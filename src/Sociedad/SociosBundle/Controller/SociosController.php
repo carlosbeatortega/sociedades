@@ -48,6 +48,7 @@ class SociosController extends Controller
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         $entity = $em->getRepository('SociedadSociosBundle:Socios')->find($id);
 
@@ -73,6 +74,7 @@ class SociosController extends Controller
     {
         $entity = new Socios();
         $form   = $this->createForm(new SociosType(), $entity);
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         return array(
             'entity' => $entity,
@@ -133,6 +135,7 @@ class SociosController extends Controller
         }
         
         
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         
         
         $session = $this->get('request')->getSession();
@@ -249,6 +252,7 @@ class SociosController extends Controller
     public function activaAction(Request $request)
     {
         $apo1=$request->query->all();
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         if(empty($apo1)){
 //            return $this->indexAction();
             return $this->redirect($this->generateUrl('socios'));
@@ -279,6 +283,7 @@ class SociosController extends Controller
     {
         $request = $this->get('request');
         $apo1=$request->query->all();
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         if(empty($apo1)){
 //            return $this->indexAction();
             return $this->redirect($this->generateUrl('socios'));
@@ -313,6 +318,7 @@ class SociosController extends Controller
         $em = $this->getDoctrine()->getManager();
         $userManager = $this->get('security.context')->getToken()->getUser();
         $sociedades_id=$this->container->getParameter('sociedad.defecto');
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         $entities = $em->getRepository('SociedadSociosBundle:Socios')->findBy(array('sociedades_id'=>$sociedades_id));
         $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($sociedades_id);

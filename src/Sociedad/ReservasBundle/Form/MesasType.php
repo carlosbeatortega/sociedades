@@ -15,7 +15,7 @@ class MesasType extends AbstractType
             ->add('planta',null,array('label' => 'planta'))
             ->add('sala',null,array('label' => 'sala'))
             ->add('comensales',null,array('label' => 'comensales'))
-            ->add('foto', 'file', array('label' => 'foto'))
+            ->add('foto', 'file', array('label' => 'foto','required'=>false))
         ;
     }
 

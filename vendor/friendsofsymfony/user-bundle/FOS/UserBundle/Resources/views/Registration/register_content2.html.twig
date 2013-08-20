@@ -1,16 +1,19 @@
-<form class="well form-search modal" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+<div id="responsive" class="modal-body fade in" tabindex="-1"">
+<form class="well form-search modal-body" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
       {{ form_errors(form) }}
-      <h2 class="hidden-phone hidden-tablet"> {{ 'alta.usuario'|trans }} </h2>
-      <h5 class="hidden-desktop"> {{ 'alta.usuario'|trans }} </h5>
+      <div class="modal-header">
+        <h3 class="hidden-phone hidden-tablet"> {{ 'alta.usuario'|trans }} </h3>
+        <h5 class="hidden-desktop"> {{ 'alta.usuario'|trans }} </h5>
+      </div>
       <div class="container-fluid">
           <div class="row-fluid">
-            <div class="span8">
+            <div class="span10">
                 <table class="sin_relleno">
                  <tr>
                    <div class="control-group">
                     <td class="hidden-phone hidden-tablet"><strong>{{ form_label(form.username) }}</strong></td>
                     <div class="controls">
-                        <td>{{ form_widget(form.username, { 'attr': {'class': 'span8','placeholder':"form.username"|trans({}, "FOSUserBundle") } }) }}{{ form_errors(form.username) }}</td>
+                        <td>{{ form_widget(form.username, { 'attr': {'class': 'span10','placeholder':"profile.show.username"|trans({}, "FOSUserBundle") } }) }}{{ form_errors(form.username) }}</td>
                     </div>
                    </div>
                  </tr>
@@ -18,7 +21,7 @@
                    <div class="control-group">
                     <td class="hidden-phone hidden-tablet"><strong>{{ form_label(form.email) }}</strong></td>
                     <div class="controls">
-                        <td>{{ form_widget(form.email, { 'attr': {'class': 'span8','placeholder':"form.email"|trans({}, "FOSUserBundle") } }) }}{{ form_errors(form.email) }}</td>
+                        <td>{{ form_widget(form.email, { 'attr': {'class': 'span10','placeholder':"profile.show.email"|trans({}, "FOSUserBundle") } }) }}{{ form_errors(form.email) }}</td>
                     </div>
                    </div>
                  </tr>
@@ -26,7 +29,7 @@
                    <div class="control-group">
                     <td class="hidden-phone hidden-tablet"><strong>{{ form_label(form.plainPassword) }}</strong></td>
                     <div class="controls">
-                        <td>{{ form_widget(form.plainPassword, { 'attr': {'class': 'span8','placeholder':"form.plainPassword"|trans({}, "FOSUserBundle") } }) }}{{ form_errors(form.plainPassword) }}</td>
+                        <td>{{ form_widget(form.plainPassword, { 'attr': {'class': 'span10' } }) }}{{ form_errors(form.plainPassword) }}</td>
                     </div>
                    </div>
                  </tr>
@@ -34,7 +37,7 @@
                    <div class="control-group">
                     <td class="hidden-phone hidden-tablet"><strong>{{ form_label(form.name) }}</strong></td>
                     <div class="controls">
-                        <td>{{ form_widget(form.name, { 'attr': {'class': 'span8','placeholder':"form.name"|trans({}, "FOSUserBundle") } }) }}{{ form_errors(form.name) }}</td>
+                        <td>{{ form_widget(form.name, { 'attr': {'class': 'span10','placeholder':"nombre"|trans() } }) }}{{ form_errors(form.name) }}</td>
                     </div>
                    </div>
                  </tr>
@@ -42,15 +45,15 @@
                    <div class="control-group">
                     <td class="hidden-phone hidden-tablet"><strong>{{ form_label(form.foto) }}</strong></td>
                     <div class="controls">
-                        <td>{{ form_widget(form.foto, { 'attr': {'class': 'span8','placeholder':"form.foto"|trans({}, "FOSUserBundle") } }) }}{{ form_errors(form.foto) }}</td>
+                        <td>{{ form_widget(form.foto, { 'attr': {'class': 'span10' } }) }}{{ form_errors(form.foto) }}</td>
                     </div>
                    </div>
                  </tr>
                  <tr>
                    <div class="control-group">
-                    <td><strong>{{ form_label(form.dni) }}</strong></td>
+                    <td class="hidden-phone hidden-tablet"><strong>{{ form_label(form.dni) }}</strong></td>
                     <div class="controls">
-                        <td>{{ form_widget(form.dni, { 'attr': {'class': 'span8','placeholder':"form.dni"|trans({}, "FOSUserBundle") } }) }}{{ form_errors(form.dni) }}</td>
+                        <td>{{ form_widget(form.dni, { 'attr': {'class': 'span10','placeholder':"D.N.I." } }) }}{{ form_errors(form.dni) }}</td>
                     </div>
                    </div>
                  </tr>
@@ -58,7 +61,7 @@
                    <div class="control-group">
                     <td class="hidden-phone hidden-tablet"><strong>{{ form_label(form.fechanacimiento) }}</strong></td>
                     <div class="controls">
-                        <td>{{ form_widget(form.fechanacimiento, { 'attr': {'class': 'span8','placeholder':"form.fechanacimiento"|trans({}, "FOSUserBundle") } }) }}{{ form_errors(form.fechanacimiento) }}</td>
+                        <td>{{ form_widget(form.fechanacimiento, { 'attr': {'class': 'span10 hidden-phone hidden-tablet' } }) }}{{ form_errors(form.fechanacimiento) }}</td>
                     </div>
                    </div>
                  </tr>
@@ -66,7 +69,7 @@
                    <div class="control-group">
                     <td class="hidden-phone hidden-tablet"><strong>{{ form_label(form.numero_cuenta) }}</strong></td>
                     <div class="controls">
-                        <td>{{ form_widget(form.numero_cuenta, { 'attr': {'class': 'span8','placeholder':"form.numero_cuenta"|trans({}, "FOSUserBundle") } }) }}{{ form_errors(form.numero_cuenta) }}</td>
+                        <td>{{ form_widget(form.numero_cuenta, { 'attr': {'class': 'span10 hidden-phone hidden-tablet','placeholder':"numerocuenta"|trans() } }) }}{{ form_errors(form.numero_cuenta) }}</td>
                     </div>
                    </div>
                  </tr>
@@ -75,7 +78,8 @@
             </div>
           </div>
       </div>
-    <div>
+    <div >
         <input class="btn" type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
     </div>
 </form>
+</div>

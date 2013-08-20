@@ -124,12 +124,12 @@ class MesasController extends Controller
 //            $plantaId=1;
 //            $planta = $em->getRepository('SociedadReservasBundle:Plantas')->find($plantaId);
 //            $entity->setPlantas($planta);
-            $entity->subirFoto($this->container->getParameter('sociedad.directorio.imagenes'));
+            $entity->subirFoto($this->container->getParameter('sociedad.directorio.imagenes'),$this->container->getParameter('sociedad.nofotomesa'));
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('mesas'));
         }
+            return $this->redirect($this->generateUrl('mesas'));
 
         return array(
             'entity' => $entity,
@@ -152,6 +152,8 @@ class MesasController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Mesas entity.');
         }
+        $session = $this->get('request')->getSession();
+        $session->set('foto',$entity->getFoto());
         $userManager = $this->get('security.context')->getToken()->getUser();
         $sociedades_id=$userManager->getSociedadesId();
         $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($sociedades_id);
@@ -190,7 +192,15 @@ class MesasController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $entity->subirFoto($this->container->getParameter('sociedad.directorio.imagenes'));
+            $foto=$entity->getFoto();
+            $formula=preg_match_all('/(:)/', $foto,$salida);
+            if($formula>0){
+                $mesadefecto=$this->container->getParameter('sociedad.nofotomesa');
+                $entity->subirFoto($this->container->getParameter('sociedad.directorio.imagenes'),$mesadefecto);
+            }else{
+                $session = $this->get('request')->getSession();
+                $entity->setFoto($session->get('foto'));
+            }
             $em->persist($entity);
             $em->flush();
 

@@ -12,7 +12,7 @@ class PlantasType extends AbstractType
     {
         $builder
             ->add('planta',null,array('label' => 'planta'))
-            ->add('foto', 'file', array('label' => 'foto'))
+            ->add('foto', 'file', array('label' => 'foto', 'required'  => false))
         ;
     }
 

@@ -86,3 +86,12 @@ table .editReserva{
 div.ui-datepicker{
  font-size:10px;
 }
+.maximaltura{
+    max-height: 400px !important;
+}
+.modal-body{
+    max-height: 100%;
+}
+.bodymovil{
+    line-height: 5px;
+}

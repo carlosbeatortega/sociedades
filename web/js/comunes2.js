@@ -139,10 +139,18 @@ jQuery(document).ready(function(){
          var imagen=$("a.imageGrid");
          var botonplanta=$("a.botonimagen");
          var clonico=$("a.editSociedad");
+         var clave1=$("#fos_user_registration_form_plainPassword_first");
+         var clave2=$("#fos_user_registration_form_plainPassword_second");
          var tituloaltatabla=$("span.altaregistro");
          var tituloediciontabla=$("span.edicionregistro");
          var alta="Alta Registro";
          var edicion="Edición Registro";
+         if(clave1[0]){
+             clave1.addClass("span10");
+         }
+         if(clave2[0]){
+             clave2.addClass("span10");
+         }
          if(tituloaltatabla[0]){
              alta=tituloaltatabla[0].textContent;
          }
@@ -171,6 +179,12 @@ jQuery(document).ready(function(){
                  micontenedor[0].style.top="-20 px";
                  micontenedor[0].style.left="-10 px";
              }
+//             var modalbody=$(".modal-body");
+//             if(modalbody[0]){
+//                 var apomodal=modalbody.parent();
+//                 apomodal[0].style.height=window.innerHeight;
+//                 modalbody.addClass("maximaltura");
+//             }
              var plantacontenedor=$("#planta");
              if(plantacontenedor[0]){
                  plantacontenedor[0].id="plantaarriba";
@@ -185,12 +199,32 @@ jQuery(document).ready(function(){
                    botonplanta[x].className="";
                 }
              }
-             
+             if(clave1[0]){
+                 var textoclave1=$("label[for='fos_user_registration_form_plainPassword_first']");
+                 clave1.attr("placeholder", limpiacadena(textoclave1.text()));
+                 textoclave1.hide();
+             }
+             if(clave2[0]){
+                 var textoclave2=$("label[for='fos_user_registration_form_plainPassword_second']");
+                 clave2.attr("placeholder", limpiacadena(textoclave2.text()));
+                 textoclave2.hide();
+             }
+             var mybody=$("body ul.record_actions");
+             if(mybody[0]){
+                mybody=$("body");
+                mybody.addClass("bodymovil");
+             }
          }
          
 
     }
     );
+function limpiacadena(texto){
+    texto=texto.replace("\n","");
+    texto=texto.replace(":","");
+    texto=texto.replace("    ","");
+    return texto;
+}        
 // no se usa
 function seleccionaIndexreservas(date){
     var id1=$("#datepicker");

@@ -37,7 +37,6 @@ class PlantasController extends Controller
         if($entities){
             $request->query->set('plantaid',$entities[0]->getId());
         }
-        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         return array(
             'entities' => $entities,
@@ -57,7 +56,6 @@ class PlantasController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('SociedadReservasBundle:Plantas')->find($id);
-        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         if (!$entity) {
@@ -94,7 +92,6 @@ class PlantasController extends Controller
             $request->query->set('plantaid',$plantas[0]->getId());
         }
         $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
-        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         return array(
             'entity' => $entity,
@@ -121,18 +118,25 @@ class PlantasController extends Controller
             $session = $this->get('request')->getSession();
             $userManager = $this->get('security.context')->getToken()->getUser();
             $entity->setSociedadesId($userManager->getSociedadesId());
-            $entity->subirFoto($this->container->getParameter('sociedad.directorio.imagenes'));
+            $entity->subirFoto($this->container->getParameter('sociedad.directorio.imagenes'),$this->container->getParameter('sociedad.nofotoplanta'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('plantas'));
+//            return $this->redirect($this->generateUrl('plantas'));
         }
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+        return $this->redirect($this->generateUrl('plantas'));
+        
+//        $em = $this->getDoctrine()->getManager();
+//        $userManager = $this->get('security.context')->getToken()->getUser();
+//        $sociedades_id=$userManager->getSociedadesId();
+//        $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($sociedades_id);
+//
+//        return array(
+//            'entity' => $entity,
+//            'form'   => $form->createView(),
+//            'sociedades'=>$sociedades
+//        );
     }
 
     /**
@@ -150,13 +154,14 @@ class PlantasController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Plantas entity.');
         }
+        $session = $this->get('request')->getSession();
+        $session->set('foto',$entity->getFoto());
         $userManager = $this->get('security.context')->getToken()->getUser();
         $sociedades_id=$userManager->getSociedadesId();
         $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($sociedades_id);
 
         $editForm = $this->createForm(new PlantasType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
-        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
         $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
 
         return array(
@@ -189,7 +194,16 @@ class PlantasController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            $entity->subirFoto($this->container->getParameter('sociedad.directorio.imagenes'));
+            $foto=$entity->getFoto();
+            $formula=preg_match_all('/(:)/', $foto,$salida);
+            if($formula>0){
+                $entity->subirFoto($this->container->getParameter('sociedad.directorio.imagenes'),$this->container->getParameter('sociedad.nofotoplanta'));
+            }else{
+                $session = $this->get('request')->getSession();
+                $entity->setFoto($session->get('foto'));
+            }
+            
+            
             $em->persist($entity);
             $em->flush();
 

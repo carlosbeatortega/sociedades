@@ -85,7 +85,9 @@ parameters:
     sociedad.directorio.imagenes: %kernel.root_dir%/../web/bundles/sociedad/uploads/images/    
     sociedad.defecto: 1
     sociedad.nofoto: /bundles/sociedad/uploads/images/imagesnofoto.jpg
-      
+    sociedad.nofotosilla: /bundles/sociedad/uploads/images/imagesnofotosilla.jpg
+    sociedad.nofotomesa: /bundles/sociedad/uploads/images/imagesnofotomesa.jpg
+    sociedad.nofotoplanta: /bundles/sociedad/uploads/images/imagesnofotoplanta.jpg
 fos_facebook:
     file: %kernel.root_dir%/../vendor/facebook/php-sdk/src/base_facebook.php
     alias: facebook

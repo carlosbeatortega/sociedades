@@ -3,6 +3,7 @@
 namespace Sociedad\ReservasBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Sociedad\ReservasBundle\Validator as SociedadAssert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -213,10 +214,11 @@ class Mesas
         return $this->sociedades_id;
     }
 
-    public function subirFoto($directorioDestino)
+    public function subirFoto($directorioDestino,$imagendefecto)
     {
         if (null === $this->foto) {
-        return;
+            $this->setFoto($imagendefecto);
+            return;
         }
         $nombreArchivoFoto = uniqid('mesas-').'-foto1.jpg';
         $this->foto->move($directorioDestino, $nombreArchivoFoto);
