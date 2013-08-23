@@ -1,0 +1,26 @@
+<td colspan="2" rowspan="10">
+<table id="tablaprincipal" class="tablagrid mesasportada table table-striped">
+  <thead>
+      <tr>
+          {{ linkInterno("",{ "id" : "colFecha","class":"span1","texto":"Fecha"},'','',"th")|raw }}
+          {{ linkInterno("",{ "id" : "colComida","class":"span1","texto":"Turno"},'','',"th")|raw }}
+          {{ linkInterno("",{ "id" : "colComensales","class":"span1","texto":"Comensales"},'','',"th")|raw }}
+      </tr>
+  </thead>
+  <tbody>
+  {% for entity in reservas %}
+      <tr>
+          {{ linkInterno("reservas_edit",{ "entity_id" : "entity.id"  ,"name":"Reservas","class":"posicionr","texto":'entity.fechadesde' })|raw }}
+          {{ linkInterno("",{"name":"comida","class":"posicionr","texto":'entity.comida'})|raw }} 
+          {{ linkInterno("",{"name":"comensales","class":"posicionr","texto":'entity.comensales'})|raw }} 
+      </tr>
+      {% else %}
+          <tr>
+          <td colspan="2">{{'No hay Reservas Futuras'|trans}}</td>
+          </tr>
+  {% endfor %}
+  </tbody>
+
+</table>
+</td>
+

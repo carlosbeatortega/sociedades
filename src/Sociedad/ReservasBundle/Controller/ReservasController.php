@@ -358,4 +358,44 @@ class ReservasController extends Controller
         $session->set('plantaid',$plantaid);
         return $this->redirect($this->generateUrl('reservas'));
     }    
+
+    /**
+     * Reservas futuras del socio.
+     *
+     * @Route("/{id}/socio", name="reservas_socio")
+     * @Method("GET")
+     * @Template("SociedadReservasBundle:Reservas:reservasFuturas.html.twig")
+     */
+    public function socioAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if($this->get('security.context')->getToken()->getUser()->getId()!=$id
+                && !$this->get('security.context')->isGranted("ROLE_SUPER_ADMIN")){
+            print '<script language="JavaScript">';
+            print 'alert("Operación no Permitida");';
+            print '</script>';
+            return $this->redirect($this->generateUrl('socios'));            
+        }
+        $entity = $em->getRepository('SociedadSociosBundle:Socios')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Socios entity.');
+        }
+        
+        
+        $this->getRequest()->setLocale($this->get('request')->getSession()->get('locale'));
+        
+        
+        $session = $this->get('request')->getSession();
+        $session->set('foto',$entity->getFoto());
+        $reservas = $em->getRepository('SociedadReservasBundle:Reservas')->reservaSocioFuturas($entity->getId());
+        $sociedades = $em->getRepository('SociedadSociedadesBundle:Sociedades')->find($entity->getSociedadesId());
+        return array(
+            'entity'      => $entity,
+            'reservas'      => $reservas,
+            'sociedades'      => $sociedades
+        );
+    }
+    
 }

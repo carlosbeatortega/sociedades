@@ -1,0 +1,21 @@
+{% extends "SociedadSociedadesBundle::layout.html.twig" %}
+{% block fos_user_content %}
+    <table class="record_actions">
+        <tr>
+            <td>
+                 {{ parent() }}
+            </td>
+            <td class="imagesuperpequeGrid" >
+                <img class="hidden-desktop" alt="Anagrama" src="{{ asset(sociedades.foto) }}">                
+            </td>
+            <td>
+                <h5 class="hidden-desktop hidden-tablet"><a href="#">{{ 'reservas'|trans }} </a></h5>
+            </td>
+            <td class="span1"></td>
+            {{ linkInterno("sociedades_show",{"entity_id":"sociedades.id","texto": "sociedad" ,"classa" : "'hidden-desktop hidden-tablet'"  })|raw }}
+        </tr>
+    </table>
+ {% endblock fos_user_content %}   
+ {% block content %}
+    {% include "SociedadSociosBundle:Socios:tablaReservasFuturas.html.twig" %}    
+{% endblock content %}

@@ -19,11 +19,11 @@
         <tr>
           <td><strong>{{ form_label(edit_form.comensales) }}</strong></td>
           <td>{{ form_widget(edit_form.comensales) }}{{ form_errors(edit_form.comensales) }}</td>
+          {{ linkInterno("",{"name":"Foto","class":"imagepequeGrid","scr":'entity.foto'  })|raw }}
         </tr>
         <tr>
           <td><strong>{{ form_label(edit_form.foto) }}</strong></td>
           <td>{{ form_widget(edit_form.foto) }}{{ form_errors(edit_form.foto) }}</td>
-          {{ linkInterno("",{"name":"Foto","class":"imagepequeGrid","scr":'entity.foto'  })|raw }}
         </tr>
       </table>
       {{ form_rest(edit_form) }}

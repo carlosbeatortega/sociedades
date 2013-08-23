@@ -95,3 +95,11 @@ div.ui-datepicker{
 .bodymovil{
     line-height: 5px;
 }
+td[name="foto"] img{
+    border: 1px solid #999999;
+    border-radius: 10px;
+}
+.planta_subrayada{
+    text-decoration:underline;  
+    font-weight:bold;
+}

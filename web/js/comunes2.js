@@ -137,7 +137,7 @@ jQuery(document).ready(function(){
                     });
          checkear($("#seleccionartodos"));
          var imagen=$("a.imageGrid");
-         var botonplanta=$("a.botonimagen");
+         var botonplanta=$("a.botonimagen,button.botonimagen");
          var clonico=$("a.editSociedad");
          var clave1=$("#fos_user_registration_form_plainPassword_first");
          var clave2=$("#fos_user_registration_form_plainPassword_second");
@@ -195,8 +195,18 @@ jQuery(document).ready(function(){
                 }
              }
              if(botonplanta[0]){
+                var quitarponer="";
                 for(var x=0;x<botonplanta.length;x++){
-                   botonplanta[x].className="";
+                   quitarponer="";
+                   for(var y=0;y<botonplanta[x].classList.length;y++) {
+                       if(botonplanta[x].classList[y]=="btn-primary"){
+                           quitarponer="planta_subrayada";
+                       }
+                       if(botonplanta[x].classList[y]=="planta_subrayada"){
+                           quitarponer="planta_subrayada";
+                       }
+                   }
+                   botonplanta[x].className=quitarponer;
                 }
              }
              if(clave1[0]){

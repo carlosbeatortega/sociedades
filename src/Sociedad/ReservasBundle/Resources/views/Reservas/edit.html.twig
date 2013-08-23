@@ -1,7 +1,7 @@
 {% extends "SociedadSociedadesBundle::layout.html.twig" %}
 {% block content %}
   <div class="span6">
-        <h2>{{ sociedades.nombre }} </h2>  
+        <h2  class="hidden-phone">{{ sociedades.nombre }} </h2>  
         <form action="{{ path('reservas_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
           {{ form_errors(edit_form) }}
           <div class="row-fluid" >
@@ -33,33 +33,33 @@
           <div class="span12" style="clear:both">
             <table class="record_actions">
                 <tr>
-                    <button class="btn botonesseparados" type="submit">{{ 'grabar'|trans }}</button>
+                    <button class="btn botonesseparados botonimagen" type="submit">{{ 'grabar'|trans }}</button>
                 </tr>
                 <tr>
-                    <a class="btn botonesseparados" href="{{ path('reservasplanta', {'plantaid': app.session.get('plantaid') }) }}">
+                    <a class="btn botonesseparados botonimagen" href="{{ path('reservasplanta', {'plantaid': app.session.get('plantaid') }) }}">
                         {{ 'reservas'|trans }}
                     </a>
                 </tr>
                 <tr>
-                    <a onclick='preguntarSiNo("form_delete","{{ 'baja.reserva'|trans }}","{{ path('reservas_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados">{{'borrar'|trans}}</a>
+                    <a onclick='preguntarSiNo("form_delete","{{ 'baja.reserva'|trans }}","{{ path('reservas_delete', { 'id': entity.id }) }}")' href="javascript:void(0);" class="btn botonesseparados botonimagen">{{'borrar'|trans}}</a>
                 </tr>
                 <tr>
-                    <a class="btn botonesseparados" href="{{ path('externo') }}">
+                    <a class="btn botonesseparados botonimagen" href="{{ path('externo') }}">
                         {{ 'Subir Google'|trans }}
                     </a>
                 </tr>
                 <tr>
-                    <a class="btn botonesseparados" href="{{ path('interno') }}">
+                    <a class="btn botonesseparados botonimagen" href="{{ path('interno') }}">
                         {{ 'Bajar Google'|trans }}
                     </a>
                 </tr>
                 <tr>
-                    <button class="btn botonesseparados" id='authorize-button' onclick = 'handleAuthClick()' style='visibility: block'>Calendario</button>
+                    <button class="btn botonesseparados hidden-phone" id='authorize-button' onclick = 'handleAuthClick()' style='visibility: block'>Calendario</button>
                 </tr>
             </table>
           </div>
         </form>
-    <iframe id="calendarioframe" src="https://www.google.com/calendar/embed?src={{ sociedades.email }}&ctz=Europe/Madrid" 
+    <iframe class="hidden-phone" id="calendarioframe" src="https://www.google.com/calendar/embed?src={{ sociedades.email }}&ctz=Europe/Madrid" 
             style="border: 0" width="500" height="300" frameborder="0" scrolling="no"></iframe>    
         <a href="https://accounts.google.com/ServiceLogin?hl=es&continue=https://www.google.es/" target="_blank" style='visibility: hidden'>Login</a>
                     <a class="btn" href="{{ path('milogin') }}" style='visibility: hidden'>
@@ -142,5 +142,5 @@
             }
             </script>
             <script src='https://apis.google.com/js/client.js?onload=handleClientLoad'></script>
-            <div id='content'></div>
+            <div  class="hidden-phone" id='content'></div>
     {% endblock footer %}

@@ -7,11 +7,11 @@
         <tr>
           <td><strong>{{ form_label(edit_form.planta) }}</strong></td>
           <td>{{ form_widget(edit_form.planta) }}{{ form_errors(edit_form.planta) }}</td>
+          {{ linkInterno("",{"name":"Foto","class":"imagepequeGrid span2","scr":'entity.foto'  })|raw }}
         </tr>
         <tr>
           <td><strong>{{ form_label(edit_form.foto) }}</strong></td>
           <td>{{ form_widget(edit_form.foto) }}{{ form_errors(edit_form.foto) }}</td>
-          {{ linkInterno("",{"name":"Foto","class":"imagepequeGrid span2","scr":'entity.foto'  })|raw }}
         </tr>
        </table>
        {{ form_rest(edit_form) }}

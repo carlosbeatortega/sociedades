@@ -69,6 +69,9 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="hidden-desktop">
+          {{ linkInterno("reservas_socio",{"entity_id":"user.id","texto": "reservas" ,"classa" : "'planta_subrayada'"  })|raw }}
+    </div>
     <table class="table hidden-phone">
         <tbody>
              <tr>
