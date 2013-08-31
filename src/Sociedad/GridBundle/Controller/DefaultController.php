@@ -128,6 +128,10 @@ class DefaultController extends Controller
     }
    
      if($_SERVER['SERVER_NAME']=="localhost"){
+//        $usuario = 'carlosbeatortega@gmail.com';
+//        $pass = 'mikeleaitana';
+//        $idcalendario='carlosbeatortega@gmail.com';
+
 //        $usuario = 'anercarlos@gmail.com';
 //        $pass = 'prowinaner';
 //        $idcalendario='anercarlos@gmail.com';

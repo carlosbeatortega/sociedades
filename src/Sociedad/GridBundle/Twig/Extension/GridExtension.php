@@ -332,6 +332,9 @@ class GridExtension extends \Twig_Extension
         if($text instanceof \DateTime){
             $text=$text->format("d/m/Y");
         }
+        if(is_array($text)){
+            $text= implode ( ",",$text );
+        }
         if(is_string($text) && !empty($text)){
             $lgtext=$text;
             if($left>0){
